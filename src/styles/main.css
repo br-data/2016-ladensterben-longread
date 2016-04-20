@@ -376,12 +376,14 @@ header {
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
-  height: 100vh;
   position: relative;
   display: flex;
   justify-content: center; }
   header section {
-    align-self: flex-end;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 10;
     color: #fff; }
     header section h1 {
@@ -451,10 +453,11 @@ header {
 
 .embed {
   position: relative;
+  background: #f0f0f4;
   height: 0;
+  width: 100%;
   padding-bottom: 56.25%;
-  overflow: hidden;
-  max-width: 100%; }
+  overflow: hidden; }
   .embed.ratio-16-9 {
     padding-bottom: 56.25%; }
     @media (max-width: 840px) {
