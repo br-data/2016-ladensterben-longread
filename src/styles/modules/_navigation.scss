@@ -7,9 +7,9 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 100;
   transform: translateZ(0);
-  transition: opacity .2s ease, border .1s ease;
+  transition: background .4s ease, opacity .4s ease, border .2s ease;
 
   section {
     margin-bottom: 0;
@@ -57,7 +57,7 @@
   }
 
   &.hidden {
-
+    background: rgba(255,255,255,0);
     border-color: rgba(255,255,255,0);
 
     .title {

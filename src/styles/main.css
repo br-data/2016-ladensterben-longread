@@ -371,8 +371,37 @@ th {
   .sharing .icon-mail:hover {
     color: #cb2323; }
 
-header section {
-  margin: 50px auto 0; }
+header {
+  background-image: url(../images/placeholder.jpg);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center; }
+  header section {
+    align-self: flex-end;
+    z-index: 10;
+    color: #fff; }
+    header section h1 {
+      font-size: 3em;
+      margin-bottom: 0;
+      line-height: 1.2em;
+      text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
+    header section p {
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); }
+  header:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.8) 90%); }
 
 .navigation {
   padding: 10px 20px;
@@ -382,9 +411,9 @@ header section {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 100;
   transform: translateZ(0);
-  transition: opacity .2s ease, border .1s ease; }
+  transition: background .4s ease, opacity .4s ease, border .2s ease; }
   .navigation section {
     margin-bottom: 0;
     pointer-events: none; }
@@ -415,6 +444,7 @@ header section {
     .navigation .sharing a {
       box-shadow: none; }
   .navigation.hidden {
+    background: rgba(255, 255, 255, 0);
     border-color: rgba(255, 255, 255, 0); }
     .navigation.hidden .title {
       opacity: 0; }
