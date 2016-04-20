@@ -1,0 +1,21 @@
+// Four multiples
+.multiples {
+
+  p {
+    margin-top: -2em;
+  }
+
+  .column {
+    cursor: pointer;
+    display: inline-block;
+    width: 24.9%;
+    margin-right: -4px;
+    margin-bottom: -6px;
+    vertical-align: top;
+
+    @include mobile {
+      width: 49.9%;
+      padding: 0;
+    }
+  }
+}

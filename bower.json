@@ -1,0 +1,21 @@
+{
+  "name": "crystal-longread",
+  "description": "Crystal Meth in Bayern",
+  "author": "Oliver Schnuck",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:digitalegarage/crystal-longread.git"
+  },
+  "main": "src/index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "leaflet": "^0.7.7",
+    "mustache.js": "mustache#^2.2.1"
+  }
+}

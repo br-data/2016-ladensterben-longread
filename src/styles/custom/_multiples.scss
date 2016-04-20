@@ -1,0 +1,83 @@
+// Four multiples
+.multiples {
+
+  p {
+    margin-top: -2em;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .column {
+    display: inline-block;
+    width: 24.9%;
+    margin-right: -4px;
+    margin-bottom: -6px;
+    vertical-align: top;
+
+    @include mobile {
+      width: 49.9%;
+      padding: 0;
+    }
+  }
+}
+
+.g-map-legend.multiples {
+
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 2em;
+
+  div {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .g-legend-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .g-map-innerlegend {
+    font-size: 13px;
+
+
+    .g-legend-class {
+      width: 36px;
+      height: 10px;
+      opacity: 0.8;
+    }
+    .g-tic {
+      position: relative;
+      border-right: 1px solid #444;
+      height: 14px;
+    }
+
+    .g-ticnum {
+      position: absolute;
+      left: -12px;
+      width: 24px;
+      top: 15px;
+    }
+
+    .g-class-0 {
+      background-color: #ffffb2;
+    }
+    .g-class-1 {
+      background-color: #fed976;
+    }
+    .g-class-2 {
+      background-color: #feb24c;
+    }
+    .g-class-3 {
+      background-color: #fd8d3c;
+    }
+    .g-class-4 {
+      background-color: #f03b20;
+    }
+    .g-class-5 {
+      background-color: #bd0026;
+    }
+
+  }
+
+}

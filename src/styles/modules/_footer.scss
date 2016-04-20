@@ -1,0 +1,48 @@
+// Footer
+footer {
+  padding: 1em 0 2em;
+  background: $light-grey;
+
+  section {
+    margin-bottom: 0;
+  }
+
+  .logos {
+
+    margin-bottom: 2em;
+
+    a {
+      box-shadow: none;
+      display: inline-block;
+    }
+
+    img {
+      margin-top: 10px;
+
+      &:hover {
+        -webkit-filter: brightness(80%);
+        filter: brightness(80%);
+      }
+    }
+
+    .br-data {
+      height: 40px;
+      margin-left: 3px;
+      margin-right: 20px;
+      width: 97px;
+    }
+
+    .br-recherche {
+      height: 40px;
+      margin-left: 3px;
+      margin-right: 10px;
+      width: 131px;
+    }
+
+    .kontrovers {
+      margin-left: 3px;
+      height: 30px;
+      width: 251px;
+    }
+  }
+}
