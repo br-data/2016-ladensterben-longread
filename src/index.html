@@ -169,8 +169,15 @@
 
         <p class="small-margin"><strong>Funde pro 100.000 Einwohner</strong></p>
 
-        <iframe class="datawrapper" src="//datawrapper.dwcdn.net/ih9t7/2/" frameborder="0" allowtransparency="true" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" oallowfullscreen="oallowfullscreen" msallowfullscreen="msallowfullscreen" width="100%" height="400"></iframe>
-        <p class="caption">In München stellt die Polizei jährlich etwa zwei Funde pro 100.000 Einwohner fest. In Nürnberg ist dieser Wert mehr als zehnmal so hoch.</p>
+        <div class="embed ratio-16-9">
+          <video id="my-video" class="content video-js vjs-sublime-skin" poster="images/placeholder.jpg" controls preload="auto" data-setup="{}">
+            <source src="http://cdn-vod-ios.br.de/i/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_AOS/_AiS/5ygy_2bp/edad1e34-f7c5-442e-b77c-705d5d96fd27_,0,A,B,E,C,X,.mp4.csmil/master.m3u8?__b__=200" type="application/x-mpegURL">
+            <p class="vjs-no-js">
+              Um dieses Video sehen zu können, müssen Sie JavaScript aktivieren und einen Browser verwenden
+              <a href="http://videojs.com/html5-video-support/" target="_blank">der HTML5-Videos unterstützt.</a>
+            </p>
+          </video>
+        </div>
 
         <p> Und während das Münchner Umland kaum vom Problem Crystal betroffen ist, zählen die an Nürnberg angrenzenden Landkreise zu den am stärksten betroffenen Gebieten überhaupt. Neben einigen spektakulären Großfunden findet sich in den Daten eine hohe Zahl von kleinen Einzelfunden, die auf erhöhten Konsum in der Stadt hindeuten.</p>
 
@@ -351,6 +358,8 @@
     <!-- build:js scripts/main.min.js -->
     <script src="http://web.br.de/interaktiv/assets/libraries/leaflet/leaflet.v0.min.js"></script>
     <script src="http://web.br.de/interaktiv/assets/libraries/mustache/mustache.v2.min.js"></script>
+    <script src="http://web.br.de/interaktiv/assets/libraries/videojs/v5/video.min.js"></script>
+    <script src="http://web.br.de/interaktiv/assets/libraries/videojs/v5/videojs-contrib-hls.min.js"></script>
 
     <script type="text/javascript" src="scripts/utils.js"></script>
     <script type="text/javascript" src="scripts/navigation.js"></script>
