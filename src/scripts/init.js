@@ -9,7 +9,6 @@ function init() {
 
   utils.getJson('./data/geojson/vg2500_krs_bayern.geojson', function (data) {
 
-    bubblemap.init(data);
     map.init(data);
   });
 
@@ -20,7 +19,6 @@ function init() {
   window.addEventListener('touchmove', function () {
 
     map.disable();
-    bubblemap.disable();
   });
 }
 
@@ -34,7 +32,6 @@ function resize() {
     timeout = setTimeout(function () {
 
       map.resize();
-      bubblemap.resize();
       marginals.reorder();
     }, 200);
   };

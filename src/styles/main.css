@@ -460,9 +460,6 @@ header {
   overflow: hidden; }
   .embed.ratio-16-9 {
     padding-bottom: 56.25%; }
-    @media (max-width: 840px) {
-      .embed.ratio-16-9 {
-        padding-bottom: 75%; } }
   .embed.ratio-4-3 {
     padding-bottom: 75%; }
   .embed.ratio-3-2 {
@@ -664,59 +661,6 @@ footer {
       height: 30px;
       width: 251px; }
 
-.multiples p {
-  margin-top: -2em;
-  text-align: center;
-  font-size: 14px; }
-.multiples .column {
-  display: inline-block;
-  width: 24.9%;
-  margin-right: -4px;
-  margin-bottom: -6px;
-  vertical-align: top; }
-  @media (max-width: 560px) {
-    .multiples .column {
-      width: 49.9%;
-      padding: 0; } }
-
-.g-map-legend.multiples {
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 2em; }
-  .g-map-legend.multiples div {
-    display: inline-block;
-    vertical-align: top; }
-  .g-map-legend.multiples .g-legend-title {
-    font-size: 14px;
-    font-weight: 600; }
-  .g-map-legend.multiples .g-map-innerlegend {
-    font-size: 13px; }
-    .g-map-legend.multiples .g-map-innerlegend .g-legend-class {
-      width: 36px;
-      height: 10px;
-      opacity: 0.8; }
-    .g-map-legend.multiples .g-map-innerlegend .g-tic {
-      position: relative;
-      border-right: 1px solid #444;
-      height: 14px; }
-    .g-map-legend.multiples .g-map-innerlegend .g-ticnum {
-      position: absolute;
-      left: -12px;
-      width: 24px;
-      top: 15px; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-0 {
-      background-color: #ffffb2; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-1 {
-      background-color: #fed976; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-2 {
-      background-color: #feb24c; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-3 {
-      background-color: #fd8d3c; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-4 {
-      background-color: #f03b20; }
-    .g-map-legend.multiples .g-map-innerlegend .g-class-5 {
-      background-color: #bd0026; }
-
 #map {
   width: 100%;
   height: 100%; }
@@ -727,18 +671,7 @@ footer {
   #map div.leaflet-popup {
     pointer-events: none; }
 
-#bubblemap {
-  width: 100%;
-  height: 100%; }
-  #bubblemap a {
-    box-shadow: none; }
-  #bubblemap.leaflet-container {
-    background: #fff;
-    cursor: auto; }
-  #bubblemap .feature {
-    cursor: auto; }
-
-#map-wrapper, #bubblemap-wrapper {
+#map-wrapper {
   margin-bottom: .5em; }
 
 #waypoint {

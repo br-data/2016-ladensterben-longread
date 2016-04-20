@@ -17,25 +17,7 @@
   }
 }
 
-#bubblemap {
-  width: 100%;
-  height: 100%;
-
-  a {
-    box-shadow: none;
-  }
-
-  &.leaflet-container {
-    background: $white;
-    cursor: auto;
-  }
-
-  .feature {
-    cursor: auto;
-  }
-}
-
-#map-wrapper, #bubblemap-wrapper {
+#map-wrapper {
   margin-bottom: .5em;
 }
 
