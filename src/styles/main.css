@@ -329,7 +329,7 @@ th {
   line-height: 1.4; }
 .related a {
   box-shadow: none; }
-.related .table {
+.related .row {
   display: table;
   border-collapse: separate;
   border-spacing: 1em;
