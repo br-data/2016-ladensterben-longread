@@ -1,65 +1,80 @@
 var text = (function() {
 
-  var templates, view;
+  var textContainer;
 
   function init() {
 
-    templates = document.getElementsByClassName('template');
+    textContainer = document.getElementById('text');
 
     render();
   }
 
-  function render(merge) {
+  function render() {
 
-    view = {
-        "name": "Wunsiedel im Fichtelgebirge",
-        "name_kurz": "Wunsiedel",
-        "ks": false,
-        "regbez": "Oberfranken",
-        "landkreis_id": "09479",
-        "opf": false,
-        "fund_max_menge": "214",
-        "fund_max_year": "2010",
-        "fund_max_month": "Juni",
-        "fund_max_ort": "Selb",
-        "ort_max_funde": "295",
-        "ort_max": "Schirnding",
-        "trend": "weniger als",
-        "menge": "6563",
-        "gram_leq_one": false,
-        "funde": "563",
-        "funde_text": "563",
-        "funde_one": false,
-        "menge_2015": "956",
-        "funde_2015": "96",
-        "grenznah": true,
-        "asiamarkt": "Aš",
-        "methlab_count": "ein",
-        "methlab_one": true,
-        "last_lab": "Marktredwitz",
-        "last_lab_month": "Mai",
-        "last_lab_year": "2013",
-        "kat_garmisch": false,
-        "kat_0": false,
-        "kat_1": false,
-        "kat_2": false,
-        "kat_3": false,
-        "kat_4": true
+    var data = {
+      'name': 'Wunsiedel im Fichtelgebirge',
+      'nameKrz': 'Wunsiedel',
+      'type': 'Landkreis',
+      'regbez': 'Oberfranken',
+      'shopChgAbs': '-24',
+      'shopChgPrc': '-25.35',
+      'shops05': '100',
+      'shops15': '76',
+      'gemeindeMax': 'Unterneukirchen',
+      'nogroceryCount': '5',
+      'noshopCount': '4',
+      'popChange': '-11.35',
+      'brand': 'Edeka Nord',
+      'space05': '470',
+      'space15': '580',
+      'spaceChgAbs': '110',
+      'spaceChgPrc': '20.44',
+      'workers07': '321',
+      'workers15': '421',
+      'pop05': '344543',
+      'pop14': '333543',
+      'dorfladen': '2',
+      'dl1': 'Salching',
+      'dl2': 'Schweinbach',
+      'dl3': 'Unterneupfarrkirchen'
     };
 
-    for (var property in merge) {
-      if (merge.hasOwnProperty(property)) {
-        view[property] = merge[property];
-      }
+    textContainer.innerHTML = getString(data);
+  }
+
+  function getString(data) {
+
+    var str = '';
+
+    // Landkreis oder Stadt?
+    if (data.type === 'Landkreis') {
+
+      str += 'In ihrem Landkreis ' + data.name + ' ';
+    } else if (data.type === 'Stadt') {
+
+      str += 'In ihrer Stadt ' + data.name + ' ';
     }
 
-    for (var i=0; i<templates.length; i++) {
-      var template = templates[i].getElementsByTagName('script')[0];
-      template = template.textContent || template.innerText;
+    // Rückgang oder Anstieg
+    if (data.shopChgPrc < 0) {
 
-      var container = templates[i].getElementsByTagName('div')[0];
-      container.innerHTML = Mustache.render(template, view);
+      str += 'ist der Einzelhandel um ' + data.shopChgPrc + ' % zurückgegangen. ';
+    } else if (data.shopChgPrc > 0) {
+
+      str += 'ist der Einzelhandel um ' + data.shopChgPrc + ' % gewachsen. ';
     }
+
+    str += 'Die Zahlen beruhen auf Ergebungen der Staatsregierung.';
+
+    if (data.dorfladen === 1) {
+
+      str += 'Es gibt einen Dorflanden in ' + data.nameKrz;
+    } else if (data.dorfladen > 1) {
+
+      str += 'Es gibt ' + data.dorfladen + ' Dorflanden in ' + data.nameKrz;
+    }
+
+    return '<p>' + str + '</p>';
   }
 
   // Export global functions

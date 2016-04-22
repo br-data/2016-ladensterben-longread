@@ -209,18 +209,8 @@
 
       <div class="block">
 
-        <div class="template">
-          <script type="text/template">
-            <h2>
-              {{#ks}}{{/ks}}{{^ks}}Landkreis {{/ks}}{{#name_kurz}}{{name_kurz}}{{/name_kurz}}{{^name_kurz}}{{name}}{{/name_kurz}}: {{#kat_garmisch}}Die große Ausnahme{{/kat_garmisch}}{{^kat_garmisch}}{{#kat_0}}Kaum betroffen{{/kat_0}}{{#kat_1}} Vergleichsweise wenig betroffen{{/kat_1}}{{#kat_2}}Relativ stark betroffen{{/kat_2}}{{#kat_3}}Stark betroffen{{/kat_3}}{{#kat_4}}Im Brennpunkt{{/kat_4}}{{/kat_garmisch}}
-            </h2>
+          <div id="text"></div>
 
-            <p>
-              {{#ks}}Die Stadt <strong>{{name}}</strong>{{/ks}}{{^ks}}Der <strong>Landkreis {{name}}</strong> in {{#opf}}der {{/opf}}{{^opf}}{{/opf}}{{regbez}}{{/ks}} {{#kat_garmisch}}ist als einziger in Bayern von Crystal Meth verschont geblieben. Zumindest hat die Polizei dort seit 2008 kein einziges Mal Crystal Meth sichergestellt. Aber damit ist Garmisch die große Ausnahme.{{/kat_garmisch}}{{^kat_garmisch}}{{#kat_0}} ist von Crystal offenbar kaum betroffen. Die Polizei ist hier vergleichsweise selten mit der Droge konfrontiert,{{/kat_0}}{{#kat_1}} ist vergleichsweise wenig von Crystal betroffen. Die Polizei ist hier nur gelegentlich mit der Droge konfrontiert,{{/kat_1}}{{#kat_2}} ist von Crystal Meth relativ stark betroffen. Die Polizei ist hier immer wieder mit der Droge konfrontiert,{{/kat_2}}{{#kat_3}} ist von Crystal Meth stark betroffen. Die Droge ist für die Polizei hier ein großes Thema,{{/kat_3}}{{#kat_4}} ist einer der Brennpunkte für Crystal Meth in Bayern. Die Droge ist für die Polizei hier ein Dauerthema,{{/kat_4}} seit 2008 haben die Beamten {{#kat_3}}schon {{/kat_3}}{{#kat_4}}schon {{/kat_4}}{{#funde_one}}genau einen Fund verzeichnet, im {{fund_max_month}} {{fund_max_year}}{{#ks}}{{/ks}}{{^ks}} in {{fund_max_ort}}{{/ks}}.{{/funde_one}}{{^funde_one}}insgesamt {{funde_text}} Funde verzeichnet. {{#ks}}{{/ks}}{{^ks}}{{#ort_max_funde}} Am häufigsten mussten die Polizisten in {{ort_max}} aktiv werden: Hier waren es {{ort_max_funde}} Fälle.{{/ort_max_funde}}{{/ks}}{{/funde_one}} {{#grenznah}}{{#ks}}Die Stadt {{/ks}}{{^ks}}Der Landkreis {{/ks}}liegt an der Grenze zur Tschechischen Republik. In {{asiamarkt}}, kurz hinter der Grenze, befindet sich ein sogenannter Asia-Markt. Fahnder sehen diese Märkte als eine der Hauptquellen für Crystal Meth in Bayern.{{/grenznah}} Insgesamt hat die Polizei {{#ks}}in {{/ks}}{{^ks}}im Landkreis {{/ks}}{{#name_kurz}}{{name_kurz}}{{/name_kurz}}{{^name_kurz}}{{name}}{{/name_kurz}} in den letzten Jahren {{menge}} Gramm der Droge sichergestellt{{#funde_2015}}, {{#kat_3}}allein{{/kat_3}}{{#kat_4}}allein{{/kat_4}} im vergangenen Jahr waren es {{menge_2015}} Gramm. Das ist {{trend}} im Jahr zuvor.{{/funde_2015}}{{^funde_2015}}.{{/funde_2015}} {{#ort_max}}Den größten Einzelfund {{#ks}}in der Stadt{{/ks}}{{^ks}}im Landkreis{{/ks}} machten Polizeibeamte im {{fund_max_month}} {{fund_max_year}}{{#ks}}{{/ks}}{{^ks}} in {{fund_max_ort}}{{/ks}}: {{fund_max_menge}} Gramm.{{/ort_max}} {{#methlab_count}}{{#ks}} In der Stadt{{/ks}}{{^ks}} Im Landkreis{{/ks}} {{name}} stellte die Polizei seit 2008 außerdem {{#methlab_one}}ein Crystal-Labor fest, {{/methlab_one}}{{^methlab_one}}{{methlab_count}} Crystal-Labore fest, zuletzt{{/methlab_one}} im {{last_lab_month}} {{last_lab_year}}{{#ks}}{{/ks}}{{^ks}} in {{last_lab}}{{/ks}}.{{/methlab_count}}{{/kat_garmisch}}
-            </p>
-          </script>
-
-          <div>&nbsp;</div>
           <div class="infobox">
             <p><i class="icon-help-circled dark-grey"></i>Falls Sie oder Personen aus Ihrem Umfeld Probleme mit Crystal Meth oder anderen Drogen haben: Unter <a href="http://www.kbs-bayern.de/einrichtungen/einrichtungssuche/suchtberatung" target="_blank">www.kbs-bayern.de</a> finden Sie eine Suchtberatungsstelle in Ihrer Nähe.</p>
           </div>
