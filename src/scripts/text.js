@@ -16,7 +16,7 @@ var text = (function() {
       'nameKrz': 'Wunsiedel',
       'type': 'Landkreis',
       'regbez': 'Oberfranken',
-      'shopChgAbs': '-24',
+      'shopChgAbs': '-4',
       'shopChgPrc': '-45.6',
       'shops05': '100',
       'shops15': '76',
@@ -42,6 +42,11 @@ var text = (function() {
     textContainer.innerHTML = getString(data);
   }
 
+  function getDigitStr(dig) {
+    var array = ["kein", "ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf"];
+    return array[dig] || dig;
+  }
+
   function getWrittenPcg(pcg) {
 
     var result = '';
@@ -58,9 +63,13 @@ var text = (function() {
     } else if (pcg >= 33.3 && pcg < 45 ) {
       result = 'mehr als ein Drittel ';
     } else if (pcg > 45 && pcg < 50 ) {
-      result = 'knapp die Hälfte ';
+      result = 'etwa die Hälfte ';
     } else if (pcg >= 50 && pcg < 57  ) {
       result = 'mehr als die Hälfte ';
+    } else if (pcg >= 60 && pcg < 66.6  ) {
+      result = 'etwa zwei Drittel ';
+    } else if (pcg >= 66.6 ) {
+      result = 'mehr als zwei Drittel ';
     } else {
       result = Math.round(pcg) + ' Prozent '
     }
@@ -98,17 +107,21 @@ var text = (function() {
     // Rückgang oder Anstieg
     if (data.shopChgPrc < 0) {
 
-      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' zurückgegangen. Heute gibt es ' + wo + -data.shopChgAbs + ' Geschäfte weniger als noch im Jahr 2005. ';
+      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' zurückgegangen. Heute gibt es ' + wo + getDigitStr(-data.shopChgAbs) + ' Geschäfte weniger als noch im Jahr 2005. ';
       headline += 'Einzelhandel geht zurück';
       if (data.spaceChgPrc > 0) {
-      paragraph += 'Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' zugenommen. Das deutet darauf hin, dass kleine Läden geschlossen haben, während sich größere Märkte gehalten haben oder sogar neu eröffnet haben. ';     
+      paragraph += 'Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' um ' + getWrittenPcg(data.spaceChgPrc) + 'zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben. ';     
       } else if (data.spaceChgPrc < 0) {
-      paragraph += 'Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
+      paragraph += 'Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
       }
     } else if (data.shopChgPrc > 0) {
 
-      paragraph += 'ist der Einzelhandel uin den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' gewachsen. ';
+      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' gewachsen. ';
       headline += 'Einzelhandel wächst';
+    }
+
+    if (data.noshopCount > 0) {
+      paragraph += ''
     }
 
 
@@ -120,7 +133,7 @@ var text = (function() {
       paragraph += 'Es gibt einen Dorfladen ' + wo + ' ' + data.nameKrz ;
     } else if (data.dorfladen > 1) {
 
-      paragraph += 'Es gibt ' + data.dorfladen + ' Dorfläden ' + wo + ' ' + data.nameKrz + '.';
+      paragraph += 'Es gibt ' + getDigitStr(data.dorfladen) + ' Dorfläden ' + wo + ' ' + data.nameKrz + '.';
     }
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
