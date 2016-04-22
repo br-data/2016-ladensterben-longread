@@ -42,23 +42,32 @@ var text = (function() {
     textContainer.innerHTML = getString(data);
   }
 
+
   function getString(data) {
 
     var str = '';
+    var ort = '';
+    var prefix = '';
+
+    if (data.regbez === 'Oberpfalz') {
+      prefix = 'der ';
+    }
 
     // Landkreis oder Stadt?
     if (data.type === 'Landkreis') {
 
-      str += 'In ihrem Landkreis ' + data.name + ' ';
+      str += 'Im Landkreis ' + data.name + ' in ' + prefix + data.regbez + ' ';
+      ort = 'im Landkreis';
     } else if (data.type === 'Stadt') {
 
       str += 'In ihrer Stadt ' + data.name + ' ';
+      ort = 'in der Stadt';
     }
 
     // Rückgang oder Anstieg
     if (data.shopChgPrc < 0) {
 
-      str += 'ist der Einzelhandel um ' + data.shopChgPrc + ' % zurückgegangen. ';
+      str += 'ist der Einzelhandel um ' + -data.shopChgPrc + ' % zurückgegangen. ';
     } else if (data.shopChgPrc > 0) {
 
       str += 'ist der Einzelhandel um ' + data.shopChgPrc + ' % gewachsen. ';
@@ -68,10 +77,10 @@ var text = (function() {
 
     if (data.dorfladen === 1) {
 
-      str += 'Es gibt einen Dorflanden in ' + data.nameKrz;
+      str += 'Es gibt einen Dorflanden ' + ort + ' ' + data.nameKrz ;
     } else if (data.dorfladen > 1) {
 
-      str += 'Es gibt ' + data.dorfladen + ' Dorflanden in ' + data.nameKrz;
+      str += 'Es gibt ' + data.dorfladen + ' Dorflanden ' + ort + ' ' + data.nameKrz;
     }
 
     return '<p>' + str + '</p>';
