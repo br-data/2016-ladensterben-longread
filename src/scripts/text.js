@@ -17,7 +17,7 @@ var text = (function() {
       'type': 'Landkreis',
       'regbez': 'Oberfranken',
       'shopChgAbs': '-24',
-      'shopChgPrc': '-25.35',
+      'shopChgPrc': '-45.6',
       'shops05': '100',
       'shops15': '76',
       'gemeindeMax': 'Unterneukirchen',
@@ -42,12 +42,41 @@ var text = (function() {
     textContainer.innerHTML = getString(data);
   }
 
+  function getWrittenPcg(pcg) {
+
+    var result = '';
+    pcg = Math.abs(pcg);
+
+    if (pcg > 5 && pcg < 10) {
+      result = 'leicht'
+    } else if (pcg > 18 && pcg < 22) {
+      result = 'etwa ein Fünftel ';
+    } else if (pcg > 22.1 && pcg < 27) {
+      result = 'etwa ein Viertel ';
+    } else if (pcg > 29 && pcg < 33.3) {
+      result = 'etwa ein Drittel ';
+    } else if (pcg >= 33.3 && pcg < 45 ) {
+      result = 'mehr als ein Drittel ';
+    } else if (pcg > 45 && pcg < 50 ) {
+      result = 'knapp die Hälfte ';
+    } else if (pcg >= 50 && pcg < 57  ) {
+      result = 'mehr als die Hälfte ';
+    } else {
+      result = Math.round(pcg) + ' Prozent '
+    }
+
+    return result;
+  }
 
   function getString(data) {
 
-    var str = '';
+    var headline ='';
+    var paragraph = '';
     var ort = '';
     var prefix = '';
+    var menge = '';
+
+    
 
     if (data.regbez === 'Oberpfalz') {
       prefix = 'der ';
@@ -56,34 +85,45 @@ var text = (function() {
     // Landkreis oder Stadt?
     if (data.type === 'Landkreis') {
 
-      str += 'Im Landkreis ' + data.name + ' in ' + prefix + data.regbez + ' ';
-      ort = 'im Landkreis';
+      paragraph += 'Im Landkreis ' + data.name + ' in ' + prefix + data.regbez + ' ';
+      wo = 'im Landkreis ';
+      headline += 'Landkreis ' + data.name + ': ';
     } else if (data.type === 'Stadt') {
 
-      str += 'In ihrer Stadt ' + data.name + ' ';
-      ort = 'in der Stadt';
+      paragraph += 'In ' + data.name + ' ';
+      wo = 'in der Stadt ';
+      headline += data.name + ': '
     }
 
     // Rückgang oder Anstieg
     if (data.shopChgPrc < 0) {
 
-      str += 'ist der Einzelhandel um ' + -data.shopChgPrc + ' % zurückgegangen. ';
+      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' zurückgegangen. Heute gibt es ' + wo + -data.shopChgAbs + ' Geschäfte weniger als noch im Jahr 2005. ';
+      headline += 'Einzelhandel geht zurück';
+      if (data.spaceChgPrc > 0) {
+      paragraph += 'Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' zugenommen. Das deutet darauf hin, dass kleine Läden geschlossen haben, während sich größere Märkte gehalten haben oder sogar neu eröffnet haben. ';     
+      } else if (data.spaceChgPrc < 0) {
+      paragraph += 'Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + data.nameKrz + ' abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
+      }
     } else if (data.shopChgPrc > 0) {
 
-      str += 'ist der Einzelhandel um ' + data.shopChgPrc + ' % gewachsen. ';
+      paragraph += 'ist der Einzelhandel uin den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' gewachsen. ';
+      headline += 'Einzelhandel wächst';
     }
 
-    str += 'Die Zahlen beruhen auf Ergebungen der Staatsregierung.';
+
+
+    paragraph += 'Die Zahlen beruhen auf Erhebungen der Staatsregierung. ';
 
     if (data.dorfladen === 1) {
 
-      str += 'Es gibt einen Dorflanden ' + ort + ' ' + data.nameKrz ;
+      paragraph += 'Es gibt einen Dorfladen ' + wo + ' ' + data.nameKrz ;
     } else if (data.dorfladen > 1) {
 
-      str += 'Es gibt ' + data.dorfladen + ' Dorflanden ' + ort + ' ' + data.nameKrz;
+      paragraph += 'Es gibt ' + data.dorfladen + ' Dorfläden ' + wo + ' ' + data.nameKrz + '.';
     }
 
-    return '<p>' + str + '</p>';
+    return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
   }
 
   // Export global functions
