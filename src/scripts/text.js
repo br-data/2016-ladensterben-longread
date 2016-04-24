@@ -17,11 +17,11 @@ var text = (function() {
       'type': 'Landkreis',
       'regbez': 'Oberfranken',
       'shopChgAbs': '-45',
-      'shopChgPrc': '-37',
+      'shopChgPrc': '37',
       'shops05': '504',
       'shops15': '680',
       'gemeindeMax': 'Unterneukirchen',
-      'nogroceryCount': '4',
+      'nogroceryCount': '5',
       'noshopCount': '2',
       'popChange': '11.35',
       'brand': 'Edeka Nord',
@@ -49,6 +49,10 @@ var text = (function() {
 
   function getShortName(data) {
     return data.nameKrz || data.name;
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   function getWrittenPcg(pcg) {
@@ -126,15 +130,15 @@ var text = (function() {
       }
     } else if (data.shopChgPrc > 0) {
 
-      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' gewachsen.';
-      headline += ' Einzelhandel wächst';
+      paragraph += 'ist der Einzelhandel in den vergangenen zehn Jahren um ' + getWrittenPcg(data.shopChgPrc) + ' gewachsen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopChgAbs) + ' Geschäfte mehr als noch im Jahr 2005.';
+      headline += ' Einzelhandel wächst' + ((data.shopChgPrc > 15) ? ' deutlich' : '');
     }
 
 
     if (data.nogroceryCount > 1) {
-      paragraph += ' In ' + getDigitStr(data.nogroceryCount) + ' Orten ' + wo + ' gibt es kein Lebensmittelgeschäft';
+      paragraph += ' In ' + getDigitStr(data.nogroceryCount) + ' Orten ' + wo + ' gibt es' + ((data.shopChgPrc > 15) ? ' dennoch ' : '') + 'kein Lebensmittelgeschäft';
       if (data.noshopCount > 1) {
-        paragraph += ', ' + getDigitStr(data.noshopCount)+ ' davon gelten als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
+        paragraph += '. ' + ((data.nogroceryCount === data.noshopCount) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(data.noshopCount)) + ' davon ') + 'gelten sogar als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
       } else if (data.noshopCount == 1) {
         paragraph += ', einer davon gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
       }
