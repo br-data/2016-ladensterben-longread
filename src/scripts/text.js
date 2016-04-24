@@ -17,12 +17,12 @@ var text = (function() {
       'type': 'Landkreis',
       'regbez': 'Oberfranken',
       'shopChgAbs': '-45',
-      'shopChgPrc': '-11',
+      'shopChgPrc': '-37',
       'shops05': '504',
       'shops15': '680',
       'gemeindeMax': 'Unterneukirchen',
-      'nogroceryCount': '1',
-      'noshopCount': '1',
+      'nogroceryCount': '4',
+      'noshopCount': '2',
       'popChange': '11.35',
       'brand': 'Edeka Nord',
       'space05': '470',
@@ -33,7 +33,7 @@ var text = (function() {
       'workers15': '421',
       'pop05': '344543',
       'pop14': '333543',
-      'dorfladen': '2',
+      'dorfladen': '7',
       'dl1': 'Salching',
       'dl2': 'Schweinbach',
       'dl3': 'Unterneupfarrkirchen'
@@ -87,7 +87,7 @@ var text = (function() {
     var paragraph = '';
     var ort = '';
     var prefix = '';
-    var menge = ''; 
+    var menge = '';
 
     if (data.regbez === 'Oberpfalz') {
       prefix = ' der';
@@ -98,13 +98,13 @@ var text = (function() {
 
       paragraph += 'Im Landkreis ' + data.name + ' in ' + prefix + data.regbez + ' ';
       wo = ' im Landkreis';
-      was = 'der Landkreis'
+      was = 'der Landkreis';
       headline += 'Landkreis ' + data.name + ': ';
     } else if (data.type === 'Stadt') {
 
       paragraph += 'In ' + data.name + ' ';
       wo = 'in der Stadt ';
-      was = 'die Stadt'
+      was = 'die Stadt';
       headline += data.name + ':'
     }
 
@@ -120,9 +120,9 @@ var text = (function() {
       headline += ((data.shopChgPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
 
       if (data.spaceChgPrc > 0) {
-        paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + ' ' + getShortName(data) + ' um ' + getWrittenPcg(data.spaceChgPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';     
+        paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier um ' + getWrittenPcg(data.spaceChgPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';     
       } else if (data.spaceChgPrc < 0) {
-        paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte ' + wo + ' ' + data.nameKrz + ' abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
+        paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
       }
     } else if (data.shopChgPrc > 0) {
 
@@ -132,19 +132,17 @@ var text = (function() {
 
 
     if (data.nogroceryCount > 1) {
-      paragraph += ' In ' + getDigitStr(data.nogroceryCount) + ' Orten ' + wo + ' gibt es kein Lebensmittelgeschäft'
-    } if (data.nogroceryCount > 1 && data.noshopCount > 1) {
-      paragraph += ', ' + getDigitStr(data.noshopCount)+ ' davon gelten als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort.';
-    } if (data.nogroceryCount > 1 && data.noshopCount == 1) {
-      paragraph += ', einer davon gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
-    } 
-    
+      paragraph += ' In ' + getDigitStr(data.nogroceryCount) + ' Orten ' + wo + ' gibt es kein Lebensmittelgeschäft';
+      if (data.noshopCount > 1) {
+        paragraph += ', ' + getDigitStr(data.noshopCount)+ ' davon gelten als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
+      } else if (data.noshopCount == 1) {
+        paragraph += ', einer davon gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
+      }
+      paragraph += '.';
+    }
+
     if (data.nogroceryCount == 1) {
-      paragraph += ' In einem Ort ' + wo + ' gibt es kein Lebensmittelgeschäft';
-    } else if (data.nogroceryCount == 1 && data.noshopCount == 1) {
-      paragraph += ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
-    } else {
-      paragraph += '.'
+      paragraph += ' In einem Ort ' + wo + ' gibt es kein Lebensmittelgeschäft' + ((data.noshopCount == 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : 'W') + '.';
     }
 
     paragraph += ' Die Zahlen beruhen auf Erhebungen der Staatsregierung.';
@@ -160,7 +158,7 @@ var text = (function() {
       paragraph += ' Es gibt drei Dorfläden' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ', ' + data.dl2 + ' und ' + data.dl3 +'.';
     } else if (data.dorfladen > 3) {
 
-      paragraph += ' Es gibt' + getDigitStr(data.dorfladen) + ' Dorfläden' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
+      paragraph += ' Es gibt ' + getDigitStr(data.dorfladen) + ' Dorfläden' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
     }
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
