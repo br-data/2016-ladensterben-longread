@@ -55,6 +55,25 @@ var text = (function() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  function getRegbezAdj(data) {
+    if (data == 'Oberbayern') {
+      result = 'oberbayerisch';
+    } else if (data == 'Oberpfalz') {
+      result = 'oberpfälzisch';
+    } else if (data == 'Oberfranken') {
+      result = 'oberfränkisch';
+    } else if (data == 'Unterfranken') {
+      result = 'unterfränkisch';
+    } else if (data == 'Mittelfranken') {
+      result = 'mittelfränkisch';
+    } else if (data == 'Schwaben') {
+      result = 'schwäbisch';
+    } else if (data == 'Niederbayern') {
+      result = 'niederbayerisch';
+    }
+    return result;
+  }
+
   function getWrittenPcg(pcg) {
 
     var result = '';
@@ -100,7 +119,7 @@ var text = (function() {
     // Landkreis oder Stadt?
     if (data.type === 'Landkreis') {
 
-      paragraph += 'Im Landkreis ' + data.name + ' in ' + prefix + data.regbez + ' ';
+      paragraph += 'Im ' + getRegbezAdj(data.regbez) + 'en Landkreis ' + data.name + ' in ';
       wo = ' im Landkreis';
       was = 'der Landkreis';
       headline += 'Landkreis ' + data.name + ': ';
@@ -153,16 +172,16 @@ var text = (function() {
 
     if (data.dorfladen == 1) {
 
-      paragraph += ' Es gibt einen Dorfladen' + wo + ', in ' + data.dl1 + '.';
+      paragraph += ' Es gibt einen Dorfladen ' + wo + ', in ' + data.dl1 + '.';
     } else if (data.dorfladen == 2) {
 
-      paragraph += ' Es gibt zwei Dorfläden' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ' und ' + data.dl2 +'.';
+      paragraph += ' Es gibt zwei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ' und ' + data.dl2 +'.';
     } else if (data.dorfladen == 3) {
 
-      paragraph += ' Es gibt drei Dorfläden' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ', ' + data.dl2 + ' und ' + data.dl3 +'.';
+      paragraph += ' Es gibt drei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ', ' + data.dl2 + ' und ' + data.dl3 +'.';
     } else if (data.dorfladen > 3) {
 
-      paragraph += ' Es gibt ' + getDigitStr(data.dorfladen) + ' Dorfläden' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
+      paragraph += ' Es gibt ' + getDigitStr(data.dorfladen) + ' Dorfläden ' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
     }
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
