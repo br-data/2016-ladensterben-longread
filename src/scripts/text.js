@@ -35,8 +35,8 @@ var text = (function() {
       'spaceDeltaPrc': 24.67343977,
       'noGrocery': 3,
       'noShop': 0,
-      'ruralStoreCount': 0,
-      'ruralStoreNames': 0,
+      'ruralStoreCount': 3,
+      'ruralStoreNames': 'Hofstädten, Kleinkahl, Wiesen',
       'biggestChain': 'Edeka',
       'biggestChainCount': 18,
       'chainDeltaAbs': 11,
@@ -68,7 +68,7 @@ var text = (function() {
       paragraph += 'In <strong>' + data.name + '</strong>';
       wo = 'in der Stadt ';
       was = 'die Stadt';
-      headline += data.name + ':';
+      headline += data.name + ': ';
     }
 
     // Rückgang oder Anstieg 2005-2015
@@ -135,18 +135,23 @@ var text = (function() {
 
     paragraph += ' Die Zahlen beruhen auf Erhebungen der Staatsregierung.';
 
-    if (data.ruralStoreCount == 1) {
+    if (data.ruralStoreCount) {
 
-      paragraph += ' Es gibt einen Dorfladen ' + wo + ', in ' + data.dl1 + '.';
-    } else if (data.ruralStoreCount == 2) {
+      var stores = data.ruralStoreNames.split(', ');
 
-      paragraph += ' Es gibt zwei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ' und ' + data.dl2 +'.';
-    } else if (data.ruralStoreCount == 3) {
+      if (data.ruralStoreCount == 1) {
 
-      paragraph += ' Es gibt drei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + data.dl1 + ', ' + data.dl2 + ' und ' + data.dl3 +'.';
-    } else if (data.ruralStoreCount > 3) {
+        paragraph += ' Es gibt einen Dorfladen ' + wo + ', in ' + stores[0] + '.';
+      } else if (data.ruralStoreCount == 2) {
 
-      paragraph += ' Es gibt ' + getDigitStr(data.ruralStoreCount) + ' Dorfläden ' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
+        paragraph += ' Es gibt zwei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + stores[0] + ' und ' + stores[1] +'.';
+      } else if (data.ruralStoreCount == 3) {
+
+        paragraph += ' Es gibt drei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + stores[0] + ', ' + stores[1] + ' und ' + stores[2] +'.';
+      } else if (data.ruralStoreCount > 3) {
+
+        paragraph += ' Es gibt ' + getDigitStr(data.ruralStoreCount) + ' Dorfläden ' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
+      }
     }
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
