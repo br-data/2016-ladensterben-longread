@@ -79,17 +79,17 @@ var text = (function() {
 
     } else if (data.shopDeltaPrc < 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(data.shopDeltaPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopDeltaAbs) + ' Geschäfte weniger als noch im Jahr 2005.';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(data.shopDeltaPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopDeltaAbs) + ' Geschäft' + ((data.shopDeltaAbs == -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
       headline += ((data.shopDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
     }
 
     if (data.shopDeltaPrc > 0) {
 
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(data.shopDeltaPrc) +  ' gewachsen. Heute gibt es ' + wo + ' ' + getDigitStr(data.shopDeltaAbs) + ' Geschäft' + ((data.shopDeltaAbs == 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
-      headline += ' Einzelhandel wächst' + ((data.shopDeltaPrc > 15) ? ' deutlich' : '');
+      headline += ' Einzelhandel wächst' + ((data.shopDeltaPrc >= 10) ? ' deutlich' : '');
     }
 
-    if (data.shopDeltaPrc > 0 && data.lastShopDeltaPrc >= 5 || data.shopDeltaPrc < 0 && data.lastShopDeltaPrc <= 5) {
+    if (data.shopDeltaPrc > 0 && data.lastShopDeltaPrc >= 5 || data.shopDeltaPrc < 0 && data.lastShopDeltaPrc <= -5) {
 
       paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(data.lastShopDeltaAbs)) + ' Läden ' + ((data.lastShopDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.');
     }
@@ -102,6 +102,8 @@ var text = (function() {
 
       paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
     }
+
+    paragraph += ' Marktführer ' + wo + ' ist ' + ((data.chainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit insgesamt ' + data.biggestChainCount + ' Filialen.';
 
     if (data.type === 'Stadt' && data.popDeltaPrc > 0) {
 
