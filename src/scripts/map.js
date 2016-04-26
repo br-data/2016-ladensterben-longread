@@ -139,13 +139,12 @@ var map = (function() {
   function getColor(cat) {
 
     return [
-      '#b2182b',
-      '#d6604d',
-      '#f4a582',
-      '#fddbc7',
-      '#92c5de',
-      '#4393c3',
-      '#2166ac'
+      '#d81d09',
+      '#f9842d',
+      '#ffc166',
+      '#f7eec1',
+      '#dfedf7',
+      '#a7c9ea'
     ][cat];
   }
 
@@ -173,6 +172,8 @@ var map = (function() {
 
       result[i] = min + i * dist;
     }
+
+    console.log(result);
 
     return result;
   }
