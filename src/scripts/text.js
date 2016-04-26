@@ -12,112 +12,47 @@ var text = (function() {
   function render(data) {
 
     data = data || {
+      'govDistrict': 'Oberfranken',
       'name': 'Wunsiedel im Fichtelgebirge',
-      'nameKrz': 'Wunsiedel',
+      'shortName': 'Wunsiedel',
       'type': 'Landkreis',
-      'govDistrict': 'Oberbayern',
-      'shopDeltaAbs': '9',
-      'shopDeltaPrc': '10.61',
-      'shops05': '65',
-      'shops15': '62',
-      'gemeindeMax': '',
-      'noGrocery': '14',
-      'noShop': '10',
-      'popDeltaPrc': '-0.57',
-      'brand': 'Edeka Nord',
-      'space05': '732',
-      'space15': '770',
-      'spaceDeltaAbs': '38',
-      'spaceDeltaPrc': '5.19',
-      'workers07': '219',
-      'workers15': '247',
-      'pop05': '110930',
-      'pop14': '110296',
-      'ruralStoreCount': '5',
-      'dl1': 'Salching',
-      'dl2': 'Schweinbach',
-      'dl3': 'Unterneupfarrkirchen',
-      'lastShopDeltaPrc': '8.26',
-      'lastShopDeltaAbs': '4'
+      'sch': 9479,
+      'pop14': 73403,
+      'pop05': 81631,
+      'popDeltaPrc': -10.07950411,
+      'shop05': 57,
+      'shops14': 41,
+      'shops15': 40,
+      'lastShopDeltaAbs': -1,
+      'lastShopDeltaPrc': -2.43902439,
+      'space05': 689,
+      'space15': 859,
+      'workers07': 143,
+      'workers15': 160,
+      'shopDeltaAbs': -17,
+      'shopDeltaPrc': -29.8245614,
+      'spaceDeltaAbs': 170,
+      'spaceDeltaPrc': 24.67343977,
+      'noGrocery': 3,
+      'noShop': 0,
+      'ruralStoreCount': 0,
+      'ruralStoreNames': 0,
+      'biggestChain': 'Edeka',
+      'biggestChainCount': 18,
+      'chainDeltaAbs': 11,
+      'chainDeltaPrc': 61.11111111,
+      'chainDeltaFctr': 2.571428571
     };
 
     textContainer.innerHTML = getString(data);
   }
 
-  function getDigitStr(dig) {
-    var array = ['kein', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
-    return array[dig] || dig;
-  }
-
-  function getShortName(data) {
-    return data.shortName || data.name;
-  }
-
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function getgovDistrictAdj(data) {
-    var result;
-
-    if (data == 'Oberbayern') {
-      result = 'oberbayerisch';
-    } else if (data == 'Oberpfalz') {
-      result = 'oberpfälzisch';
-    } else if (data == 'Oberfranken') {
-      result = 'oberfränkisch';
-    } else if (data == 'Unterfranken') {
-      result = 'unterfränkisch';
-    } else if (data == 'Mittelfranken') {
-      result = 'mittelfränkisch';
-    } else if (data == 'Schwaben') {
-      result = 'schwäbisch';
-    } else if (data == 'Niederbayern') {
-      result = 'niederbayerisch';
-    }
-    return result;
-  }
-
-  function getWrittenPcg(pcg) {
-
-    var result = '';
-    pcg = Math.abs(pcg);
-
-    if (pcg > 0.1 && pcg < 10) {
-      result = 'leicht';
-    } else if (pcg > 18 && pcg < 22) {
-      result = 'etwa ein Fünftel';
-    } else if (pcg > 22.1 && pcg < 27) {
-      result = 'etwa ein Viertel';
-    } else if (pcg > 29 && pcg < 33.3) {
-      result = 'etwa ein Drittel';
-    } else if (pcg >= 33.3 && pcg < 45 ) {
-      result = 'mehr als ein Drittel';
-    } else if (pcg > 45 && pcg < 50 ) {
-      result = 'etwa die Hälfte';
-    } else if (pcg >= 50 && pcg < 57  ) {
-      result = 'mehr als die Hälfte';
-    } else if (pcg >= 60 && pcg < 66.6  ) {
-      result = 'etwa zwei Drittel';
-    } else if (pcg >= 66.6 ) {
-      result = 'mehr als zwei Drittel';
-    } else {
-      result = getDigitStr(Math.round(pcg)) + ' Prozent ';
-    }
-
-    return result;
-  }
-
   function getString(data) {
 
-    var headline ='';
-    var paragraph = '';
-    var ort = '';
-    var prefix = '';
-    var menge = '';
-    var wo = '';
+    var headline, paragraph, was, wo, prefix = '';
 
     if (data.govDistrict === 'Oberpfalz') {
+
       prefix = ' der';
     }
 
@@ -133,7 +68,7 @@ var text = (function() {
       paragraph += 'In <strong>' + data.name + '</strong>';
       wo = 'in der Stadt ';
       was = 'die Stadt';
-      headline += data.name + ':'
+      headline += data.name + ':';
     }
 
     // Rückgang oder Anstieg 2005-2015
@@ -156,34 +91,45 @@ var text = (function() {
 
     if (data.shopDeltaPrc > 0 && data.lastShopDeltaPrc >= 5 || data.shopDeltaPrc < 0 && data.lastShopDeltaPrc <= 5) {
 
-      paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(data.lastShopDeltaAbs)) + ' Läden ' + ((data.lastShopDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.')
+      paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(data.lastShopDeltaAbs)) + ' Läden ' + ((data.lastShopDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.');
     }
 
     // Rückgang oder Anstieg der Ladenfläche
     if (data.shopDeltaPrc < 0 && data.spaceDeltaPrc > 0) {
+
       paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.spaceDeltaPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.spaceDeltaPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';
-      } else if (data.shopDeltaPrc < 0 && data.spaceDeltaPrc < 0) {
-        paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
-      }
+    } else if (data.shopDeltaPrc < 0 && data.spaceDeltaPrc < 0) {
+
+      paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
+    }
 
     if (data.type === 'Stadt' && data.popDeltaPrc > 0) {
-      paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + data.name + ".";
+
+      paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + data.name + '.';
     }
 
     if (data.noGrocery > 1) {
+
       paragraph += ' In ' + getDigitStr(data.noGrocery) + ' Orten ' + wo + ' gibt es' + ((data.shopDeltaPrc > 15) ? ' dennoch ' : '') + ' kein Lebensmittelgeschäft';
+
       if (data.noShop > 1) {
+
         paragraph += '. ' + ((data.noGrocery === data.noShop) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(data.noShop)) + ' davon ') + 'gelten';
       } else if (data.noShop == 1) {
+
         paragraph += ', einer davon gilt';
       }
+
       if (data.noShop > 0) {
+
         paragraph += ' sogar als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
       }
+
       paragraph += '.';
     }
 
     if (data.noGrocery == 1) {
+
       paragraph += ' In einem Ort ' + wo + ' gibt es kein Lebensmittelgeschäft' + ((data.noShop == 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
     }
 
@@ -204,6 +150,92 @@ var text = (function() {
     }
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
+  }
+
+  function getDigitStr(dig) {
+
+    var array = ['kein', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
+
+    return array[dig] || dig;
+  }
+
+  function getShortName(data) {
+
+    return data.shortName || data.name;
+  }
+
+  function capitalizeFirstLetter(string) {
+
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function getgovDistrictAdj(data) {
+
+    var result;
+
+    if (data == 'Oberbayern') {
+
+      result = 'oberbayerisch';
+    } else if (data == 'Oberpfalz') {
+
+      result = 'oberpfälzisch';
+    } else if (data == 'Oberfranken') {
+
+      result = 'oberfränkisch';
+    } else if (data == 'Unterfranken') {
+
+      result = 'unterfränkisch';
+    } else if (data == 'Mittelfranken') {
+
+      result = 'mittelfränkisch';
+    } else if (data == 'Schwaben') {
+
+      result = 'schwäbisch';
+    } else if (data == 'Niederbayern') {
+
+      result = 'niederbayerisch';
+    }
+    return result;
+  }
+
+  function getWrittenPcg(pcg) {
+
+    var result = '';
+    pcg = Math.abs(pcg);
+
+    if (pcg > 0.1 && pcg < 10) {
+
+      result = 'leicht';
+    } else if (pcg > 18 && pcg < 22) {
+
+      result = 'etwa ein Fünftel';
+    } else if (pcg > 22.1 && pcg < 27) {
+
+      result = 'etwa ein Viertel';
+    } else if (pcg > 29 && pcg < 33.3) {
+
+      result = 'etwa ein Drittel';
+    } else if (pcg >= 33.3 && pcg < 45 ) {
+
+      result = 'mehr als ein Drittel';
+    } else if (pcg > 45 && pcg < 50 ) {
+
+      result = 'etwa die Hälfte';
+    } else if (pcg >= 50 && pcg < 57  ) {
+
+      result = 'mehr als die Hälfte';
+    } else if (pcg >= 60 && pcg < 66.6  ) {
+
+      result = 'etwa zwei Drittel';
+    } else if (pcg >= 66.6 ) {
+
+      result = 'mehr als zwei Drittel';
+    } else {
+
+      result = getDigitStr(Math.round(pcg)) + ' Prozent ';
+    }
+
+    return result;
   }
 
   // Export global functions
