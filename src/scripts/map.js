@@ -1,7 +1,6 @@
 var map = (function() {
 
-  var data, mapContainer, $map, $counties, timeout;
-  var numCategories = 8;
+  var data, scale, mapContainer, $map, $counties, timeout;
   var popup = L.popup({closeButton: false});
 
   function init(counties) {
@@ -29,16 +28,17 @@ var map = (function() {
 
     $map.addLayer(layer);
 
-    var scale = constructScale();
+    utils.getJson('./data/json/landkreise.json', function (landkreise) {
 
-    utils.getJson('./data/json/landkreise.json', function(landkreise){
       data = landkreise;
+      scale = constructScale(data, 6);
+
       $counties = L.geoJson(counties, {
         onEachFeature: onEachFeature,
         style: function(feature) {
 
           var landkreis = data.filter(function (element) {
-            return element.landkreis_id === feature.properties.sch;
+            return '0' + element.sch === feature.properties.RS;
           })[0];
 
           return {
@@ -94,12 +94,10 @@ var map = (function() {
           name = name + landkreis.name;
         }
 
-        if (!landkreis.shopDeltaPrc) {
-          res = '<strong>' + name + ':</strong> Kein Fund';
-        } else if (landkreis.shopDeltaPrc === '1') {
-          res = '<strong>' + name + ':</strong> 1 Fund';
+        if (landkreis.shopDeltaPrc === 0) {
+          res = '<strong>' + name + ':</strong> Keine Veränderung';
         } else {
-          res = '<strong>' + name + ':</strong> ' + landkreis.shopDeltaPrc + ' Funde';
+          res = '<strong>' + name + ':</strong> ' + Math.round(landkreis.shopDeltaPrc * 10) / 10 + '%';
         }
 
         return res;
@@ -141,43 +139,42 @@ var map = (function() {
   function getColor(cat) {
 
     return [
-      '#ffffcc',
-      '#ffeda0',
-      '#fed976',
-      '#feb24c',
-      '#fd8d3c',
-      '#fc4e2a',
-      '#e31a1c',
-      '#b10026'
+      '#b2182b',
+      '#d6604d',
+      '#f4a582',
+      '#fddbc7',
+      '#92c5de',
+      '#4393c3',
+      '#2166ac'
     ][cat];
   }
 
-
   function getCategory(d, scale) {
-    for (var i = 0; i<=numCategories; i++) {
-      if (d<=scale[i+1]) {
-        // console.log(i-1);
+
+    for (var i = 0; i <= scale.length; i++) {
+
+      if (d <= scale[i+1]) {
+
         return i;
       }
     }
   }
 
-  function constructScale() {
+  function constructScale(data, categories) {
 
-    // var min = Math.min.apply(null, arr);
-    // var max = Math.max.apply(null, arr);
-    // var dist = Math.abs(max-min)/(numCategories);
+    var result = [];
 
-    // var res = [];
+    var min = Math.min.apply(Math, data.map(function (obj) { return obj.shopDeltaPrc; }));
+    var max = Math.max.apply(Math, data.map(function (obj) { return obj.shopDeltaPrc; }));
+    var range = Math.abs(min) + Math.abs(max);
+    var dist = range / categories;
 
-    // for(var i = 0; i<=numCategories; i++) {
-    //   res[i] = min + i*dist;
-    // }
+    for (var i = 0; i <= categories; i++) {
 
-    // length(res) === numCategories + 1
-    // return res;
+      result[i] = min + i * dist;
+    }
 
-    return [-100,-75,-50,-25,0,25,50,75,100];
+    return result;
   }
 
   function scrollToMap() {
