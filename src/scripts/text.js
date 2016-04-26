@@ -12,31 +12,33 @@ var text = (function() {
   function render() {
 
     var data = {
-      'name': 'Hof',
-      'nameKrz': '',
+      'name': 'Mühldorf am Inn',
+      'nameKrz': 'Mühldorf',
       'type': 'Landkreis',
-      'regbez': 'Oberfranken',
-      'shopChgAbs': '-17',
-      'shopChgPrc': '-11',
-      'shops05': '50',
-      'shops15': '68',
-      'gemeindeMax': 'Unterneukirchen',
-      'nogroceryCount': '1',
-      'noshopCount': '1',
-      'popChange': '11.3',
+      'regbez': 'Oberbayern',
+      'shopChgAbs': '9',
+      'shopChgPrc': '10.61',
+      'shops05': '65',
+      'shops15': '62',
+      'gemeindeMax': '',
+      'nogroceryCount': '14',
+      'noshopCount': '10',
+      'popChange': '-0.57',
       'brand': 'Edeka Nord',
-      'space05': '470',
-      'space15': '580',
-      'spaceChgAbs': '110',
-      'spaceChgPrc': '20.44',
-      'workers07': '321',
-      'workers15': '421',
-      'pop05': '344543',
-      'pop14': '333543',
-      'dorfladen': '3',
+      'space05': '732',
+      'space15': '770',
+      'spaceChgAbs': '38',
+      'spaceChgPrc': '5.19',
+      'workers07': '219',
+      'workers15': '247',
+      'pop05': '110930',
+      'pop14': '110296',
+      'dorfladen': '5',
       'dl1': 'Salching',
       'dl2': 'Schweinbach',
-      'dl3': 'Unterneupfarrkirchen'
+      'dl3': 'Unterneupfarrkirchen',
+      'lastShopDeltaPrc': '8.26',
+      'lastShopDeltaAbs': '4'
     };
 
     textContainer.innerHTML = getString(data);
@@ -131,7 +133,7 @@ var text = (function() {
       headline += data.name + ':'
     }
 
-    // Rückgang oder Anstieg
+    // Rückgang oder Anstieg 2005-2015
     if (data.shopChgPrc == 0) {
 
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren gleich geblieben.';
@@ -142,16 +144,25 @@ var text = (function() {
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopChgPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(data.shopChgPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopChgAbs) + ' Geschäfte weniger als noch im Jahr 2005.';
       headline += ((data.shopChgPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
 
-      if (data.spaceChgPrc > 0) {
-        paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.spaceChgPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.spaceChgPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';     
-      } else if (data.spaceChgPrc < 0) {
-        paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
-      }
-    } else if (data.shopChgPrc > 0) {
+    }
+
+    if (data.shopChgPrc > 0) {
 
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopChgPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(data.shopChgPrc) +  ' gewachsen. Heute gibt es ' + wo + ' ' + getDigitStr(data.shopChgAbs) + ' Geschäft' + ((data.shopChgAbs == 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
       headline += ' Einzelhandel wächst' + ((data.shopChgPrc > 15) ? ' deutlich' : '');
     }
+
+    if (data.shopChgPrc > 0 && data.lastShopDeltaPrc >= 5 || data.shopChgPrc < 0 && data.lastShopDeltaPrc <= 5) {
+
+      paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(data.lastShopDeltaAbs)) + ' Läden ' + ((data.lastShopDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.')
+    }
+
+    // Rückgang oder Anstieg der Ladenfläche
+    if (data.shopChgPrc < 0 && data.spaceChgPrc > 0) {
+      paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.spaceChgPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.spaceChgPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';     
+      } else if (data.shopChgPrc < 0 && data.spaceChgPrc < 0) {
+        paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
+      }
 
     if (data.type === 'Stadt' && data.popChange > 0) {
       paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + data.name + ".";
