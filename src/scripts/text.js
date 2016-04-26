@@ -49,7 +49,7 @@ var text = (function() {
 
   function getString(data) {
 
-    var headline, paragraph, was, wo, prefix = '';
+    var headline = '', paragraph = '', was = '', wo = '', prefix = '';
 
     if (data.govDistrict === 'Oberpfalz') {
 
