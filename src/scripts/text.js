@@ -103,7 +103,7 @@ var text = (function() {
       paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
     }
 
-    paragraph += ' Marktführer ' + wo + ' ist ' + ((data.chainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit insgesamt ' + data.biggestChainCount + ' Filialen.';
+    paragraph += ' Marktführer ' + wo + ((data.chainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((data.chainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit ' + ((data.chainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(data.biggestChainCount) + ' Filialen.';
 
     if (data.type === 'Stadt' && data.popDeltaPrc > 0) {
 

@@ -88,8 +88,8 @@ var map = (function() {
           name = 'Landkreis ';
         }
 
-        if (landkreis.name_kurz) {
-          name = name + landkreis.name_kurz;
+        if (landkreis.shortName) {
+          name = name + landkreis.shortName;
         } else {
           name = name + landkreis.name;
         }
@@ -97,7 +97,7 @@ var map = (function() {
         if (landkreis.shopDeltaPrc === 0) {
           res = '<strong>' + name + ':</strong> Keine Veränderung';
         } else {
-          res = '<strong>' + name + ':</strong> ' + Math.round(landkreis.shopDeltaPrc * 10) / 10 + '%';
+          res = '<strong>' + name + ':</strong> ' + Math.round(landkreis.shopDeltaPrc) + '%';
         }
 
         return res;
