@@ -29,8 +29,7 @@ var map = (function() {
 
     $map.addLayer(layer);
 
-    var arr = [1,27,29,29,31,36,37,38,42,44,44,46,52,55,57,57,61,62,66,68,70,99,100,106,106,109,111,130,136,165,205,317,563,583];
-    var scale = constructScale(arr, 8);
+    var scale = constructScale();
 
     utils.getJson('./data/json/landkreise.json', function(landkreise){
       data = landkreise;
@@ -39,11 +38,11 @@ var map = (function() {
         style: function(feature) {
 
           var landkreis = data.filter(function (element) {
-            return element.landkreis_id === feature.properties.RS;
+            return element.landkreis_id === feature.properties.sch;
           })[0];
 
           return {
-            fillColor: getColor(getCategory(landkreis.funde, scale)),
+            fillColor: getColor(getCategory(landkreis.shopDeltaPrc, scale)),
             weight: 0.5,
             opacity: 1,
             color: 'black',
@@ -82,28 +81,25 @@ var map = (function() {
         var res;
         var name ='';
         var landkreis = data.filter(function (element) {
-          return element.landkreis_id === e.target.feature.properties.RS;
+          return '0' + element.sch === e.target.feature.properties.RS;
         })[0];
 
-        if (!landkreis.ks) {
+        if (landkreis.type === 'Landkreis') {
           name = 'Landkreis ';
         }
 
         if (landkreis.name_kurz) {
           name = name + landkreis.name_kurz;
-        }
-        else {
+        } else {
           name = name + landkreis.name;
         }
 
-        if (!landkreis.funde) {
+        if (!landkreis.shopDeltaPrc) {
           res = '<strong>' + name + ':</strong> Kein Fund';
-        }
-        else if (landkreis.funde === '1') {
+        } else if (landkreis.shopDeltaPrc === '1') {
           res = '<strong>' + name + ':</strong> 1 Fund';
-        }
-        else {
-          res = '<strong>' + name + ':</strong> ' + landkreis.funde + ' Funde';
+        } else {
+          res = '<strong>' + name + ':</strong> ' + landkreis.shopDeltaPrc + ' Funde';
         }
 
         return res;
@@ -116,8 +112,6 @@ var map = (function() {
       color: '#666',
       dashArray: ''
     });
-
-    // onMouseOver(e);
 
     if (!L.Browser.ie && !L.Browser.opera) {
       layer.bringToFront();
@@ -140,7 +134,7 @@ var map = (function() {
     scrollToMap();
 
     text.render(data.filter(function (element) {
-      return element.landkreis_id === e.target.feature.properties.RS;
+      return '0' + element.sch === e.target.feature.properties.RS;
     })[0]);
   }
 
@@ -158,12 +152,7 @@ var map = (function() {
     ][cat];
   }
 
-  /**
-   * returns value between 0 and numCategories-1
-   * @param  {[type]} d     [description]
-   * @param  {[type]} scale [description]
-   * @return {[type]}       [description]
-   */
+
   function getCategory(d, scale) {
     for (var i = 0; i<=numCategories; i++) {
       if (d<=scale[i+1]) {
@@ -173,13 +162,7 @@ var map = (function() {
     }
   }
 
-  /**
-   * constructs scale
-   * @param  {[type]} arr           [description]
-   * @param  {[type]} numCategories [description]
-   * @return {[type]}               [description]
-   */
-  function constructScale(arr, numCategories) {
+  function constructScale() {
 
     // var min = Math.min.apply(null, arr);
     // var max = Math.max.apply(null, arr);
@@ -194,8 +177,7 @@ var map = (function() {
     // length(res) === numCategories + 1
     // return res;
 
-    return [0,0,34,69,104,139,174,209,583];
-
+    return [-100,-75,-50,-25,0,25,50,75,100];
   }
 
   function scrollToMap() {

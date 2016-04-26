@@ -9,11 +9,11 @@ var text = (function() {
     render();
   }
 
-  function render() {
+  function render(data) {
 
-    var data = {
-      'name': 'Mühldorf am Inn',
-      'shortName': 'Mühldorf',
+    data = data || {
+      'name': 'Wunsiedel im Fichtelgebirge',
+      'nameKrz': 'Wunsiedel',
       'type': 'Landkreis',
       'govDistrict': 'Oberbayern',
       'shopDeltaAbs': '9',
@@ -45,7 +45,7 @@ var text = (function() {
   }
 
   function getDigitStr(dig) {
-    var array = ["kein", "ein", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf"];
+    var array = ['kein', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
     return array[dig] || dig;
   }
 
@@ -58,6 +58,8 @@ var text = (function() {
   }
 
   function getgovDistrictAdj(data) {
+    var result;
+
     if (data == 'Oberbayern') {
       result = 'oberbayerisch';
     } else if (data == 'Oberpfalz') {
@@ -82,7 +84,7 @@ var text = (function() {
     pcg = Math.abs(pcg);
 
     if (pcg > 0.1 && pcg < 10) {
-      result = 'leicht'
+      result = 'leicht';
     } else if (pcg > 18 && pcg < 22) {
       result = 'etwa ein Fünftel';
     } else if (pcg > 22.1 && pcg < 27) {
@@ -100,7 +102,7 @@ var text = (function() {
     } else if (pcg >= 66.6 ) {
       result = 'mehr als zwei Drittel';
     } else {
-      result = getDigitStr(Math.round(pcg)) + ' Prozent '
+      result = getDigitStr(Math.round(pcg)) + ' Prozent ';
     }
 
     return result;
@@ -113,6 +115,7 @@ var text = (function() {
     var ort = '';
     var prefix = '';
     var menge = '';
+    var wo = '';
 
     if (data.govDistrict === 'Oberpfalz') {
       prefix = ' der';
@@ -143,7 +146,6 @@ var text = (function() {
 
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(data.shopDeltaPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopDeltaAbs) + ' Geschäfte weniger als noch im Jahr 2005.';
       headline += ((data.shopDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
-
     }
 
     if (data.shopDeltaPrc > 0) {
@@ -159,7 +161,7 @@ var text = (function() {
 
     // Rückgang oder Anstieg der Ladenfläche
     if (data.shopDeltaPrc < 0 && data.spaceDeltaPrc > 0) {
-      paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.spaceDeltaPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.spaceDeltaPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';     
+      paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.spaceDeltaPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.spaceDeltaPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';
       } else if (data.shopDeltaPrc < 0 && data.spaceDeltaPrc < 0) {
         paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
       }
