@@ -100,7 +100,7 @@ var text = (function() {
       theRelatedDistrict = 'der Landkreis';
       }
 
-      paragraph += ' ' + capitalizeFirstLetter(inRelatedDistrict) + ' ' + relatedDistrict.admDistrict;
+      paragraph += ' ' + ((relatedDistrict.districtType === 'Stadt') ? 'In der' : 'Im') + ((relatedDistrict.admDistrict === currentDistrict.admDistrict) ? ' gleichnamigen ' : ' ') + relatedDistrict.districtType + ' ' + relatedDistrict.admDistrict + ((relatedDistrict.districtType === 'Landkreis') ? ', der die Stadt umgibt, ' : ', die vom Landkreis umschlossen ist, ');
 
       // the other district has a higher rate
       if (relatedDistrict.shopCountDeltaPrc > currentDistrict.shopCountDeltaPrc) {
@@ -112,6 +112,8 @@ var text = (function() {
       // ...and the other one is growing while this one is diminishing
         } else if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc < 0) {
         paragraph += ' gewachsen.'
+        } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc < 0) {
+        paragraph += ' immerhin gleich geblieben.'
         }
       }
       // the other district has a lower rate
@@ -121,11 +123,14 @@ var text = (function() {
         if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc > 0) {
         paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
       // ... and the other one is diminishing while this one is growing
-        } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc > 0) {
+        } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc >= 0) {
         paragraph += ' zurückgegangen.'
         // ...and both are diminishing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
         paragraph += ' noch stärker zurückgegangen.'
+        //... this one is growing, the other one stays the same
+        } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc > 0) {
+        paragraph += ' gleich geblieben.'
         }
       }
       
