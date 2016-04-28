@@ -33,6 +33,8 @@ var map = (function() {
       data = landkreise;
       scale = constructScale(data, 6);
 
+      console.log(scale);
+
       $counties = L.geoJson(counties, {
         onEachFeature: onEachFeature,
         style: function(feature) {
@@ -133,7 +135,7 @@ var map = (function() {
 
     text.render(data.filter(function (element) {
       return element.id === e.target.feature.properties.RS;
-    })[0]);
+    })[0], scale);
   }
 
   function getColor(cat) {

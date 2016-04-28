@@ -9,9 +9,11 @@ var text = (function() {
     render();
   }
 
-  function render(data) {
+  function render(data, scale) {
 
-    data = data ||   {
+    scale = scale || [-37.14, -27.92, -18.7, -9.479999999999997, -0.259999999999998, 8.96, 18.180000000000007];
+
+    data = data || {
       'govDistrict': 'Oberfranken',
       'admDistrict': 'Wunsiedel im Fichtelgebirge',
       'admDistrictShort': 'Wunsiedel',
@@ -47,10 +49,10 @@ var text = (function() {
       'biggestChainDeltaFctr': 2.57
     };
 
-    textContainer.innerHTML = getString(data);
+    textContainer.innerHTML = getString(data, scale);
   }
 
-  function getString(data) {
+  function getString(data, scale) {
 
     var headline = '', paragraph = '', was = '', wo = '', prefix = '';
 
@@ -112,6 +114,8 @@ var text = (function() {
 
       paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + data.admDistrict + '.';
     }
+
+    console.log(getCategory(data.shopCountDeltaPrc, scale));
 
     if (data.noStoreCount > 1) {
 
@@ -246,6 +250,17 @@ var text = (function() {
     }
 
     return result;
+  }
+
+  function getCategory(value, scale) {
+
+    for (var i = 0; i <= scale.length; i++) {
+
+      if (value <= scale[i+1]) {
+
+        return i;
+      }
+    }
   }
 
   // Export global functions
