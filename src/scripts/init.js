@@ -7,7 +7,7 @@ function init() {
 
   text.init();
 
-  utils.getJson('./data/geojson/vg2500_krs_bayern.geojson', function (data) {
+  utils.getJson('./data/bayern.geo.json', function (data) {
 
     map.init(data);
   });

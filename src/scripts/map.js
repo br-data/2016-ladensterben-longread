@@ -28,7 +28,7 @@ var map = (function() {
 
     $map.addLayer(layer);
 
-    utils.getJson('./data/json/landkreise.json', function (landkreise) {
+    utils.getJson('./data/landkreise.json', function (landkreise) {
 
       data = landkreise;
       scale = constructScale(data, 6);
@@ -38,11 +38,11 @@ var map = (function() {
         style: function(feature) {
 
           var landkreis = data.filter(function (element) {
-            return '0' + element.sch === feature.properties.RS;
+            return element.id === feature.properties.RS;
           })[0];
 
           return {
-            fillColor: getColor(getCategory(landkreis.shopDeltaPrc, scale)),
+            fillColor: getColor(getCategory(landkreis.shopCountDeltaPrc, scale)),
             weight: 0.5,
             opacity: 1,
             color: 'black',
@@ -81,23 +81,23 @@ var map = (function() {
         var res;
         var name ='';
         var landkreis = data.filter(function (element) {
-          return '0' + element.sch === e.target.feature.properties.RS;
+          return element.id === e.target.feature.properties.RS;
         })[0];
 
         if (landkreis.type === 'Landkreis') {
           name = 'Landkreis ';
         }
 
-        if (landkreis.name_kurz) {
-          name = name + landkreis.name_kurz;
+        if (landkreis.admDistrictShort) {
+          name = name + landkreis.admDistrictShort;
         } else {
-          name = name + landkreis.name;
+          name = name + landkreis.admDistrict;
         }
 
-        if (landkreis.shopDeltaPrc === 0) {
+        if (landkreis.shopCountDeltaPrc === 0) {
           res = '<strong>' + name + ':</strong> Keine Veränderung';
         } else {
-          res = '<strong>' + name + ':</strong> ' + Math.round(landkreis.shopDeltaPrc * 10) / 10 + '%';
+          res = '<strong>' + name + ':</strong> ' + Math.round(landkreis.shopCountDeltaPrc * 10) / 10 + '%';
         }
 
         return res;
@@ -132,7 +132,7 @@ var map = (function() {
     scrollToMap();
 
     text.render(data.filter(function (element) {
-      return '0' + element.sch === e.target.feature.properties.RS;
+      return element.id === e.target.feature.properties.RS;
     })[0]);
   }
 
@@ -163,8 +163,8 @@ var map = (function() {
 
     var result = [];
 
-    var min = Math.min.apply(Math, data.map(function (obj) { return obj.shopDeltaPrc; }));
-    var max = Math.max.apply(Math, data.map(function (obj) { return obj.shopDeltaPrc; }));
+    var min = Math.min.apply(Math, data.map(function (obj) { return obj.shopCountDeltaPrc; }));
+    var max = Math.max.apply(Math, data.map(function (obj) { return obj.shopCountDeltaPrc; }));
     var range = Math.abs(min) + Math.abs(max);
     var dist = range / categories;
 
@@ -172,8 +172,6 @@ var map = (function() {
 
       result[i] = min + i * dist;
     }
-
-    console.log(result);
 
     return result;
   }
