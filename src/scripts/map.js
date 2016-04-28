@@ -70,6 +70,8 @@ var map = (function() {
         }
       }).addTo($map);
 
+      text.init(data);
+
       resize();
     });
   }
@@ -98,7 +100,7 @@ var map = (function() {
     var layer = e.target;
 
     popup
-      .setLatLng([e.target.getBounds().getNorth(),e.target.getBounds().getWest()+(e.target.getBounds().getEast()-e.target.getBounds().getWest())/2])
+      .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getWest() + (layer.getBounds().getEast() - layer.getBounds().getWest()) / 2])
       .setContent(function () {
 
         var result;
@@ -166,9 +168,7 @@ var map = (function() {
     zoomToFeature(e);
     scrollToMap();
 
-    text.render(data.filter(function (element) {
-      return element.id === e.target.feature.properties.RS;
-    })[0], scale);
+    text.render(e.target.feature.properties.RS, scale);
   }
 
   function getColor(cat) {

@@ -1,135 +1,103 @@
 var text = (function() {
 
-  var textContainer;
+  var textContainer, districtData;
 
-  function init() {
+  function init(data) {
 
     textContainer = document.getElementById('text');
 
-    render();
+    districtData = data;
+
+    // Set the default district
+    render('09464');
   }
 
-  function render(data, scale) {
+  function render(currentDistrict, scale) {
 
+    currentDistrict = getDistrictById(currentDistrict);
     scale = scale || [-37.14, -27.92, -18.7, -9.479999999999997, -0.259999999999998, 8.96, 18.180000000000007];
 
-    data = data || {
-      'govDistrict': 'Oberfranken',
-      'admDistrict': 'Wunsiedel im Fichtelgebirge',
-      'admDistrictShort': 'Wunsiedel',
-      'districtType': 'Landkreis',
-      'id': '09479',
-      'pop2014': 73403,
-      'pop2005': 81631,
-      'shopCount2005': 57,
-      'shopCount2015': 40,
-      'salesArea2005': 689,
-      'salesArea2015': 859,
-      'employees2007': 143,
-      'employees2015': 160,
-      'popDeltaAbs': -8228,
-      'popDeltaPrc': -10.08,
-      'shopCountDeltaAbs': -17,
-      'shopCountDeltaPrc': -29.82,
-      'salesAreaDeltaAbs': 170,
-      'salesAreaDeltaPrc': 24.67,
-      'employeesDeltaAbs': 17,
-      'employeesDeltaPrc': 11.89,
-      'shopCount2014': 41,
-      'lastShopCountDeltaAbs': -1,
-      'lastShopCountDeltaPrc': -2,
-      'noSupermarketCount': 3,
-      'noStoreCount': 0,
-      'ruralStoresNames': '',
-      'ruralStoresCount': 0,
-      'biggestChain': 'Edeka',
-      'biggestChainCount': 18,
-      'biggestChainDeltaAbs': 11,
-      'biggestChainDeltaPrc': 61.11,
-      'biggestChainDeltaFctr': 2.57
-    };
-
-    textContainer.innerHTML = getString(data, scale);
+    textContainer.innerHTML = getString(currentDistrict, scale);
   }
 
-  function getString(data, scale) {
+  function getString(currentDistrict, scale) {
+
+    var relatedDistrict = getDistrictById(currentDistrict.relatedDistrictId);
 
     var headline = '', paragraph = '', was = '', wo = '', prefix = '';
 
-    if (data.govDistrict === 'Oberpfalz') {
+    if (currentDistrict.govDistrict === 'Oberpfalz') {
 
       prefix = ' der';
     }
 
     // Landkreis oder Stadt?
-    if (data.districtType === 'Landkreis') {
+    if (currentDistrict.districtType === 'Landkreis') {
 
-      paragraph += 'Im ' + getgovDistrictAdj(data.govDistrict) + 'en <strong>Landkreis ' + data.admDistrict + '</strong>';
+      paragraph += 'Im ' + getDistrictAdj(currentDistrict.govDistrict) + 'en <strong>Landkreis ' + currentDistrict.admDistrict + '</strong>';
       wo = ' im Landkreis';
       was = 'der Landkreis';
-      headline += 'Landkreis ' + data.admDistrict + ': ';
-    } else if (data.districtType === 'Stadt') {
+      headline += 'Landkreis ' + currentDistrict.admDistrict + ': ';
+    } else if (currentDistrict.districtType === 'Stadt') {
 
-      paragraph += 'In <strong>' + data.admDistrict + '</strong>';
+      paragraph += 'In <strong>' + currentDistrict.admDistrict + '</strong>';
       wo = 'in der Stadt ';
       was = 'die Stadt';
-      headline += data.admDistrict + ': ';
+      headline += currentDistrict.admDistrict + ': ';
     }
 
     // Rückgang oder Anstieg 2005-2015
-    if (data.shopCountDeltaPrc === 0) {
+    if (currentDistrict.shopCountDeltaPrc === 0) {
 
       paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren gleich geblieben.';
       headline += ' Einzelhandel stabil';
 
-    } else if (data.shopCountDeltaPrc < 0) {
+    } else if (currentDistrict.shopCountDeltaPrc < 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(data.shopCountDeltaPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-data.shopCountDeltaAbs) + ' Geschäft' + ((data.shopCountDeltaAbs == -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
-      headline += ((data.shopCountDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(currentDistrict.shopCountDeltaPrc) + ' zurückgegangen. Heute gibt es ' + wo + ' ' + getDigitStr(-currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs == -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
+      headline += ((currentDistrict.shopCountDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
     }
 
-    if (data.shopCountDeltaPrc > 0) {
+    if (currentDistrict.shopCountDeltaPrc > 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(data.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(data.shopCountDeltaPrc) +  ' gewachsen. Heute gibt es ' + wo + ' ' + getDigitStr(data.shopCountDeltaAbs) + ' Geschäft' + ((data.shopCountDeltaAbs == 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
-      headline += ' Einzelhandel wächst' + ((data.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen. Heute gibt es ' + wo + ' ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs == 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
+      headline += ' Einzelhandel wächst' + ((currentDistrict.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
     }
 
-    if (data.shopCountDeltaPrc > 0 && data.lastShopCountDeltaPrc >= 5 || data.shopCountDeltaPrc < 0 && data.lastShopCountDeltaPrc <= -5) {
+    if (currentDistrict.shopCountDeltaPrc > 0 && currentDistrict.lastShopCountDeltaPrc >= 5 || currentDistrict.shopCountDeltaPrc < 0 && currentDistrict.lastShopCountDeltaPrc <= -5) {
 
-      paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(data.lastShopCountDeltaAbs)) + ' Läden ' + ((data.lastShopCountDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.');
+      paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(currentDistrict.lastShopCountDeltaAbs)) + ' Läden ' + ((currentDistrict.lastShopCountDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.');
     }
 
     // Rückgang oder Anstieg der Ladenfläche
-    if (data.shopCountDeltaPrc < 0 && data.salesAreaDeltaPrc > 0) {
+    if (currentDistrict.shopCountDeltaPrc < 0 && currentDistrict.salesAreaDeltaPrc > 0) {
 
-      paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(data.salesAreaDeltaPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(data.salesAreaDeltaPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';
-    } else if (data.shopCountDeltaPrc < 0 && data.salesAreaDeltaPrc < 0) {
+      paragraph += ' Gleichzeitig hat die durchschnittliche Verkaufsfläche der Geschäfte hier ' + (getWrittenPcg(currentDistrict.salesAreaDeltaPrc) === 'leicht' ? ' ' : 'um ') + getWrittenPcg(currentDistrict.salesAreaDeltaPrc) + ' zugenommen. Das deutet darauf hin, dass kleinere Läden verschwunden sind, während sich größere Märkte gehalten oder sogar neu eröffnet haben.';
+    } else if (currentDistrict.shopCountDeltaPrc < 0 && currentDistrict.salesAreaDeltaPrc < 0) {
 
       paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
     }
 
-    paragraph += ' Marktführer ' + wo + ((data.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((data.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit ' + ((data.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(data.biggestChainCount) + ' Filialen.';
+    paragraph += ' Marktführer ' + wo + ((currentDistrict.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((currentDistrict.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + currentDistrict.biggestChain + ', mit ' + ((currentDistrict.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(currentDistrict.biggestChainCount) + ' Filialen.';
 
-    if (data.districtType === 'Stadt' && data.popDeltaPrc > 0) {
+    if (currentDistrict.districtType === 'Stadt' && currentDistrict.popDeltaPrc > 0) {
 
-      paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + data.admDistrict + '.';
+      paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + currentDistrict.admDistrict + '.';
     }
 
-    console.log(getCategory(data.shopCountDeltaPrc, scale));
+    if (currentDistrict.noStoreCount > 1) {
 
-    if (data.noStoreCount > 1) {
+      paragraph += ' In ' + getDigitStr(currentDistrict.noStoreCount) + ' Orten ' + wo + ' gibt es' + ((currentDistrict.shopCountDeltaPrc > 15) ? ' dennoch ' : '') + ' kein Lebensmittelgeschäft';
 
-      paragraph += ' In ' + getDigitStr(data.noStoreCount) + ' Orten ' + wo + ' gibt es' + ((data.shopCountDeltaPrc > 15) ? ' dennoch ' : '') + ' kein Lebensmittelgeschäft';
+      if (currentDistrict.noSupermarketCount > 1) {
 
-      if (data.noSupermarketCount > 1) {
-
-        paragraph += '. ' + ((data.noStoreCount === data.noSupermarketCount) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(data.noSupermarketCount)) + ' davon ') + 'gelten';
-      } else if (data.noSupermarketCount == 1) {
+        paragraph += '. ' + ((currentDistrict.noStoreCount === currentDistrict.noSupermarketCount) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(currentDistrict.noSupermarketCount)) + ' davon ') + 'gelten';
+      } else if (currentDistrict.noSupermarketCount == 1) {
 
         paragraph += ', einer davon gilt';
       }
 
-      if (data.noSupermarketCount > 0) {
+      if (currentDistrict.noSupermarketCount > 0) {
 
         paragraph += ' sogar als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
       }
@@ -137,29 +105,29 @@ var text = (function() {
       paragraph += '.';
     }
 
-    if (data.noStoreCount == 1) {
+    if (currentDistrict.noStoreCount == 1) {
 
-      paragraph += ' In einem Ort ' + wo + ' gibt es kein Lebensmittelgeschäft' + ((data.noSupermarketCount == 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
+      paragraph += ' In einem Ort ' + wo + ' gibt es kein Lebensmittelgeschäft' + ((currentDistrict.noSupermarketCount == 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
     }
 
     paragraph += ' Die Zahlen beruhen auf Erhebungen der Staatsregierung.';
 
-    if (data.ruralStoresCount) {
+    if (currentDistrict.ruralStoresCount) {
 
-      var stores = data.ruralStoresNames.split(', ');
+      var stores = currentDistrict.ruralStoresNames.split(', ');
 
-      if (data.ruralStoresCount == 1) {
+      if (currentDistrict.ruralStoresCount == 1) {
 
         paragraph += ' Es gibt einen Dorfladen ' + wo + ', in ' + stores[0] + '.';
-      } else if (data.ruralStoresCount == 2) {
+      } else if (currentDistrict.ruralStoresCount == 2) {
 
-        paragraph += ' Es gibt zwei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + stores[0] + ' und ' + stores[1] +'.';
-      } else if (data.ruralStoresCount == 3) {
+        paragraph += ' Es gibt zwei Dorfläden ' + wo + ' ' + getShortName(currentDistrict) + ': In ' + stores[0] + ' und ' + stores[1] +'.';
+      } else if (currentDistrict.ruralStoresCount == 3) {
 
-        paragraph += ' Es gibt drei Dorfläden ' + wo + ' ' + getShortName(data) + ': In ' + stores[0] + ', ' + stores[1] + ' und ' + stores[2] +'.';
-      } else if (data.ruralStoresCount > 3) {
+        paragraph += ' Es gibt drei Dorfläden ' + wo + ' ' + getShortName(currentDistrict) + ': In ' + stores[0] + ', ' + stores[1] + ' und ' + stores[2] +'.';
+      } else if (currentDistrict.ruralStoresCount > 3) {
 
-        paragraph += ' Es gibt ' + getDigitStr(data.ruralStoresCount) + ' Dorfläden ' + wo + ' ' + getShortName(data) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
+        paragraph += ' Es gibt ' + getDigitStr(currentDistrict.ruralStoresCount) + ' Dorfläden ' + wo + ' ' + getShortName(currentDistrict) + '. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
       }
     }
 
@@ -173,9 +141,9 @@ var text = (function() {
     return array[dig] || dig.toString();
   }
 
-  function getShortName(data) {
+  function getShortName(currentDistrict) {
 
-    return data.shortName || data.admDistrict;
+    return currentDistrict.shortName || currentDistrict.admDistrict;
   }
 
   function capitalizeFirstLetter(string) {
@@ -183,29 +151,29 @@ var text = (function() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  function getgovDistrictAdj(data) {
+  function getDistrictAdj(currentDistrict) {
 
     var result;
 
-    if (data == 'Oberbayern') {
+    if (currentDistrict == 'Oberbayern') {
 
       result = 'oberbayerisch';
-    } else if (data == 'Oberpfalz') {
+    } else if (currentDistrict == 'Oberpfalz') {
 
       result = 'oberpfälzisch';
-    } else if (data == 'Oberfranken') {
+    } else if (currentDistrict == 'Oberfranken') {
 
       result = 'oberfränkisch';
-    } else if (data == 'Unterfranken') {
+    } else if (currentDistrict == 'Unterfranken') {
 
       result = 'unterfränkisch';
-    } else if (data == 'Mittelfranken') {
+    } else if (currentDistrict == 'Mittelfranken') {
 
       result = 'mittelfränkisch';
-    } else if (data == 'Schwaben') {
+    } else if (currentDistrict == 'Schwaben') {
 
       result = 'schwäbisch';
-    } else if (data == 'Niederbayern') {
+    } else if (currentDistrict == 'Niederbayern') {
 
       result = 'niederbayerisch';
     }
@@ -250,6 +218,14 @@ var text = (function() {
     }
 
     return result;
+  }
+
+  function getDistrictById(id) {
+
+    return districtData.filter(function (element) {
+
+      return element.id === id;
+    })[0];
   }
 
   function getCategory(value, scale) {

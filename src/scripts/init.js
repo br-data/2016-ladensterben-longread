@@ -4,8 +4,6 @@ function init() {
 
   navigation.init();
   marginals.init();
-
-  text.init();
   map.init();
 
   waypoint();
