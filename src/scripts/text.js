@@ -100,30 +100,32 @@ var text = (function() {
       theRelatedDistrict = 'der Landkreis';
       }
 
-      paragraph += ' ' + capitalizeFirstLetter(inRelatedDistrict) + ' ' + relatedDistrict.admDistrict + ' ist die Zahl der Läden';
+      paragraph += ' ' + capitalizeFirstLetter(inRelatedDistrict) + ' ' + relatedDistrict.admDistrict;
 
       // the other district has a higher rate
       if (relatedDistrict.shopCountDeltaPrc > currentDistrict.shopCountDeltaPrc) {
 
+        paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0) ? '' : 'dagegen' ) + ' besser aus: Dort ist die Zahl der Läden';
       // ...and both are diminishing
         if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' dagegen nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
+        paragraph += ' nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
       // ...and the other one is growing while this one is diminishing
         } else if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' dagegen gewachsen.'
+        paragraph += ' gewachsen.'
         }
       }
       // the other district has a lower rate
       else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
+        paragraph += ' sieht es dagegen schlechter aus: Dort ist die Zahl der Läden';
         // ... but both are growing
         if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' dagegen nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
+        paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
       // ... and the other one is diminishing while this one is growing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' dagegen zurückgegangen.'
+        paragraph += ' zurückgegangen.'
         // ...and both are diminishing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' allerdings noch stärker zurückgegangen.'
+        paragraph += ' noch stärker zurückgegangen.'
         }
       }
       
