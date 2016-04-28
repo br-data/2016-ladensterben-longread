@@ -106,7 +106,7 @@ var text = (function() {
       paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
     }
 
-    paragraph += ' Marktführer ' + wo + ' ist ' + ((data.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit insgesamt ' + data.biggestChainCount + ' Filialen.';
+    paragraph += ' Marktführer ' + wo + ((data.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((data.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + data.biggestChain + ', mit ' + ((data.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(data.biggestChainCount) + ' Filialen.';
 
     if (data.districtType === 'Stadt' && data.popDeltaPrc > 0) {
 
@@ -166,7 +166,7 @@ var text = (function() {
 
     var array = ['kein', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
 
-    return array[dig] || dig;
+    return array[dig] || dig.toString();
   }
 
   function getShortName(data) {
