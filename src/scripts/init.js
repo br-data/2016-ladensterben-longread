@@ -6,11 +6,7 @@ function init() {
   marginals.init();
 
   text.init();
-
-  utils.getJson('./data/bayern.geo.json', function (data) {
-
-    map.init(data);
-  });
+  map.init();
 
   waypoint();
   resize();
