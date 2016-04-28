@@ -55,13 +55,13 @@ var text = (function() {
 
     } else if (currentDistrict.shopCountDeltaPrc < 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(currentDistrict.shopCountDeltaPrc) + ' zurückgegangen. Heute gibt es hier ' + getDigitStr(-currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(currentDistrict.shopCountDeltaPrc) + ' zurückgegangen' + ((currentDistrict.popDeltaPrc < 0) ? '. Auch die Einwohnerzahl hat abgenommen.' : ', obwohl die Einwohnerzahl zugenommen hat.') + ' Heute gibt es hier ' + getDigitStr(-currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
       headline += ((currentDistrict.shopCountDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
     }
 
     if (currentDistrict.shopCountDeltaPrc > 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen. Heute gibt es hier ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen' + ((currentDistrict.popDeltaPrc > 0) ? '. Auch die Einwohnerzahl hat zugenommen.' : ', obwohl die Einwohnerzahl abgenommen hat.') + ' Heute gibt es hier ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
       headline += ' Einzelhandel wächst' + ((currentDistrict.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
     }
 
