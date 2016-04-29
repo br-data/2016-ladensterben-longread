@@ -27,6 +27,7 @@ module.exports = function (grunt) {
             'src/scripts/utils.js',
             'src/scripts/navigation.js',
             'src/scripts/marginals.js',
+            'src/scripts/modal.js',
             'src/scripts/text.js',
             'src/scripts/scroll.js',
             'src/scripts/map.js',

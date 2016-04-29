@@ -4,6 +4,7 @@ function init() {
 
   navigation.init();
   marginals.init();
+  modal.init();
   map.init();
 
   waypoint();
