@@ -41,8 +41,8 @@ var modal = (function () {
 
   function open($element) {
 
-    $element.style.display = '1';
-    $element.style.pointerEvents = 'all';
+    $element.style.opacity = '1';
+    $element.style.pointerEvents = 'auto';
   }
 
   // Export global functions

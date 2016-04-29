@@ -1,10 +1,18 @@
 var text = (function() {
 
-  var textContainer, districtData;
+  var $textContainer, $embedContainer, $embedButton, districtData;
 
   function init(data) {
 
-    textContainer = document.getElementById('text');
+    $textContainer = document.getElementById('text');
+
+    $embedContainer = document.getElementById('embedContainer');
+    $embedButton = document.getElementById('embedButton');
+
+    $embedButton.addEventListener('click', function () {
+
+      modal.open($embedContainer);
+    });
 
     districtData = data;
 
@@ -17,7 +25,7 @@ var text = (function() {
     currentDistrict = getDistrictById(currentDistrict);
     scale = scale || [-37.14, -27.92, -18.7, -9.479999999999997, -0.259999999999998, 8.96, 18.180000000000007];
 
-    textContainer.innerHTML = getString(currentDistrict, scale);
+    $textContainer.innerHTML = getString(currentDistrict, scale);
   }
 
   function getString(currentDistrict, scale) {
@@ -45,7 +53,7 @@ var text = (function() {
       headline += currentDistrict.admDistrict + ': ';
     }
 
-       
+
 
     // Compare values 2005-2015
     if (currentDistrict.shopCountDeltaPrc === 0) {
@@ -133,7 +141,7 @@ var text = (function() {
         paragraph += ' gleich geblieben.'
         }
       }
-      
+
     }
 
     // Rückgang oder Anstieg der Ladenfläche
@@ -177,7 +185,7 @@ var text = (function() {
       paragraph += ' In einem Ort ' + inCurrentDistrict + ' gibt es kein Lebensmittelgeschäft' + ((currentDistrict.noSupermarketCount === 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
     }
 
-    
+
 
     if (currentDistrict.ruralStoresCount) {
 
@@ -201,7 +209,7 @@ var text = (function() {
         paragraph += ' Es gibt bereits in ' + getDigitStr(currentDistrict.ruralStoresCount) + ' Orten Dorfladeninitiativen. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
       }
 
-    
+
 
     }
 
