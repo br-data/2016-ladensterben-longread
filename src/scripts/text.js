@@ -82,7 +82,7 @@ var text = (function() {
 
     //Get category and interpret it
 
-    paragraph += ' '
+    paragraph += ' ';
 
     if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 0) {
       paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((currentDistrict.shopCountDeltaPrc === scale[0]) ? '' : ' mit ') + ' am stärksten vom Ladensterben betroffen.'
@@ -100,12 +100,12 @@ var text = (function() {
       var theRelatedDistrict = '';
 
       if (relatedDistrict.districtType === 'Stadt') {
-      inRelatedDistrict = 'in der Stadt';
-      theRelatedDistrict = 'die Stadt';
+        inRelatedDistrict = 'in der Stadt';
+        theRelatedDistrict = 'die Stadt';
 
       } else if (relatedDistrict.districtType === 'Landkreis') {
-      inRelatedDistrict = 'im umliegenden Landkreis';
-      theRelatedDistrict = 'der Landkreis';
+        inRelatedDistrict = 'im umliegenden Landkreis';
+        theRelatedDistrict = 'der Landkreis';
       }
 
       paragraph += ' ' + ((relatedDistrict.districtType === 'Stadt') ? 'In der' : 'Im') + ((relatedDistrict.admDistrict === currentDistrict.admDistrict) ? ' gleichnamigen ' : ' ') + relatedDistrict.districtType + ' ' + relatedDistrict.admDistrict + ((relatedDistrict.districtType === 'Landkreis') ? ', der die Stadt umgibt, ' : ', die vom Landkreis umschlossen ist, ');
@@ -114,34 +114,42 @@ var text = (function() {
       if (relatedDistrict.shopCountDeltaPrc > currentDistrict.shopCountDeltaPrc) {
 
         paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0) ? '' : 'dagegen' ) + ' besser aus: Dort ist die Zahl der Läden';
-      // ...and both are diminishing
+
+        // ...and both are diminishing
         if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
-      // ...and the other one is growing while this one is diminishing
+
+          paragraph += ' nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '');
+        // ...and the other one is growing while this one is diminishing
         } else if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' gewachsen.'
+
+          paragraph += ' gewachsen.';
         } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' immerhin gleich geblieben.'
+
+          paragraph += ' immerhin gleich geblieben.';
         }
-      }
       // the other district has a lower rate
-      else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
+      } else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
+
         paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0 && relatedDistrict.shopCountDeltaPrc < 0) ? 'dagegen' : '' ) + ' schlechter aus: Dort ist die Zahl der Läden';
+
         // ... but both are growing
         if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
-      // ... and the other one is diminishing while this one is growing
+
+          paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '');
+        // ... and the other one is diminishing while this one is growing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc >= 0) {
-        paragraph += ' zurückgegangen.'
+
+          paragraph += ' zurückgegangen.';
         // ...and both are diminishing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' noch stärker zurückgegangen.'
+
+          paragraph += ' noch stärker zurückgegangen.';
         //... this one is growing, the other one stays the same
         } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' gleich geblieben.'
+
+          paragraph += ' gleich geblieben.';
         }
       }
-
     }
 
     // Rückgang oder Anstieg der Ladenfläche
@@ -192,7 +200,7 @@ var text = (function() {
       var stores = currentDistrict.ruralStoresNames.split(', ');
 
       if (currentDistrict.noStoreCount > 1) {
-        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: '
+        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: ';
       }
 
       if (currentDistrict.ruralStoresCount === 1) {
@@ -208,14 +216,9 @@ var text = (function() {
 
         paragraph += ' Es gibt bereits in ' + getDigitStr(currentDistrict.ruralStoresCount) + ' Orten Dorfladeninitiativen. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
       }
-
-
-
     }
 
     paragraph += ' Die Angaben beruhen auf Erhebungen der Staatsregierung.';
-
-    console.log(relatedDistrict)
 
     return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
   }
