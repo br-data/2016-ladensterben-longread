@@ -271,8 +271,8 @@ button,
     vertical-align: middle;
     margin: 0 auto;
     text-align: left;
-    z-index: 1045;
-    max-width: 640px;
+    z-index: 70;
+    max-width: 940px;
     background: #fff;
     padding: 1em 1.5em 1.5em; }
     .modal .content h3 {
@@ -556,7 +556,8 @@ pre {
   margin-bottom: 3em;
   white-space: normal;
   padding: 2em;
-  background: #f0f0f4; }
+  background: #f0f0f4;
+  overflow: hidden; }
 
 .video-js {
   font-size: 10px;
