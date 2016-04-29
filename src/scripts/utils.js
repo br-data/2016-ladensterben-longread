@@ -21,13 +21,7 @@ var utils = (function () {
     httpRequest.send();
   }
 
-  function escapeHtml(string) {
-
-    return string.replace(/>/g,'&gt;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
-  }
-
   return {
-    getJson: getJson,
-    escapeHtml: escapeHtml
+    getJson: getJson
   };
 })();

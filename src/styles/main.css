@@ -272,13 +272,16 @@ button,
     margin: 0 auto;
     text-align: left;
     z-index: 70;
-    max-width: 940px;
+    width: 90%;
+    max-width: 820px;
     background: #fff;
     padding: 1em 1.5em 1.5em; }
     .modal .content h3 {
       margin-top: 0; }
     .modal .content pre {
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      max-height: 350px;
+      overflow: scroll; }
   .modal .close {
     position: absolute;
     top: 0;

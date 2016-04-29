@@ -240,6 +240,7 @@ var text = (function() {
 
     var img = '<img src="http://web.br.de/interaktiv/einzelhandel/images/landkreise.svg" style="width=100%;max-width=660px;margin-bottom:1em;" alt="Entwicklung des Einzelhandels in Bayern">';
     var source = '<p><strong>Quelle</strong>: <a href="http://web.br.de/interaktiv/einzelhandel">Einzelhandel in Bayern</a>, ein Projekt des Bayerischen Rundfunks.</p>';
+
     text = img + text + source;
 
     return text;
