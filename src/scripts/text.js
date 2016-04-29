@@ -1,10 +1,19 @@
 var text = (function() {
 
-  var textContainer, districtData;
+  var $textContainer, $embedContainer, $embedCode, $embedButton, districtData;
 
   function init(data) {
 
-    textContainer = document.getElementById('text');
+    $textContainer = document.getElementById('text');
+
+    $embedContainer = document.getElementById('embedContainer');
+    $embedCode = document.querySelector('pre');
+    $embedButton = document.getElementById('embedButton');
+
+    $embedButton.addEventListener('click', function () {
+
+      modal.open($embedContainer);
+    });
 
     districtData = data;
 
@@ -14,13 +23,18 @@ var text = (function() {
 
   function render(currentDistrict, scale) {
 
+    var text;
+
     currentDistrict = getDistrictById(currentDistrict);
     scale = scale || [-37.14, -27.92, -18.7, -9.479999999999997, -0.259999999999998, 8.96, 18.180000000000007];
 
-    textContainer.innerHTML = getString(currentDistrict, scale);
+    text = getText(currentDistrict, scale);
+
+    $textContainer.innerHTML = text;
+    $embedCode.textContent = getEmbedCode(text);
   }
 
-  function getString(currentDistrict, scale) {
+  function getText(currentDistrict, scale) {
 
     var relatedDistrict = getDistrictById(currentDistrict.relatedDistrictId);
     var headline = '', paragraph = '', theCurrentDistrict = '', inCurrentDistrict = '', prefix = '';
@@ -45,7 +59,6 @@ var text = (function() {
       headline += currentDistrict.admDistrict + ': ';
     }
 
-       
 
     // Compare values 2005-2015
     if (currentDistrict.shopCountDeltaPrc === 0) {
@@ -65,39 +78,44 @@ var text = (function() {
       headline += ' Einzelhandel wächst' + ((currentDistrict.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
     }
 
-    //Compare to 2015 to 2014 values, mention only if big difference
 
+    //Compare to 2015 to 2014 values, mention only if big difference
     if (currentDistrict.shopCountDeltaPrc > 0 && currentDistrict.lastShopCountDeltaPrc >= 5 || currentDistrict.shopCountDeltaPrc < 0 && currentDistrict.lastShopCountDeltaPrc <= -5) {
 
       paragraph += ' Allein im Vergleich zur letzten Erhebung 2014 sind ' + getDigitStr(Math.abs(currentDistrict.lastShopCountDeltaAbs)) + ' Läden ' + ((currentDistrict.lastShopCountDeltaAbs > 0) ? 'hinzugekommen.' : 'weggefallen.');
     }
 
-    //Get category and interpret it
 
-    paragraph += ' '
+    //Get category and interpret it
+    paragraph += ' ';
 
     if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 0) {
+
       paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((currentDistrict.shopCountDeltaPrc === scale[0]) ? '' : ' mit ') + ' am stärksten vom Ladensterben betroffen.'
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 1 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 2) {
+
       paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 1) ? ' deutlich ' : ' ') + 'stärker vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.'
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 3) {
-      paragraph +=  capitalizeFirstLetter(theCurrentDistrict) + ' ist damit weniger stark vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.'
+
+      paragraph +=  capitalizeFirstLetter(theCurrentDistrict) + ' ist damit weniger stark vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.';
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 4 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) {
+
       paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als in den meisten Landkreisen und kreisfreien Städten in Bayern.'
     }
 
- // relatedDistrict
+
+    // relatedDistrict
     if (relatedDistrict) {
       var inRelatedDistrict = '';
       var theRelatedDistrict = '';
 
       if (relatedDistrict.districtType === 'Stadt') {
-      inRelatedDistrict = 'in der Stadt';
-      theRelatedDistrict = 'die Stadt';
+        inRelatedDistrict = 'in der Stadt';
+        theRelatedDistrict = 'die Stadt';
 
       } else if (relatedDistrict.districtType === 'Landkreis') {
-      inRelatedDistrict = 'im umliegenden Landkreis';
-      theRelatedDistrict = 'der Landkreis';
+        inRelatedDistrict = 'im umliegenden Landkreis';
+        theRelatedDistrict = 'der Landkreis';
       }
 
       paragraph += ' ' + ((relatedDistrict.districtType === 'Stadt') ? 'In der' : 'Im') + ((relatedDistrict.admDistrict === currentDistrict.admDistrict) ? ' gleichnamigen ' : ' ') + relatedDistrict.districtType + ' ' + relatedDistrict.admDistrict + ((relatedDistrict.districtType === 'Landkreis') ? ', der die Stadt umgibt, ' : ', die vom Landkreis umschlossen ist, ');
@@ -106,35 +124,44 @@ var text = (function() {
       if (relatedDistrict.shopCountDeltaPrc > currentDistrict.shopCountDeltaPrc) {
 
         paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0) ? '' : 'dagegen' ) + ' besser aus: Dort ist die Zahl der Läden';
-      // ...and both are diminishing
+
+        // ...and both are diminishing
         if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
-      // ...and the other one is growing while this one is diminishing
+
+          paragraph += ' nicht ganz so stark zurückgegangen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '');
+        // ...and the other one is growing while this one is diminishing
         } else if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' gewachsen.'
+
+          paragraph += ' gewachsen.';
         } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' immerhin gleich geblieben.'
+
+          paragraph += ' immerhin gleich geblieben.';
         }
-      }
       // the other district has a lower rate
-      else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
+      } else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
+
         paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0 && relatedDistrict.shopCountDeltaPrc < 0) ? 'dagegen' : '' ) + ' schlechter aus: Dort ist die Zahl der Läden';
+
         // ... but both are growing
         if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
-      // ... and the other one is diminishing while this one is growing
+
+          paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '');
+        // ... and the other one is diminishing while this one is growing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc >= 0) {
-        paragraph += ' zurückgegangen.'
+
+          paragraph += ' zurückgegangen.';
         // ...and both are diminishing
         } else if (relatedDistrict.shopCountDeltaPrc < 0 && currentDistrict.shopCountDeltaPrc < 0) {
-        paragraph += ' noch stärker zurückgegangen.'
+
+          paragraph += ' noch stärker zurückgegangen.';
         //... this one is growing, the other one stays the same
         } else if (relatedDistrict.shopCountDeltaPrc === 0 && currentDistrict.shopCountDeltaPrc > 0) {
-        paragraph += ' gleich geblieben.'
+
+          paragraph += ' gleich geblieben.';
         }
       }
-      
     }
+
 
     // Rückgang oder Anstieg der Ladenfläche
     if (currentDistrict.shopCountDeltaPrc < 0 && currentDistrict.salesAreaDeltaPrc > 0) {
@@ -147,10 +174,12 @@ var text = (function() {
 
     paragraph += '</p></p> Marktführer ' + inCurrentDistrict + ' ' + currentDistrict.admDistrict + ((currentDistrict.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((currentDistrict.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + currentDistrict.biggestChain + ' mit ' + ((currentDistrict.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(currentDistrict.biggestChainCount) + ' Filialen.';
 
+
     if (currentDistrict.districtType === 'Stadt' && currentDistrict.popDeltaPrc > 0) {
 
       paragraph += ' Wie die meisten kreisfreien Städte in Bayern wächst auch ' + currentDistrict.admDistrict + '.';
     }
+
 
     if (currentDistrict.noStoreCount > 1) {
 
@@ -177,14 +206,13 @@ var text = (function() {
       paragraph += ' In einem Ort ' + inCurrentDistrict + ' gibt es kein Lebensmittelgeschäft' + ((currentDistrict.noSupermarketCount === 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
     }
 
-    
 
     if (currentDistrict.ruralStoresCount) {
 
       var stores = currentDistrict.ruralStoresNames.split(', ');
 
       if (currentDistrict.noStoreCount > 1) {
-        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: '
+        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: ';
       }
 
       if (currentDistrict.ruralStoresCount === 1) {
@@ -200,16 +228,22 @@ var text = (function() {
 
         paragraph += ' Es gibt bereits in ' + getDigitStr(currentDistrict.ruralStoresCount) + ' Orten Dorfladeninitiativen. Der Landkreis nimmt damit in Bayern eine Vorreiterrolle ein.';
       }
-
-    
-
     }
+
 
     paragraph += ' Die Angaben beruhen auf Erhebungen der Staatsregierung.';
 
-    console.log(relatedDistrict)
+    return '<h3>' + headline + '</h3><p>' + paragraph + '</p>';
+  }
 
-    return '<h3>' + headline + '</h3> <p>' + paragraph + '</p>';
+  function getEmbedCode(text) {
+
+    var img = '<img src="http://web.br.de/interaktiv/einzelhandel/images/landkreise.svg" style="width=100%;max-width=660px;margin-bottom:1em;" alt="Entwicklung des Einzelhandels in Bayern">';
+    var source = '<p><strong>Quelle</strong>: <a href="http://web.br.de/interaktiv/einzelhandel">Einzelhandel in Bayern</a>, ein Projekt des Bayerischen Rundfunks.</p>';
+
+    text = img + text + source;
+
+    return text;
   }
 
   function getDigitStr(dig) {
