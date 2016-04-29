@@ -34,7 +34,7 @@ var text = (function() {
     if (currentDistrict.districtType === 'Landkreis') {
 
       paragraph += 'Im ' + getDistrictAdj(currentDistrict.govDistrict) + 'en <strong>Landkreis ' + currentDistrict.admDistrict + '</strong>';
-      inCurrentDistrict = ' im Landkreis';
+      inCurrentDistrict = 'im Landkreis';
       theCurrentDistrict = 'der Landkreis';
       headline += 'Landkreis ' + currentDistrict.admDistrict + ': ';
     } else if (currentDistrict.districtType === 'Stadt') {
@@ -55,13 +55,13 @@ var text = (function() {
 
     } else if (currentDistrict.shopCountDeltaPrc < 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(currentDistrict.shopCountDeltaPrc) + ' zurückgegangen' + ((currentDistrict.popDeltaPrc < 0) ? '. Auch die Einwohnerzahl hat abgenommen.' : ', obwohl die Einwohnerzahl zugenommen hat.') + ' Heute gibt es hier ' + getDigitStr(-currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === -1) ? ' ' : 'e ') + 'weniger als noch im Jahr 2005.';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') +  getWrittenPcg(currentDistrict.shopCountDeltaPrc) + ' zurückgegangen' + ((currentDistrict.popDeltaPrc < 0) ? '. Auch die Einwohnerzahl hat abgenommen.' : ', obwohl die Einwohnerzahl zugenommen hat.') + ' Heute gibt es hier ' + getDigitStr(-currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === -1) ? ' ' : 'e ') + 'weniger als im Jahr 2005.';
       headline += ((currentDistrict.shopCountDeltaPrc < -15) ? 'Deutlich w' : 'W') + 'eniger Geschäfte';
     }
 
     if (currentDistrict.shopCountDeltaPrc > 0) {
 
-      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen' + ((currentDistrict.popDeltaPrc > 0) ? '. Auch die Einwohnerzahl hat zugenommen.' : ', obwohl die Einwohnerzahl abgenommen hat.') + ' Heute gibt es hier ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === 1) ? ' ' : 'e ') + 'mehr als noch im Jahr 2005.';
+      paragraph += ' ist der Einzelhandel in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen' + ((currentDistrict.popDeltaPrc > 0) ? '. Auch die Einwohnerzahl hat zugenommen.' : ', obwohl die Einwohnerzahl abgenommen hat.') + ' Heute gibt es hier ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === 1) ? ' ' : 'e ') + 'mehr als im Jahr 2005.';
       headline += ' Einzelhandel wächst' + ((currentDistrict.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
     }
 
@@ -83,7 +83,7 @@ var text = (function() {
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 3) {
       paragraph +=  capitalizeFirstLetter(theCurrentDistrict) + ' ist damit weniger stark vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.'
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 4 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) {
-      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als im Rest des Freistaats.'
+      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als in den meisten Landkreisen und kreisfreien Städten in Bayern.'
     }
 
  // relatedDistrict
@@ -118,7 +118,7 @@ var text = (function() {
       }
       // the other district has a lower rate
       else if (relatedDistrict.shopCountDeltaPrc < currentDistrict.shopCountDeltaPrc) {
-        paragraph += ' sieht es dagegen schlechter aus: Dort ist die Zahl der Läden';
+        paragraph += ' sieht es ' + ((currentDistrict.shopCountDeltaPrc >= 0 && relatedDistrict.shopCountDeltaPrc < 0) ? 'dagegen' : '' ) + ' schlechter aus: Dort ist die Zahl der Läden';
         // ... but both are growing
         if (relatedDistrict.shopCountDeltaPrc > 0 && currentDistrict.shopCountDeltaPrc > 0) {
         paragraph += ' nicht ganz so stark gewachsen.' + ((relatedDistrict.districtType === 'Stadt') ? '' : '')
@@ -145,7 +145,7 @@ var text = (function() {
       paragraph += ' Gleichzeitig hat auch die durchschnittliche Verkaufsfläche der Geschäfte ' + ((relatedDistrict) ? inCurrentDistrict + ' ' : 'hier ') + 'abgenommen. Das deutet darauf hin, dass größere Märkte geschlossen haben, während sich kleinere Läden gehalten haben.';
     }
 
-    paragraph += ' Marktführer ' + inCurrentDistrict + ((currentDistrict.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((currentDistrict.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + currentDistrict.biggestChain + ', mit ' + ((currentDistrict.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(currentDistrict.biggestChainCount) + ' Filialen.';
+    paragraph += '</p></p> Marktführer ' + inCurrentDistrict + ' ' + currentDistrict.admDistrict + ((currentDistrict.biggestChainDeltaFctr === 1) ? ' sind ' : ' ist ') + ((currentDistrict.biggestChainDeltaFctr > 2) ? 'mit deutlichem Abstand ' : ' ') + currentDistrict.biggestChain + ' mit ' + ((currentDistrict.biggestChainDeltaFctr === 1) ? 'jeweils ' : 'insgesamt ') + getDigitStr(currentDistrict.biggestChainCount) + ' Filialen.';
 
     if (currentDistrict.districtType === 'Stadt' && currentDistrict.popDeltaPrc > 0) {
 
@@ -184,7 +184,7 @@ var text = (function() {
       var stores = currentDistrict.ruralStoresNames.split(', ');
 
       if (currentDistrict.noStoreCount > 1) {
-        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' ' + getShortName(currentDistrict) +' selbst in die Hand: '
+        paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: '
       }
 
       if (currentDistrict.ruralStoresCount === 1) {
