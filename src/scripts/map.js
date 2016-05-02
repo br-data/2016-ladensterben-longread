@@ -123,14 +123,13 @@ var map = (function() {
 
   function getLegend() {
 
-
     var legend = L.control({position: 'bottomleft'});
 
     legend.onAdd = function () {
 
-      var wrapper = L.DomUtil.create('div', 'g-map-legend map');
-      var title = L.DomUtil.create('div', 'g-legend-title', wrapper);
-      var innerlegend = L.DomUtil.create('div', 'g-map-innerlegend', wrapper);
+      var wrapper = L.DomUtil.create('div', 'legend');
+      var title = L.DomUtil.create('div', 'title', wrapper);
+      var innerlegend = L.DomUtil.create('div', 'inner', wrapper);
 
       title.innerHTML = 'Supermärkte: Zu-/Abnahme seit 2005 in %';
 
@@ -138,13 +137,13 @@ var map = (function() {
 
       for (var i = 0; i < grades.length; i++) {
         innerlegend.innerHTML +=
-          '<div class="g-class-' + i + ' g-legend-class"></div>' +
-          '<div class="g-tic">' +
-            '<div class="g-ticnum">' + Math.round(grades[i]) +'</div>' +
+          '<div class="class-' + i + ' class"></div>' +
+          '<div class="tick">' +
+            '<div class="label">' + Math.round(grades[i]) +'</div>' +
           '</div>';
       }
 
-      innerlegend.innerHTML += '<div class="g-class-5 g-legend-class"></div>';
+      innerlegend.innerHTML += '<div class="class-5 class"></div>';
 
       return wrapper;
     };

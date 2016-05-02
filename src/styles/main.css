@@ -770,42 +770,46 @@ footer {
 #waypoint {
   cursor: pointer; }
 
-.g-map-legend.map {
+.legend {
   text-align: center;
   margin-top: 1em;
   margin-bottom: 2em; }
-  .g-map-legend.map div {
+  .legend div {
     display: inline-block;
     vertical-align: top; }
-  .g-map-legend.map .g-legend-title {
+  .legend .title {
     font-size: 14px;
-    font-weight: 600; }
-  .g-map-legend.map .g-map-innerlegend {
+    font-weight: 600;
+    display: inline; }
+    .legend .title:after {
+      content: "\a";
+      white-space: pre; }
+  .legend .inner {
     font-size: 13px; }
-    .g-map-legend.map .g-map-innerlegend .g-legend-class {
+    .legend .inner .class {
       width: 36px;
       height: 10px;
-      opacity: 0.8; }
-    .g-map-legend.map .g-map-innerlegend .g-tic {
+      opacity: .8; }
+    .legend .inner .tick {
       position: relative;
       border-right: 1px solid #444;
       height: 14px; }
-    .g-map-legend.map .g-map-innerlegend .g-ticnum {
+    .legend .inner .label {
       position: absolute;
       left: -12px;
       width: 24px;
       top: 15px; }
-    .g-map-legend.map .g-map-innerlegend .g-class-0 {
+    .legend .inner .class-0 {
       background-color: #d81d09; }
-    .g-map-legend.map .g-map-innerlegend .g-class-1 {
+    .legend .inner .class-1 {
       background-color: #f9842d; }
-    .g-map-legend.map .g-map-innerlegend .g-class-2 {
+    .legend .inner .class-2 {
       background-color: #ffc166; }
-    .g-map-legend.map .g-map-innerlegend .g-class-3 {
+    .legend .inner .class-3 {
       background-color: #f7eec1; }
-    .g-map-legend.map .g-map-innerlegend .g-class-4 {
+    .legend .inner .class-4 {
       background-color: #dfedf7; }
-    .g-map-legend.map .g-map-innerlegend .g-class-5 {
+    .legend .inner .class-5 {
       background-color: #a7c9ea; }
 
 .orange {

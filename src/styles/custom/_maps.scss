@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.g-map-legend.map {
+.legend {
 
   text-align: center;
   margin-top: 1em;
@@ -36,49 +36,55 @@
     vertical-align: top;
   }
 
-  .g-legend-title {
+  .title {
     font-size: 14px;
     font-weight: 600;
+    display: inline;
+
+    &:after {
+      content:"\a";
+      white-space: pre;
+    }
   }
 
-  .g-map-innerlegend {
+  .inner {
     font-size: 13px;
 
-
-    .g-legend-class {
+    .class {
       width: 36px;
       height: 10px;
-      opacity: 0.8;
+      opacity: .8;
     }
-    .g-tic {
+
+    .tick {
       position: relative;
       border-right: 1px solid #444;
       height: 14px;
     }
 
-    .g-ticnum {
+    .label {
       position: absolute;
       left: -12px;
       width: 24px;
       top: 15px;
     }
 
-    .g-class-0 {
+    .class-0 {
       background-color: #d81d09;
     }
-    .g-class-1 {
+    .class-1 {
       background-color: #f9842d;
     }
-    .g-class-2 {
+    .class-2 {
       background-color: #ffc166;
     }
-    .g-class-3 {
+    .class-3 {
       background-color: #f7eec1;
     }
-    .g-class-4 {
+    .class-4 {
       background-color: #dfedf7;
     }
-    .g-class-5 {
+    .class-5 {
       background-color: #a7c9ea;
     }
   }
