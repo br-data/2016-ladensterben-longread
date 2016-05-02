@@ -1,8 +1,8 @@
 var text = (function() {
 
-  var $textContainer, $embedContainer, $embedCode, $embedButton, districtData;
+  var $textContainer, $embedContainer, $embedCode, $embedButton, districtData, scale;
 
-  function init(data) {
+  function init(data, range) {
 
     $textContainer = document.getElementById('text');
 
@@ -15,23 +15,20 @@ var text = (function() {
       modal.open($embedContainer);
     });
 
+    scale = range;
     districtData = data;
 
     // Set the default district
     render('09475');
   }
 
-  function render(currentDistrict, scale) {
-
-    var text;
+  function render(currentDistrict, currentText) {
 
     currentDistrict = getDistrictById(currentDistrict);
-    scale = scale || [-37.14, -27.92, -18.7, -9.479999999999997, -0.259999999999998, 8.96, 18.180000000000007];
+    currentText = getText(currentDistrict, scale);
 
-    text = getText(currentDistrict, scale);
-
-    $textContainer.innerHTML = text;
-    $embedCode.textContent = getEmbedCode(text);
+    $textContainer.innerHTML = currentText;
+    $embedCode.textContent = getEmbedCode(currentText);
   }
 
   function getText(currentDistrict, scale) {

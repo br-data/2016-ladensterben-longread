@@ -1,6 +1,22 @@
 var map = (function() {
 
-  var $map, $topoLayer, mapContainer, popup, data, scale, timeout;
+  var $map, $tileLayer, $topoLayer, $currentLayer, mapContainer, popup, data, scale, dimmed, timeout;
+
+  var defaultDistrict = '09475';
+
+  var highlight = {
+    color: 'black',
+    weight: 2.5,
+    fillOpacity: 1,
+    opacity: 1
+  };
+
+  var lowlight = {
+    color: 'black',
+    weight: 0.5,
+    fillOpacity: 0.4,
+    opacity: 1
+  };
 
   function init() {
 
@@ -19,11 +35,6 @@ var map = (function() {
 
     utils.getJson('./data/landkreise.topo.json', function (districtGeo) {
 
-      var $tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-      });
-
       $map = L.map('map', {
 
         scrollWheelZoom: false,
@@ -36,14 +47,21 @@ var map = (function() {
         position:'bottomright'
       }).addTo($map);
 
+      $tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+      });
+
+      $map.on('click', resize);
+      $map.on('dblclick', resize);
+
       $map.addLayer($tileLayer);
+
       callback(districtGeo);
     });
   }
 
   function getData(districtGeo) {
-
-    popup = L.popup({ closeButton: false });
 
     utils.getJson('./data/landkreise.json', function (districtData) {
 
@@ -57,13 +75,15 @@ var map = (function() {
 
       getColors($topoLayer);
 
-      text.init(data);
+      text.init(data, scale);
 
       resize();
     });
   }
 
-  function getColors($topoLayer) {
+  function getColors() {
+
+    popup = L.popup({ closeButton: false });
 
     $topoLayer.eachLayer(function (layer) {
 
@@ -74,46 +94,40 @@ var map = (function() {
 
       layer.setStyle({
 
-        fillColor: getColor(getCategory(currentDistrict.shopCountDeltaPrc, scale)),
-        weight: 0.5,
-        opacity: 1,
-        color: 'black',
-        fillOpacity: 0.7
+        fillColor: getColor(getCategory(currentDistrict.shopCountDeltaPrc, scale))
       });
 
-      layer.on('mouseover', highlightFeature);
-      layer.on('mouseout', resetHighlight);
-      layer.on('click', clicked);
+      layer.setStyle(lowlight);
+
+      layer.on('mouseover', handleMouseenter);
+      layer.on('mouseout', handleMouseout);
+      layer.on('click', handleClick);
+      layer.on('dblclick', resize);
+    });
+
+    $topoLayer.eachLayer(function (layer) {
+
+      if (layer.feature.id === defaultDistrict) {
+
+        highlightLayer(layer);
+      }
     });
   }
 
-  function resize() {
-
-    $map.fitBounds($topoLayer.getBounds(), {
-
-      maxZoom: 10
-    });
-  }
-
-  function highlightFeature(e) {
+  function handleMouseenter(e) {
 
     var layer = e.target;
 
     popup
-      .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getWest() + (layer.getBounds().getEast() - layer.getBounds().getWest()) / 2])
+      .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getCenter().lng])
       .setContent(function () {
 
         var result;
         var name = '';
         var currentDistrict = data.filter(function (element) {
 
-          return element.id === e.target.feature.id;
+          return element.id === layer.feature.id;
         })[0];
-
-        if (currentDistrict.type === 'currentDistrict') {
-
-          name = 'currentDistrict ';
-        }
 
         if (currentDistrict.admDistrictShort) {
 
@@ -136,12 +150,7 @@ var map = (function() {
 
     popup.openOn($map);
 
-    layer.setStyle({
-
-      weight: 1.5,
-      color: '#666',
-      dashArray: ''
-    });
+    layer.setStyle(highlight);
 
     if (!L.Browser.ie && !L.Browser.opera) {
 
@@ -149,10 +158,54 @@ var map = (function() {
     }
   }
 
-  function resetHighlight(e) {
+  function handleMouseout(e) {
 
-    $topoLayer.resetStyle(e.target);
+    var layer = e.target;
+
+    if (layer !== $currentLayer && !dimmed) {
+
+      layer.setStyle(lowlight);
+    } else if (layer !== $currentLayer && dimmed) {
+
+      layer.setStyle(lowlight);
+    }
+
     $map.closePopup();
+  }
+
+  function handleClick(e) {
+
+    dimmed = true;
+
+    var layer = e.target;
+
+    highlightLayer(layer);
+    //zoomToFeature(e);
+    scrollToMap();
+
+    text.render(layer.feature.id, scale);
+  }
+
+  function highlightLayer(layer) {
+
+    if ($currentLayer) $currentLayer.setStyle(lowlight);
+    $currentLayer = layer;
+
+    $topoLayer.eachLayer(function (layer) {
+
+      layer.setStyle(lowlight);
+    });
+
+    layer.setStyle(lowlight);
+    layer.setStyle(highlight);
+  }
+
+  function resize() {
+
+    $map.fitBounds($topoLayer.getBounds(), {
+
+      maxZoom: 10
+    });
   }
 
   function zoomToFeature(e) {
@@ -161,14 +214,6 @@ var map = (function() {
 
       maxZoom: 9
     });
-  }
-
-  function clicked(e) {
-
-    zoomToFeature(e);
-    scrollToMap();
-
-    text.render(e.target.feature.id, scale);
   }
 
   function getColor(cat) {
@@ -256,6 +301,7 @@ var map = (function() {
 
     init: init,
     resize: resize,
+    highlight: highlightLayer,
     disable: disableEventsOnScoll
   };
 })();
