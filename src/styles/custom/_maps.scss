@@ -26,10 +26,7 @@
 }
 
 .legend {
-
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 2em;
+  padding: 1em 1em 2em 1em;
 
   div {
     display: inline-block;
@@ -37,14 +34,10 @@
   }
 
   .title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    display: inline;
-
-    &:after {
-      content:"\a";
-      white-space: pre;
-    }
+    display: block;
+    margin-bottom: .5em;
   }
 
   .inner {

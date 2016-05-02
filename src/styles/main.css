@@ -771,19 +771,15 @@ footer {
   cursor: pointer; }
 
 .legend {
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 2em; }
+  padding: 1em 1em 2em 1em; }
   .legend div {
     display: inline-block;
     vertical-align: top; }
   .legend .title {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    display: inline; }
-    .legend .title:after {
-      content: "\a";
-      white-space: pre; }
+    display: block;
+    margin-bottom: .5em; }
   .legend .inner {
     font-size: 13px; }
     .legend .inner .class {
