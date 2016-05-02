@@ -1,14 +1,15 @@
 var text = (function() {
 
-  var $textContainer, $embedContainer, $embedCode, $embedButton, districtData, scale;
+  var $textContainer, $embedContainer, $embedCode, $embedButton, $textHighlight, districtData, scale;
 
   function init(data, range) {
 
     $textContainer = document.getElementById('text');
 
-    $embedContainer = document.getElementById('embedContainer');
+    $embedContainer = document.getElementById('embed-container');
     $embedCode = document.querySelector('pre');
-    $embedButton = document.getElementById('embedButton');
+    $embedButton = document.getElementById('embed-button');
+    $textHighlight = document.getElementById('text-highlight');
 
     $embedButton.addEventListener('click', function () {
 
@@ -29,6 +30,8 @@ var text = (function() {
 
     $textContainer.innerHTML = currentText;
     $embedCode.textContent = getEmbedCode(currentText);
+
+    highlightText();
   }
 
   function getText(currentDistrict, scale) {
@@ -346,6 +349,16 @@ var text = (function() {
         return i;
       }
     }
+  }
+
+  function highlightText() {
+
+    $textHighlight.style.background = '#ffffe1';
+
+    setTimeout(function () {
+
+      $textHighlight.style.background = '#ffffff';
+    }, 400);
   }
 
   // Export global functions
