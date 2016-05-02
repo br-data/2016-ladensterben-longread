@@ -20,8 +20,8 @@ module.exports = function (grunt) {
         files: {
 
           'dist/scripts/main.min.js': [
+            'bower_components/topojson/topojson.js',
             'bower_components/leaflet/dist/leaflet.js',
-            'bower_components/mustache.js/mustache.min.js',
             'bower_components/video.js/dist/video.min.js',
             'bower_components/videojs-contrib-hls/index.js',
             'src/scripts/utils.js',
