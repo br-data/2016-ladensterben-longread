@@ -1,9 +1,10 @@
 var map = (function() {
 
-  var $map, $districts, mapContainer, popup, data, scale, timeout;
+  var $map, $topoLayer, mapContainer, popup, data, scale, timeout;
 
   function init() {
 
+    extendLeaflet();
     draw();
   }
 
@@ -16,9 +17,9 @@ var map = (function() {
 
   function getGeometry(callback) {
 
-    utils.getJson('./data/bayern.geo.json', function (districtGeo) {
+    utils.getJson('./data/landkreise.topo.json', function (districtGeo) {
 
-      var $layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+      var $tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
       });
@@ -35,7 +36,7 @@ var map = (function() {
         position:'bottomright'
       }).addTo($map);
 
-      $map.addLayer($layer);
+      $map.addLayer($tileLayer);
       callback(districtGeo);
     });
   }
@@ -49,26 +50,12 @@ var map = (function() {
       data = districtData;
       scale = constructScale(data, 6);
 
-      $districts = L.geoJson(districtGeo, {
+      $topoLayer = new L.TopoJSON();
 
-        onEachFeature: onEachFeature,
-        style: function(feature) {
+      $topoLayer.addData(districtGeo);
+      $topoLayer.addTo($map);
 
-          var currentDistrict = data.filter(function (element) {
-
-            return element.id === feature.properties.RS;
-          })[0];
-
-          return {
-
-            fillColor: getColor(getCategory(currentDistrict.shopCountDeltaPrc, scale)),
-            weight: 0.5,
-            opacity: 1,
-            color: 'black',
-            fillOpacity: 0.7
-          };
-        }
-      }).addTo($map);
+      getColors($topoLayer);
 
       text.init(data);
 
@@ -76,23 +63,36 @@ var map = (function() {
     });
   }
 
-  function resize() {
+  function getColors($topoLayer) {
 
-    $map.fitBounds($districts.getBounds(), {
+    $topoLayer.eachLayer(function (layer) {
 
-      maxZoom: 10
-    });
-  }
+      var currentDistrict = data.filter(function (element) {
 
-  function onEachFeature(feature, layer) {
+        return element.id === layer.feature.id;
+      })[0];
 
-    if (feature.properties && feature.properties.GEN) {
+      layer.setStyle({
+
+        fillColor: getColor(getCategory(currentDistrict.shopCountDeltaPrc, scale)),
+        weight: 0.5,
+        opacity: 1,
+        color: 'black',
+        fillOpacity: 0.7
+      });
 
       layer.on('mouseover', highlightFeature);
       layer.on('mouseout', resetHighlight);
       layer.on('click', clicked);
-    }
+    });
+  }
 
+  function resize() {
+
+    $map.fitBounds($topoLayer.getBounds(), {
+
+      maxZoom: 10
+    });
   }
 
   function highlightFeature(e) {
@@ -107,7 +107,7 @@ var map = (function() {
         var name = '';
         var currentDistrict = data.filter(function (element) {
 
-          return element.id === e.target.feature.properties.RS;
+          return element.id === e.target.feature.id;
         })[0];
 
         if (currentDistrict.type === 'currentDistrict') {
@@ -151,7 +151,7 @@ var map = (function() {
 
   function resetHighlight(e) {
 
-    $districts.resetStyle(e.target);
+    $topoLayer.resetStyle(e.target);
     $map.closePopup();
   }
 
@@ -168,7 +168,7 @@ var map = (function() {
     zoomToFeature(e);
     scrollToMap();
 
-    text.render(e.target.feature.properties.RS, scale);
+    text.render(e.target.feature.id, scale);
   }
 
   function getColor(cat) {
@@ -227,6 +227,28 @@ var map = (function() {
 
       mapContainer.style.pointerEvents = 'all';
     }, 700);
+  }
+
+  function extendLeaflet() {
+
+    L.TopoJSON = L.GeoJSON.extend({
+
+      addData: function(jsonData) {
+
+        if (jsonData.type === 'Topology') {
+
+          for (var key in jsonData.objects) {
+
+            var geojson = topojson.feature(jsonData, jsonData.objects[key]);
+            L.GeoJSON.prototype.addData.call(this, geojson);
+          }
+        }
+        else {
+
+          L.GeoJSON.prototype.addData.call(this, jsonData);
+        }
+      }
+    });
   }
 
   // Export global functions
