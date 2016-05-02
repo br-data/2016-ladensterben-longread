@@ -7,7 +7,14 @@ var map = (function() {
   var highlight = {
     color: 'black',
     weight: 2.5,
-    fillOpacity: 1,
+    fillOpacity: 0.8,
+    opacity: 1
+  };
+
+  var standard = {
+    color: 'black',
+    weight: 0.5,
+    fillOpacity: 0.8,
     opacity: 1
   };
 
@@ -52,8 +59,8 @@ var map = (function() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
       }).addTo($map);
 
-      $map.on('click', resize);
-      $map.on('dblclick', resize);
+      $map.on('click', handleMapClick);
+      $map.on('dblclick', handleMapClick);
 
       districtGeo = features;
 
@@ -111,6 +118,39 @@ var map = (function() {
       }
     });
 
+    getLegend();
+  }
+
+  function getLegend() {
+
+
+    var legend = L.control({position: 'bottomleft'});
+
+    legend.onAdd = function () {
+
+      var wrapper = L.DomUtil.create('div', 'g-map-legend map');
+      var title = L.DomUtil.create('div', 'g-legend-title', wrapper);
+      var innerlegend = L.DomUtil.create('div', 'g-map-innerlegend', wrapper);
+
+      title.innerHTML = 'Supermärkte: Zu-/Abnahme seit 2005 in %';
+
+      var grades = [-27.92, -18.7, -9.48, -0.26, 8.96];
+
+      for (var i = 0; i < grades.length; i++) {
+        innerlegend.innerHTML +=
+          '<div class="g-class-' + i + ' g-legend-class"></div>' +
+          '<div class="g-tic">' +
+            '<div class="g-ticnum">' + Math.round(grades[i]) +'</div>' +
+          '</div>';
+      }
+
+      innerlegend.innerHTML += '<div class="g-class-5 g-legend-class"></div>';
+
+      return wrapper;
+    };
+
+    legend.addTo($map);
+
     resize();
   }
 
@@ -164,7 +204,7 @@ var map = (function() {
 
     if (layer !== $currentLayer && !dimmed) {
 
-      layer.setStyle(lowlight);
+      layer.setStyle(standard);
     } else if (layer !== $currentLayer && dimmed) {
 
       layer.setStyle(lowlight);
@@ -175,8 +215,6 @@ var map = (function() {
 
   function handleClick(e) {
 
-    dimmed = true;
-
     var layer = e.target;
 
     highlightLayer(layer);
@@ -186,6 +224,18 @@ var map = (function() {
     location.hash = layer.feature.id;
 
     text.render(layer.feature.id, scale);
+  }
+
+  function handleMapClick() {
+
+    resize();
+
+    $topoLayer.eachLayer(function (layer) {
+
+      layer.setStyle(standard);
+    });
+
+    dimmed = false;
   }
 
   function highlightLayer(layer) {
@@ -200,6 +250,8 @@ var map = (function() {
 
     layer.setStyle(lowlight);
     layer.setStyle(highlight);
+
+    dimmed = true;
   }
 
   function resize() {
