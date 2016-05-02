@@ -1,12 +1,12 @@
 {
-  "name": "longread-template",
-  "description": "Longread template for BR Data",
+  "name": "einzelhandel-longread",
+  "description": "Analysis of the food retailer industry in Bavaria",
   "author": "Steffen Kühne",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:digitalegarage/longread-template.git"
+    "url": "git@github.com:digitalegarage/einzelhandel-longread.git"
   },
   "scripts": {
     "sass": "sass --watch src/styles:src/styles",

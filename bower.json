@@ -1,12 +1,12 @@
 {
-  "name": "crystal-longread",
-  "description": "Crystal Meth in Bayern",
-  "author": "Oliver Schnuck",
+  "name": "einzelhandel-longread",
+  "description": "Analysis of the food retailer industry in Bavaria",
+  "author": "Steffen Kühne",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:digitalegarage/crystal-longread.git"
+    "url": "git@github.com:digitalegarage/einzelhandel-longread.git"
   },
   "main": "src/index.html",
   "ignore": [
