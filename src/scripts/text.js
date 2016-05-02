@@ -18,9 +18,6 @@ var text = (function() {
 
     scale = range;
     districtData = data;
-
-    // Set the default district
-    render('09475');
   }
 
   function render(currentDistrict, currentText) {

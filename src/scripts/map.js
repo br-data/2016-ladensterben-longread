@@ -1,8 +1,8 @@
 var map = (function() {
 
-  var $map, $tileLayer, $topoLayer, $currentLayer, mapContainer, popup, data, scale, dimmed, timeout;
+  var $map, $tileLayer, $topoLayer, $currentLayer, mapContainer, districtGeo, districtData, scale, popup, dimmed, timeout;
 
-  var defaultDistrict = '09475';
+  var defaultDistrict = validateHash(location.hash.match(/#(\w+)/)[1]) || '09475';
 
   var highlight = {
     color: 'black',
@@ -33,7 +33,7 @@ var map = (function() {
 
   function getGeometry(callback) {
 
-    utils.getJson('./data/landkreise.topo.json', function (districtGeo) {
+    utils.getJson('./data/landkreise.topo.json', function (features) {
 
       $map = L.map('map', {
 
@@ -50,34 +50,32 @@ var map = (function() {
       $tileLayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-      });
+      }).addTo($map);
 
       $map.on('click', resize);
       $map.on('dblclick', resize);
 
-      $map.addLayer($tileLayer);
+      districtGeo = features;
 
-      callback(districtGeo);
+      callback();
     });
   }
 
-  function getData(districtGeo) {
+  function getData() {
 
-    utils.getJson('./data/landkreise.json', function (districtData) {
+    utils.getJson('./data/landkreise.json', function (features) {
 
-      data = districtData;
-      scale = constructScale(data, 6);
+      districtData = features;
+      scale = constructScale(districtData, 6);
 
       $topoLayer = new L.TopoJSON();
-
       $topoLayer.addData(districtGeo);
       $topoLayer.addTo($map);
 
-      getColors($topoLayer);
+      text.init(districtData, scale);
+      text.render(defaultDistrict);
 
-      text.init(data, scale);
-
-      resize();
+      getColors();
     });
   }
 
@@ -87,7 +85,7 @@ var map = (function() {
 
     $topoLayer.eachLayer(function (layer) {
 
-      var currentDistrict = data.filter(function (element) {
+      var currentDistrict = districtData.filter(function (element) {
 
         return element.id === layer.feature.id;
       })[0];
@@ -112,6 +110,8 @@ var map = (function() {
         highlightLayer(layer);
       }
     });
+
+    resize();
   }
 
   function handleMouseenter(e) {
@@ -124,7 +124,7 @@ var map = (function() {
 
         var result;
         var name = '';
-        var currentDistrict = data.filter(function (element) {
+        var currentDistrict = districtData.filter(function (element) {
 
           return element.id === layer.feature.id;
         })[0];
@@ -182,6 +182,8 @@ var map = (function() {
     highlightLayer(layer);
     //zoomToFeature(e);
     scrollToMap();
+
+    location.hash = layer.feature.id;
 
     text.render(layer.feature.id, scale);
   }
@@ -261,6 +263,11 @@ var map = (function() {
     var offsetTop = mapContainer.offsetTop - 60;
 
     scroll.to(document.body, offsetTop, 500);
+  }
+
+  function validateHash(str) {
+
+    return /\d{5}/.test(str) ? str : false;
   }
 
   function disableEventsOnScoll() {
