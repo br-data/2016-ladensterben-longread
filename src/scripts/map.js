@@ -313,8 +313,12 @@ var map = (function() {
   function scrollToMap() {
 
     var offsetTop = mapContainer.offsetTop - 60;
+    var currentPosition = document.documentElement.scrollTop || document.body.scrollTop;
 
-    scroll.to(document.body, offsetTop, 500);
+    if (currentPosition < offsetTop) {
+
+      scroll.to(document.body, offsetTop, 500);
+    }
   }
 
   function validateHash(str) {
