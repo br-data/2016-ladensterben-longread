@@ -355,7 +355,7 @@ var text = (function() {
     setTimeout(function () {
 
       $textHighlight.style.background = '#ffffff';
-    }, 400);
+    }, 300);
   }
 
   // Export global functions

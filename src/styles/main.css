@@ -779,7 +779,8 @@ footer {
     font-size: 15px;
     font-weight: 600;
     display: block;
-    margin-bottom: .5em; }
+    margin-bottom: .5em;
+    text-shadow: 1px 1px 1px #F5F5F3, -1px -1px 1px #F5F5F3; }
   .legend .inner {
     font-size: 13px; }
     .legend .inner .class {
@@ -788,25 +789,14 @@ footer {
       opacity: .8; }
     .legend .inner .tick {
       position: relative;
-      border-right: 1px solid #444;
+      border-right: 1px solid #000;
       height: 14px; }
     .legend .inner .label {
       position: absolute;
       left: -12px;
       width: 24px;
-      top: 15px; }
-    .legend .inner .class-0 {
-      background-color: #d81d09; }
-    .legend .inner .class-1 {
-      background-color: #f9842d; }
-    .legend .inner .class-2 {
-      background-color: #ffc166; }
-    .legend .inner .class-3 {
-      background-color: #f7eec1; }
-    .legend .inner .class-4 {
-      background-color: #dfedf7; }
-    .legend .inner .class-5 {
-      background-color: #a7c9ea; }
+      top: 15px;
+      text-shadow: 1px 1px 1px #F5F5F3, -1px -1px 1px #F5F5F3; }
 
 .orange {
   color: #FDA363; }
@@ -824,6 +814,6 @@ footer {
   margin: 0 -4px; }
 
 .highlight {
-  transition: background .2s ease; }
+  transition: background .3s ease; }
 
 /*# sourceMappingURL=main.css.map */

@@ -38,6 +38,7 @@
     font-weight: 600;
     display: block;
     margin-bottom: .5em;
+    text-shadow: 1px 1px 1px #F5F5F3, -1px -1px 1px #F5F5F3;
   }
 
   .inner {
@@ -51,7 +52,7 @@
 
     .tick {
       position: relative;
-      border-right: 1px solid #444;
+      border-right: 1px solid $black;
       height: 14px;
     }
 
@@ -60,31 +61,13 @@
       left: -12px;
       width: 24px;
       top: 15px;
-    }
-
-    .class-0 {
-      background-color: #d81d09;
-    }
-    .class-1 {
-      background-color: #f9842d;
-    }
-    .class-2 {
-      background-color: #ffc166;
-    }
-    .class-3 {
-      background-color: #f7eec1;
-    }
-    .class-4 {
-      background-color: #dfedf7;
-    }
-    .class-5 {
-      background-color: #a7c9ea;
+      text-shadow: 1px 1px 1px #F5F5F3, -1px -1px 1px #F5F5F3;
     }
   }
 }
 
 .orange {
-  color: #FDA363
+  color: #FDA363;
 }
 
 .leaflet-container {

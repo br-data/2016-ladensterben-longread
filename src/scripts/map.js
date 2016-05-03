@@ -2,7 +2,7 @@ var map = (function() {
 
   var $map, $tileLayer, $topoLayer, $currentLayer, mapContainer, districtGeo, districtData, scale, popup, dimmed, timeout;
 
-  var defaultDistrict = validateHash(location.hash.match(/#(\w+)/)[1]) || '09475';
+  var defaultDistrict = validateHash(location.hash) || '09475';
 
   var highlight = {
     color: 'black',
@@ -136,14 +136,15 @@ var map = (function() {
       var grades = [-27.92, -18.7, -9.48, -0.26, 8.96];
 
       for (var i = 0; i < grades.length; i++) {
+
         innerlegend.innerHTML +=
-          '<div class="class-' + i + ' class"></div>' +
+          '<div class="class" style="background: ' + getColor(i) + ';"></div>' +
           '<div class="tick">' +
             '<div class="label">' + Math.round(grades[i]) +'</div>' +
           '</div>';
       }
 
-      innerlegend.innerHTML += '<div class="class-5 class"></div>';
+      innerlegend.innerHTML += '<div class="class" style="background: ' + getColor(grades.length) + ';"></div>';
 
       return wrapper;
     };
@@ -317,6 +318,8 @@ var map = (function() {
   }
 
   function validateHash(str) {
+
+    str = str ? str.match(/#(\w+)/)[1] : false;
 
     return /\d{5}/.test(str) ? str : false;
   }
