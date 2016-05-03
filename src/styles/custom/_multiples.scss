@@ -1,0 +1,26 @@
+.multiples > div {
+  display: inline-block;
+  width: 25%;
+  text-align: center;
+  padding-right: 1em;
+  vertical-align: bottom;
+
+  p {
+    margin-top: 0;
+    color: $dark-grey;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 50%;
+    padding-right: 2em;
+
+    img {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+}

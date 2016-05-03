@@ -40,7 +40,7 @@ function waypoint() {
   waypoint.addEventListener('click', scrollTo);
 
   function scrollTo() {
-    var offsetTop = target.offsetTop - 80;
+    var offsetTop = target.offsetTop - 60;
     scroll.to(document.body, offsetTop, 750);
   }
 }

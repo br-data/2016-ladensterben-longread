@@ -131,7 +131,7 @@ var map = (function() {
       var title = L.DomUtil.create('div', 'title', wrapper);
       var innerlegend = L.DomUtil.create('div', 'inner', wrapper);
 
-      title.innerHTML = 'Supermärkte: Zu-/Abnahme seit 2005';
+      title.textContent = 'Supermärkte: Zu-/Abnahme seit 2005';
 
       var grades = [-27.92, -18.7, -9.48, -0.26, 8.96];
 
