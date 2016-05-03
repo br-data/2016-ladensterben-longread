@@ -47,13 +47,13 @@ var text = (function() {
       paragraph += 'Im ' + getDistrictAdj(currentDistrict.govDistrict) + 'en <strong>Landkreis ' + currentDistrict.admDistrict + '</strong>';
       inCurrentDistrict = 'im Landkreis';
       theCurrentDistrict = 'der Landkreis';
-      headline += 'Landkreis ' + currentDistrict.admDistrict + ': ';
+      headline += 'Landkreis ' + currentDistrict.admDistrict + ':<br> ';
     } else if (currentDistrict.districtType === 'Stadt') {
 
       paragraph += 'In <strong>' + currentDistrict.admDistrict + '</strong>';
       inCurrentDistrict = 'in der Stadt ';
       theCurrentDistrict = 'die Stadt';
-      headline += currentDistrict.admDistrict + ': ';
+      headline += currentDistrict.admDistrict + ':<br> ';
     }
 
 
