@@ -34,13 +34,13 @@ function resize() {
 
 function waypoint() {
 
-  var waypoint = document.getElementById('waypoint');
-  var target = document.getElementById('waypoint-target');
+  var $waypoint = document.getElementById('waypoint');
+  var $target = document.getElementById('waypoint-target');
 
-  waypoint.addEventListener('click', scrollTo);
+  $waypoint.addEventListener('click', scrollTo);
 
   function scrollTo() {
-    var offsetTop = target.offsetTop - 60;
+    var offsetTop = $target.offsetTop - 60;
     scroll.to(document.body, offsetTop, 750);
   }
 }

@@ -217,25 +217,24 @@ var map = (function() {
 
     var layer = e.target;
 
-    highlightLayer(layer);
-    //zoomToFeature(e);
-    scrollToMap();
+    if (layer === $currentLayer && dimmed) {
+
+      dimLayers();
+    } else {
+
+      //zoomToFeature(e);
+      highlightLayer(layer);
+      scrollToMap();
+    }
 
     location.hash = layer.feature.id;
-
     text.render(layer.feature.id, scale);
   }
 
   function handleMapClick() {
 
     resize();
-
-    $topoLayer.eachLayer(function (layer) {
-
-      layer.setStyle(standard);
-    });
-
-    dimmed = false;
+    dimLayers();
   }
 
   function highlightLayer(layer) {
@@ -252,6 +251,16 @@ var map = (function() {
     layer.setStyle(highlight);
 
     dimmed = true;
+  }
+
+  function dimLayers() {
+
+    $topoLayer.eachLayer(function (layer) {
+
+      layer.setStyle(standard);
+    });
+
+    dimmed = false;
   }
 
   function resize() {
