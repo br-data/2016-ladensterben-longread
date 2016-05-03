@@ -131,7 +131,7 @@ var map = (function() {
       var title = L.DomUtil.create('div', 'title', wrapper);
       var innerlegend = L.DomUtil.create('div', 'inner', wrapper);
 
-      title.innerHTML = 'Supermärkte: Zu-/Abnahme seit 2005 in %';
+      title.innerHTML = 'Supermärkte: Zu-/Abnahme seit 2005';
 
       var grades = [-27.92, -18.7, -9.48, -0.26, 8.96];
 
@@ -140,7 +140,7 @@ var map = (function() {
         innerlegend.innerHTML +=
           '<div class="class" style="background: ' + getColor(i) + ';"></div>' +
           '<div class="tick">' +
-            '<div class="label">' + Math.round(grades[i]) +'</div>' +
+            '<div class="label">' + Math.round(grades[i]) +'%</div>' +
           '</div>';
       }
 
