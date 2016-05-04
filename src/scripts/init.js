@@ -8,6 +8,7 @@ function init() {
   modal.init();
   map.init();
 
+  arrow();
   waypoint();
   resize();
 
@@ -41,7 +42,22 @@ function waypoint() {
   $waypoint.addEventListener('click', scrollTo);
 
   function scrollTo() {
+
     var offsetTop = $target.offsetTop - 60;
+    scroll.to(document.body, offsetTop, 750);
+  }
+}
+
+function arrow() {
+
+  var $arrow = document.getElementById('arrow');
+  var $header = document.getElementById('header');
+
+  $arrow.addEventListener('click', scrollTo);
+
+  function scrollTo() {
+
+    var offsetTop = $header.offsetHeight - 60;
     scroll.to(document.body, offsetTop, 750);
   }
 }
