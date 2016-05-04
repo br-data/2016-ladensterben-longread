@@ -20,21 +20,38 @@ module.exports = function (grunt) {
         files: {
 
           'dist/scripts/main.min.js': [
-            'bower_components/topojson/topojson.js',
-            'bower_components/leaflet/dist/leaflet.js',
-            'bower_components/video.js/dist/video.min.js',
-            'bower_components/videojs-contrib-hls/index.js',
-            'scripts/modules/utils.js',
-            'scripts/modules/navigation.js',
-            'scripts/modules/marginals.js',
-            'scripts/modules/scroll.js',
-            'scripts/modules/modal.js',
-            'scripts/custom/video.js',
-            'scripts/custom/text.js',
-            'scripts/custom/map.js',
-            'scripts/init.js'
+            'src/scripts/modules/utils.js',
+            'src/scripts/modules/navigation.js',
+            'src/scripts/modules/marginals.js',
+            'src/scripts/modules/scroll.js',
+            'src/scripts/modules/modal.js',
+            'src/scripts/custom/video.js',
+            'src/scripts/custom/text.js',
+            'src/scripts/custom/map.js',
+            'src/scripts/init.js'
           ]
         }
+      }
+    },
+
+    concat: {
+
+      dist: {
+
+        options: {
+
+          separator: '\n'
+        },
+
+        src: [
+          'bower_components/topojson/topojson.min.js',
+          'bower_components/leaflet/dist/leaflet.js',
+          'bower_components/video.js/dist/video.min.js',
+          'bower_components/videojs-contrib-hls/index.js',
+          'dist/scripts/main.min.js'
+        ],
+
+        dest: 'dist/scripts/main.min.js'
       }
     },
 
@@ -92,9 +109,10 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-usemin');
 
-  grunt.registerTask('dist', ['clean', 'useminPrepare', 'uglify', 'postcss', 'copy', 'usemin']);
+  grunt.registerTask('dist', ['clean', 'useminPrepare', 'uglify', 'concat', 'postcss', 'copy', 'usemin']);
 };
