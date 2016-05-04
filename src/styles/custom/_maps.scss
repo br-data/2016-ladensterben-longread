@@ -26,7 +26,9 @@
 }
 
 .legend {
-  padding: 1em 1em 2em 1em;
+  padding: 1em 1em 2em;
+  background: rgba(245,245,243, .9);
+  border-radius: 5px;
 
   div {
     display: inline-block;

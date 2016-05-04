@@ -551,6 +551,14 @@ header {
     padding-bottom: 66.67%; }
   .embed.ratio-1-1 {
     padding-bottom: 100%; }
+  .embed.map {
+    padding-bottom: 56.25%; }
+    @media (max-width: 840px) {
+      .embed.map {
+        padding-bottom: 75%; } }
+    @media (max-width: 560px) {
+      .embed.map {
+        padding-bottom: 100%; } }
   .embed iframe, .embed .content {
     position: absolute;
     top: 0;
@@ -790,7 +798,9 @@ footer {
   cursor: pointer; }
 
 .legend {
-  padding: 1em 1em 2em 1em; }
+  padding: 1em 1em 2em;
+  background: rgba(245, 245, 243, 0.9);
+  border-radius: 5px; }
   .legend div {
     display: inline-block;
     vertical-align: top; }

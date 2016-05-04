@@ -1,12 +1,13 @@
 var map = (function() {
 
-  var $map, $tileLayer, $topoLayer, $currentLayer, mapContainer, districtGeo, districtData, scale, popup, dimmed, timeout;
+  var $map, $mapContainer, $tileLayer, $topoLayer, $currentLayer, popup,
+    districtGeo, districtData, scale, width, center, dimmed, timeout;
 
   var defaultDistrict = validateHash(location.hash) || '09475';
 
   var highlight = {
     color: 'black',
-    weight: 2.5,
+    weight: 2,
     fillOpacity: 0.8,
     opacity: 1
   };
@@ -33,7 +34,7 @@ var map = (function() {
 
   function draw() {
 
-    mapContainer = document.getElementById('map-wrapper');
+    $mapContainer = document.getElementById('map-wrapper');
 
     getGeometry(getData);
   }
@@ -88,7 +89,7 @@ var map = (function() {
 
   function getColors() {
 
-    popup = L.popup({ closeButton: false });
+    $popup = L.popup({ closeButton: false });
 
     $topoLayer.eachLayer(function (layer) {
 
@@ -123,7 +124,7 @@ var map = (function() {
 
   function getLegend() {
 
-    var legend = L.control({position: 'bottomleft'});
+    var legend = L.control({position: 'topright'});
 
     legend.onAdd = function () {
 
@@ -158,7 +159,7 @@ var map = (function() {
 
     var layer = e.target;
 
-    popup
+    $popup
       .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getCenter().lng])
       .setContent(function () {
 
@@ -188,7 +189,7 @@ var map = (function() {
         return result;
       }());
 
-    popup.openOn($map);
+    $popup.openOn($map);
 
     layer.setStyle(highlight);
 
@@ -265,7 +266,16 @@ var map = (function() {
 
   function resize() {
 
-    $map.fitBounds($topoLayer.getBounds(), {
+    center = $topoLayer.getBounds();
+    width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+    if (width < 560) {
+
+      center._northEast.lat = center._northEast.lat * 1.01;
+      center._southWest.lat = center._southWest.lat * 1.01;
+    }
+
+    $map.fitBounds(center, {
 
       maxZoom: 10
     });
@@ -321,7 +331,7 @@ var map = (function() {
 
   function scrollToMap() {
 
-    var offsetTop = mapContainer.offsetTop - 60;
+    var offsetTop = $mapContainer.offsetTop - 60;
     var currentPosition = document.documentElement.scrollTop || document.body.scrollTop;
 
     if (currentPosition < offsetTop) {
@@ -340,11 +350,11 @@ var map = (function() {
   function disableEventsOnScoll() {
 
     clearTimeout(timeout);
-    mapContainer.style.pointerEvents = 'none';
+    $mapContainer.style.pointerEvents = 'none';
 
     timeout = setTimeout(function () {
 
-      mapContainer.style.pointerEvents = 'all';
+      $mapContainer.style.pointerEvents = 'all';
     }, 700);
   }
 
