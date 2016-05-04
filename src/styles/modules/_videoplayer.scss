@@ -75,6 +75,7 @@ $slider-bg-color: lighten($primary-background-color, 33%);
   outline: none;
   outline: 0;
   background: $white;
+  background-size: contain;
 }
 
 .vjs-sublime-skin:hover .vjs-big-play-button {

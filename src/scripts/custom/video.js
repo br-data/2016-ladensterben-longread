@@ -5,15 +5,14 @@ var video = (function () {
 
   function init() {
 
-    videojs('intro-video', {}, function () {
+    if (width > 560) {
 
-      this.volume(0);
+      videojs('intro-video', {}, function () {
 
-      if (width > 560) {
-
+        this.volume(0);
         this.play();
-      }
-    });
+      });
+    }
   }
 
   return {

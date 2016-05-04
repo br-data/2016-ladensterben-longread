@@ -1,8 +1,8 @@
 header {
-  background-image: url(../images/placeholder.jpg);
-  background-repeat: no-repeat;
-  background-position: 50% 0;
-  background-size: cover;
+  // background-image: url(../images/placeholder.jpg);
+  // background-repeat: no-repeat;
+  // background-position: 50% 0;
+  // background-size: cover;
   position: relative;
   display: flex;
   justify-content: center;
@@ -22,6 +22,16 @@ header {
         margin-bottom: 0;
         line-height: 1.2em;
         text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+
+        @include tablet {
+          text-align: center;
+          margin-bottom: 1em;
+        }
+
+        @include mobile {
+          font-size: 2em;
+          margin-bottom: .5em;
+        }
       }
 
       p {
@@ -41,10 +51,10 @@ header {
     opacity: 1;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, .8) 90%);
   }
+}
 
-  .action {
-    text-align: center;
-  }
+.action {
+  text-align: center;
 }
 
 .arrow {
@@ -53,6 +63,10 @@ header {
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
+
+  @include mobile {
+    height: 20px;
+  }
 }
 
 .bounce {

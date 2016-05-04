@@ -1,0 +1,13 @@
+@include desktop {
+
+  .mobile-teaser {
+    display: none;
+  }
+}
+
+@include tablet {
+
+  .desktop-teaser {
+    display: none;
+  }
+}

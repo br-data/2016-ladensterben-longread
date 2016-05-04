@@ -457,10 +457,6 @@ th {
     color: #cb2323; }
 
 header {
-  background-image: url(../images/placeholder.jpg);
-  background-repeat: no-repeat;
-  background-position: 50% 0;
-  background-size: cover;
   position: relative;
   display: flex;
   justify-content: center;
@@ -478,6 +474,14 @@ header {
       margin-bottom: 0;
       line-height: 1.2em;
       text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
+      @media (max-width: 840px) {
+        header section h1 {
+          text-align: center;
+          margin-bottom: 1em; } }
+      @media (max-width: 560px) {
+        header section h1 {
+          font-size: 2em;
+          margin-bottom: .5em; } }
     header section p {
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); }
   header:before {
@@ -491,8 +495,9 @@ header {
     z-index: 1;
     opacity: 1;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.8) 90%); }
-  header .action {
-    text-align: center; }
+
+.action {
+  text-align: center; }
 
 .arrow {
   height: 30px;
@@ -500,6 +505,9 @@ header {
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer; }
+  @media (max-width: 560px) {
+    .arrow {
+      height: 20px; } }
 
 .bounce {
   animation: 2s infinite bounce; }
@@ -646,7 +654,8 @@ pre {
 .vjs-sublime-skin .vjs-poster {
   outline: none;
   outline: 0;
-  background: #fff; }
+  background: #fff;
+  background-size: contain; }
 
 .vjs-sublime-skin:hover .vjs-big-play-button {
   background-color: transparent; }
@@ -784,6 +793,12 @@ footer {
       height: 30px;
       width: 251px; }
 
+@media (min-width: 841px) {
+  .mobile-teaser {
+    display: none; } }
+@media (max-width: 840px) {
+  .desktop-teaser {
+    display: none; } }
 .multiples > div {
   display: inline-block;
   width: 25%;
