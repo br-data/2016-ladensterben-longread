@@ -2,6 +2,7 @@
   "globals": {
     "L": true,
     "topojson": true,
+    "videojs": true,
 
     "map": true,
     "marginals": true,
@@ -10,6 +11,7 @@
     "scroll": true,
     "text": true,
     "utils": true,
+    "video": true
   },
   "rules": {
     "indent": [2, 2, {"SwitchCase": 1}],
