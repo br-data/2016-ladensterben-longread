@@ -88,16 +88,16 @@ var text = (function() {
 
     if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 0) {
 
-      paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((currentDistrict.shopCountDeltaPrc === scale[0]) ? '' : ' mit ') + ' am stärksten vom Ladensterben betroffen.'
+      paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((currentDistrict.shopCountDeltaPrc === scale[0]) ? '' : ' mit ') + ' am stärksten vom Ladensterben betroffen.';
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 1 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 2) {
 
-      paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 1) ? ' deutlich ' : ' ') + 'stärker vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.'
+      paragraph += capitalizeFirstLetter(theCurrentDistrict) + ' ist damit ' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 1) ? ' deutlich ' : ' ') + 'stärker vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.';
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 3) {
 
       paragraph +=  capitalizeFirstLetter(theCurrentDistrict) + ' ist damit weniger stark vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.';
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 4 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) {
 
-      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als in den meisten Landkreisen und kreisfreien Städten in Bayern.'
+      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als in den meisten Landkreisen und kreisfreien Städten in Bayern.';
     }
 
 

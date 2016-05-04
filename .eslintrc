@@ -1,7 +1,15 @@
 {
   "globals": {
     "L": true,
-    "topojson": true
+    "topojson": true,
+
+    "map": true,
+    "marginals": true,
+    "modal": true,
+    "navigation": true,
+    "scroll": true,
+    "text": true,
+    "utils": true,
   },
   "rules": {
     "indent": [2, 2, {"SwitchCase": 1}],
