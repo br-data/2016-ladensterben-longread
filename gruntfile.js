@@ -24,16 +24,15 @@ module.exports = function (grunt) {
             'bower_components/leaflet/dist/leaflet.js',
             'bower_components/video.js/dist/video.min.js',
             'bower_components/videojs-contrib-hls/index.js',
-            'src/scripts/utils.js',
-            'src/scripts/navigation.js',
-            'src/scripts/marginals.js',
-            'src/scripts/video.js',
-            'src/scripts/modal.js',
-            'src/scripts/text.js',
-            'src/scripts/scroll.js',
-            'src/scripts/map.js',
-            'src/scripts/bubblemap.js',
-            'src/scripts/init.js'
+            'scripts/modules/utils.js',
+            'scripts/modules/navigation.js',
+            'scripts/modules/marginals.js',
+            'scripts/modules/scroll.js',
+            'scripts/modules/modal.js',
+            'scripts/custom/video.js',
+            'scripts/custom/text.js',
+            'scripts/custom/map.js',
+            'scripts/init.js'
           ]
         }
       }
