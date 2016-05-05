@@ -43,7 +43,7 @@ function waypoint() {
 
   function scrollTo() {
 
-    var offsetTop = $target.offsetTop - 60;
+    var offsetTop = $target.offsetTop - 80;
     scroll.to(document.body, offsetTop, 750);
   }
 }

@@ -286,7 +286,10 @@ button,
     .modal .content pre {
       margin-bottom: 0;
       max-height: 350px;
-      overflow: scroll; }
+      overflow-y: scroll; }
+      @media (max-width: 560px) {
+        .modal .content pre {
+          max-height: 50px; } }
   .modal .close {
     position: absolute;
     top: 0;
@@ -614,17 +617,17 @@ pre {
   width: 100px;
   border: 5px solid #fff;
   border-radius: 100%;
-  opacity: .8;
+  opacity: 1;
   left: 50%;
   top: 50%;
   margin-left: -50px;
-  margin-top: -50px; }
+  margin-top: -50px;
+  transition: opacity .4s ease; }
   .vjs-sublime-skin .vjs-big-play-button:before {
     font-size: 90px;
-    color: #fff;
-    transition: opacity .2s ease; }
+    color: #fff; }
   .vjs-sublime-skin .vjs-big-play-button:hover {
-    opacity: 1; }
+    opacity: .7; }
 
 .video-js .vjs-control-bar,
 .video-js .vjs-big-play-button,

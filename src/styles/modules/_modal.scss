@@ -38,7 +38,11 @@
     pre {
       margin-bottom: 0;
       max-height: 350px;
-      overflow: scroll;
+      overflow-y: scroll;
+
+      @include mobile {
+        max-height: 50px;
+      }
     }
   }
 

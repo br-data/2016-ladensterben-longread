@@ -16,6 +16,9 @@ var text = (function() {
       modal.open($embedContainer);
     });
 
+    $embedCode.addEventListener('mousewheel', utils.preventPageScoll);
+    $embedCode.addEventListener('click', utils.selectText);
+
     scale = range;
     districtData = data;
   }
