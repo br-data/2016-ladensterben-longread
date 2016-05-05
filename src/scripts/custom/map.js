@@ -154,41 +154,43 @@ var map = (function() {
     legend.addTo($map);
   }
 
+  function getContent(layer) {
+
+    var result;
+    var name = '';
+
+    var currentDistrict = districtData.filter(function (district) {
+
+      return district.id === layer.feature.id;
+    })[0];
+
+    if (currentDistrict.admDistrictShort) {
+
+      name = name + currentDistrict.admDistrictShort;
+    } else {
+
+      name = name + currentDistrict.admDistrict;
+    }
+
+    if (currentDistrict.shopCountDeltaPrc === 0) {
+
+      result = '<strong>' + name + ':</strong> Keine Veränderung';
+    } else {
+
+      result = '<strong>' + name + ':</strong> ' + Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10 + '%';
+    }
+
+    return result;
+  }
+
   function handleMouseenter(e) {
 
     var layer = e.target;
 
-    $popup
+    $popup = L.popup({ closeButton: false })
       .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getCenter().lng])
-      .setContent(function () {
-
-        var result;
-        var name = '';
-        var currentDistrict = districtData.filter(function (district) {
-
-          return district.id === layer.feature.id;
-        })[0];
-
-        if (currentDistrict.admDistrictShort) {
-
-          name = name + currentDistrict.admDistrictShort;
-        } else {
-
-          name = name + currentDistrict.admDistrict;
-        }
-
-        if (currentDistrict.shopCountDeltaPrc === 0) {
-
-          result = '<strong>' + name + ':</strong> Keine Veränderung';
-        } else {
-
-          result = '<strong>' + name + ':</strong> ' + Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10 + '%';
-        }
-
-        return result;
-      }());
-
-    $popup.openOn($map);
+      .setContent(getContent(layer))
+      .openOn($map);
 
     layer.setStyle(highlight);
 
