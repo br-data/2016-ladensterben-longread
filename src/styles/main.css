@@ -811,8 +811,9 @@ footer {
   padding-right: 1em;
   vertical-align: bottom; }
   .multiples > div p {
-    margin-top: 0;
-    color: #889; }
+    margin: 0;
+    color: #889;
+    line-height: 1.2; }
   .multiples > div img {
     width: 100%; }
   @media (max-width: 560px) {
