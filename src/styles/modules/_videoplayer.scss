@@ -27,6 +27,11 @@
   }
 }
 
+.video-js .vjs-control:before {
+  font-size: 2.4em;
+  line-height: 1.2;
+}
+
 .video-js .vjs-control-bar,
 .video-js .vjs-big-play-button,
 .video-js .vjs-menu-button .vjs-menu-content {
