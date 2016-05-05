@@ -328,7 +328,7 @@ button,
       float: none;
       max-width: 100%;
       padding: 0;
-      margin: -1em 10% 0;
+      margin: -1em 10% 2em;
       text-align: left; }
       .marginal p {
         display: inline; }
@@ -339,11 +339,10 @@ button,
         position: absolute;
         top: -3px;
         left: 0;
-        width: 100px;
-        border-top: 1px solid #ccd; } }
+        width: 100px; } }
   @media (max-width: 560px) {
     .marginal {
-      margin: -1.5em 20px 0; } }
+      margin: -1.5em 20px 2em; } }
 
 .infobox {
   background: #f0f0f4;
