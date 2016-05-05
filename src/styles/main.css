@@ -542,9 +542,9 @@ header {
       cursor: pointer;
       vertical-align: text-top;
       float: left; }
-  .navigation .logo:hover {
-    -webkit-filter: brightness(80%);
-    filter: brightness(80%); }
+    .navigation .logo:hover {
+      -webkit-filter: brightness(80%);
+      filter: brightness(80%); }
   .navigation .title {
     line-height: 40px;
     text-overflow: ellipsis;
@@ -609,32 +609,34 @@ pre {
   color: #fff; }
 
 .vjs-sublime-skin .vjs-big-play-button {
-  font-size: 8em;
-  line-height: 1.5em;
-  height: 1.5em;
-  width: 3em;
-  border: 0;
-  border-radius: 0.3em;
+  line-height: 90px;
+  height: 100px;
+  width: 100px;
+  border: 5px solid #fff;
+  border-radius: 100%;
+  opacity: .8;
   left: 50%;
   top: 50%;
-  margin-left: -1.5em;
-  margin-top: -0.75em; }
+  margin-left: -50px;
+  margin-top: -50px; }
   .vjs-sublime-skin .vjs-big-play-button:before {
-    transition: color .1s ease; }
+    font-size: 90px;
+    color: #fff;
+    transition: opacity .2s ease; }
   .vjs-sublime-skin .vjs-big-play-button:hover {
-    color: #007bc2; }
+    opacity: 1; }
 
 .video-js .vjs-control-bar,
 .video-js .vjs-big-play-button,
 .video-js .vjs-menu-button .vjs-menu-content {
-  background-color: #889;
-  background-color: rgba(136, 136, 153, 0.7);
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   background-color: transparent; }
 
 .video-js .vjs-slider {
-  background-color: #e3e3e7;
-  background-color: rgba(227, 227, 231, 0.5);
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 2px;
   height: 4px; }
 
@@ -644,12 +646,12 @@ pre {
   background: #fff; }
 
 .video-js .vjs-load-progress {
-  background: ligthen(#e3e3e7, 25%);
-  background: rgba(227, 227, 231, 0.5); }
+  background: ligthen(#fff, 25%);
+  background: rgba(255, 255, 255, 0.5); }
 
 .video-js .vjs-load-progress div {
-  background: ligthen(#e3e3e7, 50%);
-  background: rgba(227, 227, 231, 0.75); }
+  background: ligthen(#fff, 50%);
+  background: rgba(255, 255, 255, 0.75); }
 
 .vjs-sublime-skin .vjs-poster {
   outline: none;

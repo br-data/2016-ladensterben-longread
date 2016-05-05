@@ -28,11 +28,11 @@
       vertical-align: text-top;
       float: left;
     }
-  }
 
-  .logo:hover {
-    -webkit-filter: brightness(80%);
-    filter: brightness(80%);
+    &:hover {
+      -webkit-filter: brightness(80%);
+      filter: brightness(80%);
+    }
   }
 
   .title {
