@@ -144,7 +144,7 @@ var map = (function() {
         innerlegend.innerHTML +=
           '<div class="class" style="background: ' + getColor(i) + ';"></div>' +
           '<div class="tick">' +
-            '<div class="label">' + Math.round(grades[i]) +'%</div>' +
+            '<div class="label">' + Math.round(grades[i]) + '%</div>' +
           '</div>';
       }
 
@@ -179,7 +179,7 @@ var map = (function() {
       result = '<strong>' + name + ':</strong> Keine Veränderung';
     } else {
 
-      result = '<strong>' + name + ':</strong> ' + Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10 + '%';
+      result = '<strong>' + name + ':</strong> ' + Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10 + ' %';
     }
 
     return result;
