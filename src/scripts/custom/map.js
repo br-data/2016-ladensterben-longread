@@ -104,8 +104,12 @@ var map = (function() {
 
       layer.setStyle(lowlight);
 
-      layer.on('mouseover', handleMouseenter);
-      layer.on('mouseout', handleMouseout);
+      if (!L.Browser.touch) {
+
+        layer.on('mouseover', handleMouseenter);
+        layer.on('mouseout', handleMouseout);
+      }
+
       layer.on('click', handleClick);
       layer.on('dblclick', resizeMap);
     });
@@ -224,15 +228,17 @@ var map = (function() {
 
     if (layer === $currentLayer && dimmed) {
 
+      $map.closePopup();
       dimLayers();
     } else {
 
       //zoomToFeature(e);
+      $map.closePopup();
+      getPopup(layer);
       highlightLayer(layer);
       scrollToMap();
     }
 
-    getPopup(layer);
     location.hash = layer.feature.id;
     text.render(layer.feature.id, scale);
   }
