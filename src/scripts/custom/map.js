@@ -1,6 +1,6 @@
 var map = (function() {
 
-  var $map, $mapContainer, $topoLayer, $currentLayer, $popup,
+  var $map, $mapContainer, $topoLayer, $currentLayer,
     districtGeo, districtData, scale, width, center, dimmed, timeout;
 
   var defaultDistrict = validateHash(location.hash) || '09475';
@@ -83,14 +83,12 @@ var map = (function() {
       text.init(districtData, scale);
       text.render(defaultDistrict);
 
-      scaleMap();
+      resizeMap();
       getColors();
     });
   }
 
   function getColors() {
-
-    $popup = L.popup({ closeButton: false });
 
     $topoLayer.eachLayer(function (layer) {
 
@@ -109,7 +107,7 @@ var map = (function() {
       layer.on('mouseover', handleMouseenter);
       layer.on('mouseout', handleMouseout);
       layer.on('click', handleClick);
-      layer.on('dblclick', scaleMap);
+      layer.on('dblclick', resizeMap);
     });
 
     $topoLayer.eachLayer(function (layer) {
@@ -183,14 +181,17 @@ var map = (function() {
     return result;
   }
 
-  function handleMouseenter(e) {
+  function getPopup(layer) {
 
-    var layer = e.target;
-
-    $popup = L.popup({ closeButton: false })
+    return L.popup({ closeButton: false })
       .setLatLng([layer.getBounds().getNorth(), layer.getBounds().getCenter().lng])
       .setContent(getContent(layer))
       .openOn($map);
+  }
+
+  function handleMouseenter(e) {
+
+    var layer = e.target;
 
     layer.setStyle(highlight);
 
@@ -198,6 +199,8 @@ var map = (function() {
 
       layer.bringToFront();
     }
+
+    getPopup(layer);
   }
 
   function handleMouseout(e) {
@@ -229,13 +232,14 @@ var map = (function() {
       scrollToMap();
     }
 
+    getPopup(layer);
     location.hash = layer.feature.id;
     text.render(layer.feature.id, scale);
   }
 
   function handleMapClick() {
 
-    scaleMap();
+    resizeMap();
     dimLayers();
   }
 
@@ -265,7 +269,7 @@ var map = (function() {
     dimmed = false;
   }
 
-  function scaleMap() {
+  function resizeMap() {
 
     center = $topoLayer.getBounds();
     width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -385,7 +389,7 @@ var map = (function() {
   return {
 
     init: init,
-    resize: scaleMap,
+    resize: resizeMap,
     highlight: highlightLayer,
     disable: disableEventsOnScoll
   };

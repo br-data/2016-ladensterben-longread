@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     clean: {
 
       dist: {
-        src: ['dist']
+        src: ['dist', '.tmp']
       }
     },
 
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
           'bower_components/topojson/topojson.min.js',
           'bower_components/leaflet/dist/leaflet.js',
           'bower_components/video.js/dist/video.min.js',
-          'bower_components/videojs-contrib-hls/index.js',
+          'bower_components/video.js-hls/index.js',
           'dist/scripts/main.min.js'
         ],
 
