@@ -104,7 +104,7 @@ var map = (function() {
 
       layer.setStyle(lowlight);
 
-      if (!L.Browser.touch) {
+      if (!L.Browser.mobile) {
 
         layer.on('mouseover', handleMouseenter);
         layer.on('mouseout', handleMouseout);
