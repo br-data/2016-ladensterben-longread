@@ -1,9 +1,11 @@
 ### Specific ###
 dist/
-src/charts/
 
 ### SASS ###
 .sass-cache/
+
+### Grunt ###
+.tmp/
 
 ### Bower ###
 bower_components/
