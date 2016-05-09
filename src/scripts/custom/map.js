@@ -160,11 +160,15 @@ var map = (function() {
 
     var result;
     var name = '';
+    var value = 0;
 
     var currentDistrict = districtData.filter(function (district) {
 
       return district.id === layer.feature.id;
     })[0];
+
+    value = Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10;
+    value = value.toString().replace('.',',');
 
     if (currentDistrict.admDistrictShort) {
 
@@ -179,7 +183,7 @@ var map = (function() {
       result = '<strong>' + name + ':</strong> Keine Veränderung';
     } else {
 
-      result = '<strong>' + name + ':</strong> ' + Math.round(currentDistrict.shopCountDeltaPrc * 10) / 10 + ' %';
+      result = '<strong>' + name + ':</strong> ' + value + ' %';
     }
 
     return result;
