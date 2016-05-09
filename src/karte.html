@@ -28,7 +28,7 @@
 
   <main class="main">
 
-    <nav class="navigation hidden">
+    <nav class="navigation">
       <a href="http://br.de" target="_blank" class="logo">
         <img class="logo" src="images/br.svg" alt="BR Logo">
       </a>
@@ -121,8 +121,6 @@
     <script src="http://web.br.de/interaktiv/assets/libraries/leaflet/leaflet.v0.min.js"></script>
 
     <script type="text/javascript" src="scripts/modules/utils.js"></script>
-    <script type="text/javascript" src="scripts/modules/navigation.js"></script>
-    <script type="text/javascript" src="scripts/modules/marginals.js"></script>
     <script type="text/javascript" src="scripts/modules/scroll.js"></script>
     <script type="text/javascript" src="scripts/modules/modal.js"></script>
     <script type="text/javascript" src="scripts/custom/text.js"></script>
@@ -133,8 +131,6 @@
 
       function init() {
 
-        navigation.init();
-        marginals.init();
         modal.init();
         map.init();
 
