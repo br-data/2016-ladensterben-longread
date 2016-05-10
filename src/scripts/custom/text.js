@@ -231,7 +231,7 @@ var text = (function() {
     }
 
 
-    paragraph += ' Die Angaben beruhen auf Erhebungen der Staatsregierung.';
+    paragraph += ' Die Angaben beruhen auf Erhebungen der Firma Trade Dimensions im Auftrag der Staatsregierung.';
 
     return '<h3>' + headline + '</h3><p>' + paragraph + '</p>';
   }
