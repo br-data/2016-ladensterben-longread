@@ -181,19 +181,19 @@ var text = (function() {
     }
 
 
-    if (currentDistrict.noStoreCount > 1) {
+    if (currentDistrict.noSupermarketCount > 1) {
 
-      paragraph += ' In ' + getDigitStr(currentDistrict.noStoreCount) + ' Orten ' + inCurrentDistrict + ' gibt es' + ((currentDistrict.shopCountDeltaPrc > 15) ? ' dennoch ' : '') + ' kein Lebensmittelgeschäft';
+      paragraph += ' In ' + getDigitStr(currentDistrict.noSupermarketCount) + ' Orten ' + inCurrentDistrict + ' gibt es' + ((currentDistrict.shopCountDeltaPrc > 15) ? ' dennoch ' : '') + ' kein Lebensmittelgeschäft';
 
-      if (currentDistrict.noSupermarketCount > 1) {
+      if (currentDistrict.noStoreCount > 1) {
 
-        paragraph += '. ' + ((currentDistrict.noStoreCount === currentDistrict.noSupermarketCount) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(currentDistrict.noSupermarketCount)) + ' davon ') + 'gelten';
-      } else if (currentDistrict.noSupermarketCount === 1) {
+        paragraph += '. ' + ((currentDistrict.noSupermarketCount === currentDistrict.noStoreCount) ? 'Die Orte ' : capitalizeFirstLetter(getDigitStr(currentDistrict.noStoreCount)) + ' davon ') + 'gelten';
+      } else if (currentDistrict.noStoreCount === 1) {
 
         paragraph += ', einer davon gilt';
       }
 
-      if (currentDistrict.noSupermarketCount > 0) {
+      if (currentDistrict.noStoreCount > 0) {
 
         paragraph += ' sogar als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort';
       }
@@ -201,9 +201,9 @@ var text = (function() {
       paragraph += '.';
     }
 
-    if (currentDistrict.noStoreCount === 1) {
+    if (currentDistrict.noSupermarketCount === 1) {
 
-      paragraph += ' In einem Ort ' + inCurrentDistrict + ' gibt es kein Lebensmittelgeschäft' + ((currentDistrict.noSupermarketCount === 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
+      paragraph += ' In einem Ort ' + inCurrentDistrict + ' gibt es kein Lebensmittelgeschäft' + ((currentDistrict.noStoreCount === 1) ? ', der Ort gilt als unversorgt, das heißt es ist nicht einmal ein Bäcker oder Metzger im Ort' : '') + '.';
     }
 
 
@@ -211,7 +211,7 @@ var text = (function() {
 
       var stores = currentDistrict.ruralStoresNames.split(', ');
 
-      if (currentDistrict.noStoreCount > 1) {
+      if (currentDistrict.noSupermarketCount > 1) {
         paragraph += ' Allerdings nehmen engagierte Bürger die Nahversorgung ' +inCurrentDistrict+ ' selbst in die Hand: ';
       }
 
