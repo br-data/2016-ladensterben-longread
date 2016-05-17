@@ -460,10 +460,23 @@ th {
 
 header {
   position: relative;
-  display: flex;
-  justify-content: center;
   max-height: 100vh;
   overflow: hidden; }
+  header h1 {
+    font-size: 3em;
+    margin: 0;
+    line-height: 1.2em;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
+    @media (max-width: 840px) {
+      header h1 {
+        text-align: center;
+        margin-bottom: 1em; } }
+    @media (max-width: 560px) {
+      header h1 {
+        font-size: 2em;
+        margin-bottom: .5em; } }
+  header p {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); }
   header section {
     position: absolute;
     right: 0;
@@ -472,21 +485,26 @@ header {
     z-index: 10;
     color: #fff;
     margin-bottom: 3em; }
-    header section h1 {
-      font-size: 3em;
-      margin: 0;
-      line-height: 1.2em;
-      text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
-      @media (max-width: 840px) {
-        header section h1 {
-          text-align: center;
-          margin-bottom: 1em; } }
-      @media (max-width: 560px) {
-        header section h1 {
-          font-size: 2em;
-          margin-bottom: .5em; } }
-    header section p {
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8); }
+  header .block {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    color: #fff; }
+  header .video-wrapper {
+    position: relative;
+    height: 0;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden; }
+  header .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0; }
   header:before {
     content: ' ';
     display: block;
