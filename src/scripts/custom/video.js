@@ -7,11 +7,10 @@ var video = (function () {
 
     if (width > 560) {
 
-      videojs('intro-video', {}, function () {
+      var player = videojs('intro-video');
 
-        this.volume(0);
-        this.play();
-      });
+      player.volume(0);
+      player.play();
     }
   }
 

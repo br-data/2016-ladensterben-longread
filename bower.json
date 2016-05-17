@@ -17,7 +17,7 @@
   "dependencies": {
     "leaflet": "^0.7.7",
     "video.js": "^5.9.2",
-    "video.js-hls": "https://github.com/videojs/videojs-contrib-hls/releases/download/v1.3.11/videojs.hls.min.js",
+    "video.js-hls": "https://github.com/videojs/videojs-contrib-hls/releases/download/v2.0.1/videojs-contrib-hls.min.js",
     "topojson": "https://github.com/mbostock/topojson/releases/download/v1.6.24/topojson.zip"
   }
 }
