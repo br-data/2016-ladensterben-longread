@@ -780,6 +780,7 @@ footer {
   footer .logos {
     margin-bottom: 2em; }
     footer .logos a {
+      vertical-align: middle;
       box-shadow: none;
       display: inline-block; }
     footer .logos img {
@@ -792,15 +793,11 @@ footer {
       margin-left: 3px;
       margin-right: 20px;
       width: 97px; }
-    footer .logos .br-recherche {
-      height: 40px;
+    footer .logos .mehrwert {
+      height: 90px;
       margin-left: 3px;
       margin-right: 10px;
-      width: 131px; }
-    footer .logos .kontrovers {
-      margin-left: 3px;
-      height: 30px;
-      width: 251px; }
+      width: 90px; }
 
 @media (min-width: 841px) {
   .mobile-teaser {

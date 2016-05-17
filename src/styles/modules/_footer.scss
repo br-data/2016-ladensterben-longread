@@ -12,6 +12,7 @@ footer {
     margin-bottom: 2em;
 
     a {
+      vertical-align: middle;
       box-shadow: none;
       display: inline-block;
     }
@@ -32,17 +33,11 @@ footer {
       width: 97px;
     }
 
-    .br-recherche {
-      height: 40px;
+    .mehrwert {
+      height: 90px;
       margin-left: 3px;
       margin-right: 10px;
-      width: 131px;
-    }
-
-    .kontrovers {
-      margin-left: 3px;
-      height: 30px;
-      width: 251px;
+      width: 90px;
     }
   }
 }
