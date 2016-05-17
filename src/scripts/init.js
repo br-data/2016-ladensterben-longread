@@ -44,7 +44,7 @@ function waypoint() {
   function scrollTo() {
 
     var offsetTop = $target.offsetTop - 80;
-    scroll.to(document.body, offsetTop, 750);
+    scroll.to(offsetTop, 750);
   }
 }
 
@@ -58,6 +58,6 @@ function arrow() {
   function scrollTo() {
 
     var offsetTop = $header.offsetHeight - 60;
-    scroll.to(document.body, offsetTop, 750);
+    scroll.to(offsetTop, 750);
   }
 }

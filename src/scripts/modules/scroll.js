@@ -1,19 +1,23 @@
 var scroll = (function () {
 
-  function to(element, offset, duration) {
+  function to(offset, duration) {
 
-    var start = element.scrollTop;
+    var start = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
     var change = offset - start;
     var increment = 20;
 
-    var animateScroll = function(elapsedTime) {
+    var animateScroll = function (elapsedTime) {
 
       elapsedTime += increment;
 
       var position = easeInOut(elapsedTime, start, change, duration);
 
-      element.scrollTop = position;
+      // Chrome and Firefox use different scroll containers, so both get scrolled
+      // @TODO Improve this somehow
+      document.documentElement.scrollTop = position;
+      document.body.scrollTop = position;
 
+      // @TODO Use requestAnimationFrame instead
       if (elapsedTime < duration) {
 
         setTimeout(function() {

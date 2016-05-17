@@ -351,7 +351,7 @@ var map = (function() {
 
     if (currentPosition < offsetTop) {
 
-      scroll.to(document.body, offsetTop, 500);
+      scroll.to(offsetTop, 500);
     }
   }
 
