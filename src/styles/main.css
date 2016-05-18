@@ -466,7 +466,8 @@ header {
     font-size: 3em;
     margin: 0;
     line-height: 1.2em;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+    pointer-events: none; }
     @media (max-width: 840px) {
       header h1 {
         text-align: center;
@@ -496,6 +497,7 @@ header {
     content: ' ';
     display: block;
     position: absolute;
+    pointer-events: none;
     left: 0;
     top: 0;
     width: 100%;

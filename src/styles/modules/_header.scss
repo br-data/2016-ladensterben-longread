@@ -8,6 +8,7 @@ header {
     margin: 0;
     line-height: 1.2em;
     text-shadow: 0 0 3px rgba(0, 0, 0, .4);
+    pointer-events: none;
 
     @include tablet {
       text-align: center;
@@ -47,6 +48,7 @@ header {
     content: ' ';
     display: block;
     position: absolute;
+    pointer-events: none;
     left: 0;
     top: 0;
     width: 100%;
