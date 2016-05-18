@@ -528,6 +528,9 @@ header {
     transform: translateY(0); }
   60% {
     transform: translateY(15px); } }
+#intro-video .vjs-loading-spinner {
+  display: none !important; }
+
 .navigation {
   padding: 10px 20px;
   background: #fff;
