@@ -10,6 +10,7 @@ function init() {
 
   arrow();
   waypoint();
+  shortcuts();
   resize();
 
   // Disable map events on mobile scroll
@@ -19,19 +20,18 @@ function init() {
   });
 }
 
-function resize() {
+function arrow() {
 
-  var timeout;
+  var $arrow = document.getElementById('arrow');
+  var $header = document.getElementById('header');
 
-  window.onresize = function () {
+  $arrow.addEventListener('click', scrollTo);
 
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
+  function scrollTo() {
 
-      map.resize();
-      marginals.reorder();
-    }, 200);
-  };
+    var offsetTop = $header.offsetHeight - 60;
+    scroll.to(offsetTop, 750);
+  }
 }
 
 function waypoint() {
@@ -48,16 +48,36 @@ function waypoint() {
   }
 }
 
-function arrow() {
+function shortcuts() {
 
-  var $arrow = document.getElementById('arrow');
-  var $header = document.getElementById('header');
+  var $shortcut, i;
+  var $shortcuts = document.getElementsByClassName('shortcut');
 
-  $arrow.addEventListener('click', scrollTo);
+  for (i = 0; i < $shortcuts.length; i++) {
 
-  function scrollTo() {
-
-    var offsetTop = $header.offsetHeight - 60;
-    scroll.to(offsetTop, 750);
+    $shortcut = $shortcuts[i];
+    $shortcut.addEventListener('click', selectLayer);
   }
+
+  function selectLayer(e) {
+
+    var id = e.target.getAttribute('href').replace('#','');
+
+    map.forceSelectLayer(id);
+  }
+}
+
+function resize() {
+
+  var timeout;
+
+  window.onresize = function () {
+
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+
+      map.resize();
+      marginals.reorder();
+    }, 200);
+  };
 }

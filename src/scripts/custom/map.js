@@ -76,8 +76,14 @@ var map = (function() {
       districtData = data;
       scale = constructScale(districtData, 6);
 
-      $topoLayer = new L.TopoJSON();
-      $topoLayer.addData(districtGeo);
+      $topoLayer = new L.TopoJSON(districtGeo, {
+
+        onEachFeature: function(feature, layer) {
+
+          layer._leaflet_id = feature.id;
+        }
+      });
+
       $topoLayer.addTo($map);
 
       text.init(districtData, scale);
@@ -279,6 +285,13 @@ var map = (function() {
     dimmed = false;
   }
 
+  function forceSelectLayer(id) {
+
+    var layer = $topoLayer.getLayer(id);
+
+    handleClick({ target: layer });
+  }
+
   function resizeMap() {
 
     center = $topoLayer.getBounds();
@@ -401,6 +414,7 @@ var map = (function() {
     init: init,
     resize: resizeMap,
     highlight: highlightLayer,
-    disable: disableEventsOnScoll
+    disable: disableEventsOnScoll,
+    forceSelectLayer: forceSelectLayer
   };
 })();
