@@ -5,12 +5,14 @@ var video = (function () {
 
   function init() {
 
+    var player = videojs('intro-video');
+
     if (width > 560) {
 
-      var player = videojs('intro-video');
-
-      player.volume(0);
       player.play();
+    } else {
+
+      player.dispose();
     }
   }
 

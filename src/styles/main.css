@@ -466,8 +466,7 @@ header {
     font-size: 3em;
     margin: 0;
     line-height: 1.2em;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-    pointer-events: none; }
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
     @media (max-width: 840px) {
       header h1 {
         text-align: center;
@@ -493,11 +492,15 @@ header {
     left: 0;
     z-index: 10;
     color: #fff; }
+  header .embed {
+    background-image: url(../images/intro-video.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover; }
   header:before {
     content: ' ';
     display: block;
     position: absolute;
-    pointer-events: none;
     left: 0;
     top: 0;
     width: 100%;
