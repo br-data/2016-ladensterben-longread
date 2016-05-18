@@ -461,7 +461,8 @@ th {
 header {
   position: relative;
   max-height: 100vh;
-  overflow: hidden; }
+  overflow: hidden;
+  text-align: center; }
   header h1 {
     font-size: 3em;
     margin: 0;
@@ -483,14 +484,10 @@ header {
     left: 0;
     z-index: 10;
     color: #fff;
-    margin-bottom: 3em; }
-  header .block {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-    color: #fff; }
+    margin-bottom: 3em;
+    text-align: left;
+    display: block;
+    width: 100%; }
   header .embed {
     background-image: url(../images/intro-video.jpg);
     background-repeat: no-repeat;
