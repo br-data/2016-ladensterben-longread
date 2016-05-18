@@ -72,7 +72,7 @@ var text = (function() {
     if (currentDistrict.shopCountDeltaPrc > 0) {
 
       paragraph += ' ist die Zahl der Lebensmittelgeschäfte in den vergangenen zehn Jahren' + (getWrittenPcg(currentDistrict.shopCountDeltaPrc) === 'leicht' ? ' ' : ' um ') + getWrittenPcg(currentDistrict.shopCountDeltaPrc) +  ' gewachsen' + ((currentDistrict.popDeltaPrc > 0) ? '. Auch die Einwohnerzahl hat zugenommen.' : ', obwohl die Einwohnerzahl abgenommen hat.') + ' Heute gibt es hier ' + getDigitStr(currentDistrict.shopCountDeltaAbs) + ' Geschäft' + ((currentDistrict.shopCountDeltaAbs === 1) ? ' ' : 'e ') + 'mehr als im Jahr 2005.';
-      headline += ' Einzelhandel wächst' + ((currentDistrict.shopCountDeltaPrc >= 10) ? ' deutlich' : '');
+      headline += ((currentDistrict.shopCountDeltaPrc >= 10) ? ' Deutlich m' : 'M') + 'ehr Geschäfte';
     }
 
 
@@ -97,7 +97,7 @@ var text = (function() {
       paragraph +=  capitalizeFirstLetter(theCurrentDistrict) + ' ist damit weniger stark vom Ladensterben betroffen als andere Landkreise und kreisfreien Städte.';
     } else if (getCategory(currentDistrict.shopCountDeltaPrc, scale) === 4 || getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) {
 
-      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' ist die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser als in den meisten Landkreisen und kreisfreien Städten in Bayern.';
+      paragraph += capitalizeFirstLetter(inCurrentDistrict) + ' hat sich die Nahversorgungssituation damit' + ((getCategory(currentDistrict.shopCountDeltaPrc, scale) === 5) ? ' deutlich ' : ' ' ) + 'besser entwickelt als in den meisten Landkreisen und kreisfreien Städten in Bayern.';
     }
 
 
