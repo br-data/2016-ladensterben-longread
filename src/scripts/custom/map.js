@@ -3,7 +3,7 @@ var map = (function() {
   var $map, $mapContainer, $topoLayer, $currentLayer,
     districtGeo, districtData, scale, width, center, dimmed, timeout;
 
-  var defaultDistrict = validateHash(location.hash) || '09475';
+  var defaultDistrict = validateHash(location.hash) || '09479';
 
   var highlight = {
     color: 'black',
