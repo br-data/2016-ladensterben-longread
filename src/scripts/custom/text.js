@@ -61,7 +61,7 @@ var text = (function() {
     if (currentDistrict.shopCountDeltaPrc === 0) {
 
       paragraph += ' ist die Zahl der Lebensmittelgeschäfte in den vergangenen zehn Jahren gleich geblieben.';
-      headline += ' Einzelhandel stabil';
+      headline += ' Nahversorgung stabil';
 
     } else if (currentDistrict.shopCountDeltaPrc < 0) {
 
@@ -235,8 +235,8 @@ var text = (function() {
 
   function getEmbedCode(text) {
 
-    var img = '<img src="http://web.br.de/interaktiv/einzelhandel/images/landkreise.svg" style="width=100%;max-width=660px;margin-bottom:1em;" alt="Entwicklung des Einzelhandels in Bayern">';
-    var source = '<p><strong>Quelle</strong>: <a href="http://web.br.de/interaktiv/einzelhandel">Nahversorgung in Gefahr</a>, ein Projekt des Bayerischen Rundfunks.</p>';
+    var img = '<img src="http://web.br.de/interaktiv/ladensterben/images/landkreise.svg" style="width=100%;max-width=660px;margin-bottom:1em;" alt="Entwicklung der Nahversorgung in Bayern">';
+    var source = '<p><strong>Quelle</strong>: <a href="http://br.de/ladensterben">Nahversorgung in Gefahr</a>, ein Projekt des Bayerischen Rundfunks.</p>';
 
     text = img + text + source;
 
