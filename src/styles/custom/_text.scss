@@ -2,16 +2,16 @@
   transition: background .3s ease;
 }
 
-#muenchen:hover {
+.muenchen:hover {
   box-shadow: inset 0 -3px 0 #a7c9ea;
 }
 
-#ingolstadt:hover {
+.ingolstadt:hover {
   box-shadow: inset 0 -3px 0 #dfedf7;
 }
 
-#neustadt:hover,
-#hof:hover,
-#badkissingen:hover {
+.neustadt:hover,
+.hof:hover,
+.badkissingen:hover {
   box-shadow: inset 0 -3px 0 #d81d09;
 }
