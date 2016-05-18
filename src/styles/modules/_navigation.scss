@@ -47,6 +47,7 @@
   }
 
   .sharing {
+    opacity: 1;
     float: right;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-tap-highlight-color: transparent;
@@ -59,6 +60,10 @@
   &.hidden {
     background: rgba(255,255,255,0);
     border-color: rgba(255,255,255,0);
+
+    .sharing {
+      opacity: 0;
+    }
 
     .title {
       opacity: 0;
