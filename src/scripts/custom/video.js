@@ -9,7 +9,10 @@ var video = (function () {
 
     if (width > 560) {
 
-      player.play();
+      player.ready(function(){
+        player.volume(0);
+        player.play();
+      });
     } else {
 
       player.dispose();
