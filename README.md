@@ -1,9 +1,9 @@
 # Nahversorgung in Gefahr
 Während in Boom-Gegenden wie München oder Ingolstadt immer mehr Lebensmittelgeschäfte eröffnen, geht die Zahl in vielen Landkreisen teilweise dramatisch zurück. Besonders ältere und wenig mobile Bürger leiden darunter. Eine interaktive Karte generiert dabei automatisch 96 Texte für alle bayerischen Landkreise und Städte.
 
-**Live**: http://web.br.de/interaktiv/ladensterben
-**Redirect**: http://br.de/tatort-twitter
-**Analyse**: https://github.com/digitalegarage/einzelhandel-analyse
+- **Live**: http://web.br.de/interaktiv/ladensterben
+- **Redirect**: http://br.de/tatort-twitter
+- **Analyse**: https://github.com/digitalegarage/einzelhandel-analyse
 
 ## Verwendung
 1. Repository klonen `git clone https://...`
