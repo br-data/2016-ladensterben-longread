@@ -37,12 +37,7 @@ var text = (function() {
   function getText(currentDistrict, scale) {
 
     var relatedDistrict = getDistrictById(currentDistrict.relatedDistrictId);
-    var headline = '', paragraph = '', theCurrentDistrict = '', inCurrentDistrict = '', prefix = '';
-
-    if (currentDistrict.govDistrict === 'Oberpfalz') {
-
-      prefix = ' der';
-    }
+    var headline = '', paragraph = '', theCurrentDistrict = '', inCurrentDistrict = '';
 
     if (currentDistrict.districtType === 'Landkreis') {
 
@@ -103,17 +98,6 @@ var text = (function() {
 
     // relatedDistrict
     if (relatedDistrict) {
-      var inRelatedDistrict = '';
-      var theRelatedDistrict = '';
-
-      if (relatedDistrict.districtType === 'Stadt') {
-        inRelatedDistrict = 'in der Stadt';
-        theRelatedDistrict = 'die Stadt';
-
-      } else if (relatedDistrict.districtType === 'Landkreis') {
-        inRelatedDistrict = 'im umliegenden Landkreis';
-        theRelatedDistrict = 'der Landkreis';
-      }
 
       paragraph += ' ' + ((relatedDistrict.districtType === 'Stadt') ? 'In der' : 'Im') + ((relatedDistrict.admDistrict === currentDistrict.admDistrict) ? ' gleichnamigen ' : ' ') + relatedDistrict.districtType + ' ' + relatedDistrict.admDistrict + ((relatedDistrict.districtType === 'Landkreis') ? ', der die Stadt umgibt, ' : ', die vom Landkreis umschlossen ist, ');
 
