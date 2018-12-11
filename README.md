@@ -1,8 +1,8 @@
 # Nahversorgung in Gefahr
 Während in Boom-Gegenden wie München oder Ingolstadt immer mehr Lebensmittelgeschäfte eröffnen, geht die Zahl in vielen Landkreisen teilweise dramatisch zurück. Besonders ältere und wenig mobile Bürger leiden darunter. Eine interaktive Karte generiert dabei automatisch 96 Texte für alle bayerischen Landkreise und Städte.
 
-- **Live**: http://web.br.de/interaktiv/ladensterben
-- **Redirect**: http://br.de/tatort-twitter
+- **Live**: https://web.br.de/interaktiv/ladensterben
+- **Redirect**: https://br.de/ladensterben
 - **Analyse**: https://github.com/digitalegarage/einzelhandel-analyse
 
 ## Verwendung
@@ -17,7 +17,7 @@ Informationen für Entwickler finden sich weiter unten.
 ## Spezielle Elemente
 
 ### Interaktive Karte
-Die interaktive Karte ermöglicht eine Vorauswahl des angezeigten Landkreises. Ruft man die URL http://web.br.de/interaktiv/ladensterben/#09162 auf, wird die Karte mit der Vorauswahl München angezeigt.
+Die interaktive Karte ermöglicht eine Vorauswahl des angezeigten Landkreises. Ruft man die URL https://web.br.de/interaktiv/ladensterben/#09162 auf, wird die Karte mit der Vorauswahl München angezeigt.
 
 Der Standard-Landkreis, der angezeigt wird wenn kein Location Hash gesetzt wird, kann in der `map.js` eingestellt werden:
 
@@ -70,8 +70,8 @@ Für die Darstellung der Videos wird [Video.js](http://videojs.com/) und das Str
 ```html
 <video class="video-js vjs-sublime-skin" poster="images/vorschaubild.jpg" controls preload="metadata" data-setup="{}">
 
-  <source src="http://cdn-vod-ios.br.de/i/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_ATS/_-OS/9Ar69-Np/d27dc1b6-8c37-4952-abd2-dbb99de0f114_,0,A,B,E,C,X,.mp4.csmil/master.m3u8?__b__=200" type="application/x-mpegURL">
-  <source src="http://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_ATS/_-OS/9Ar69-Np/d27dc1b6-8c37-4952-abd2-dbb99de0f114_E.mp4" type="video/mp4">
+  <source src="https://cdn-vod-ios.br.de/i/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_ATS/_-OS/9Ar69-Np/d27dc1b6-8c37-4952-abd2-dbb99de0f114_,0,A,B,E,C,X,.mp4.csmil/master.m3u8?__b__=200" type="application/x-mpegURL">
+  <source src="https://cdn-storage.br.de/MUJIuUOVBwQIbtCCBLzGiLC1uwQoNA4p_ATS/_-OS/9Ar69-Np/d27dc1b6-8c37-4952-abd2-dbb99de0f114_E.mp4" type="video/mp4">
 
   <p class="vjs-no-js">
     Um dieses Video sehen zu können, müssen Sie JavaScript aktivieren und einen Browser verwenden
@@ -436,7 +436,7 @@ uglify: {
 Externe Stylesheet importiert man jedoch besser in einem SASS-Modul:
 
 ```SASS
-@import url(http://web.br.de/interaktiv/assets/libraries/leaflet/leaflet.v0.min.css)
+@import url(https://web.br.de/interaktiv/assets/libraries/leaflet/leaflet.v0.min.css)
 ```
 
 ## Verbesserungen
